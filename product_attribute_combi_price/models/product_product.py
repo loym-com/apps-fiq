@@ -18,9 +18,9 @@ class ProductProduct(models.Model):
     def _compute_product_price_extra(self):
         super()._compute_product_price_extra()
         for product in self:
-            extra = 0
             ptav_ids = product.product_template_attribute_value_ids
             for ptav in ptav_ids:
+                extra = 0
                 combi_prices = product.product_template_attribute_value_ids.combi_price_ids
                 for combi in combi_prices:
                     if combi.condition_ptav_id in product.product_template_attribute_value_ids:
