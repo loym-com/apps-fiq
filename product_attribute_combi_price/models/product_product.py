@@ -22,10 +22,10 @@ class ProductProduct(models.Model):
             ptav_ids = product.product_template_attribute_value_ids
             for ptav in ptav_ids:
                 combi_prices = product.product_template_attribute_value_ids.combi_price_ids
-            for combi in combi_prices:
-                if combi.condition_ptav_id in product.product_template_attribute_value_ids:
-                    if combi.price_extra:
-                        extra += combi.price_extra
-                    elif combi.price_extra_percent:
-                        extra += (combi.ptav_id.price_extra * combi.price_extra_percent)
+                for combi in combi_prices:
+                    if combi.condition_ptav_id in product.product_template_attribute_value_ids:
+                        if combi.price_extra:
+                            extra += combi.price_extra
+                        elif combi.price_extra_percent:
+                            extra += (combi.ptav_id.price_extra * combi.price_extra_percent)
             product.price_extra += extra
