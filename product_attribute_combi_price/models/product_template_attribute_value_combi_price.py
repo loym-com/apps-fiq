@@ -14,6 +14,7 @@ class ProductTemplateAttributeValueCombiPrice(models.Model):
         string="Attribute Value",
         required=True,
         help="The attribute value to compute extra price for.",
+        ondelete="cascade",
     )
     ptav_attribute_id = fields.Many2one(
         comodel_name="product.attribute",

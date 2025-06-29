@@ -13,5 +13,4 @@ class ProductTemplateAttributeValue(models.Model):
         inverse_name="ptav_id",
         string="Price Combinations",
         help="List of attribute value combinations that affect the price.",
-        ondelete="cascade",
     )
