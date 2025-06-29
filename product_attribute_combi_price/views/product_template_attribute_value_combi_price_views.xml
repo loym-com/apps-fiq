@@ -1,0 +1,28 @@
+<odoo>
+    <record id="product_template_attribute_value_combination_price_view_list" model="ir.ui.view">
+        <field name="name">product.template.attribute.value.combi.price.view.list</field>
+        <field name="model">product.template.attribute.value.combi.price</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="ptav_id" invisible="True"/>
+                <field name="condition_ptav_id"/>
+                <field name="price_extra_option" invisible="True"/>
+                <field name="price_extra" invisible="price_extra_option != 'fixed'"/>
+                <field name="price_extra_percent" invisible="price_extra_option != 'percent'"/>
+            </list>
+        </field>
+    </record>
+    <record id="product_template_attribute_value_combination_price_view_form" model="ir.ui.view">
+        <field name="name">product.template.attribute.value.combi.price.view.form</field>
+        <field name="model">product.template.attribute.value.combi.price</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="ptav_id" readonly="True"/>
+                <field name="condition_ptav_id"/>
+                <field name="price_extra_option"/>
+                <field name="price_extra" invisible="price_extra_option != 'fixed'"/>
+                <field name="price_extra_percent" invisible="price_extra_option != 'percent'"/>
+            </form>
+        </field>
+    </record>
+</odoo>
