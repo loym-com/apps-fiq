@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class ProductTemplateAttributeValueCombiPrice(models.Model):
     _name = "product.template.attribute.value.combi.price"
+    _description = "product.template.attribute.value.combi.price"
 
     ptav_id = fields.Many2one(
         comodel_name="product.template.attribute.value",
