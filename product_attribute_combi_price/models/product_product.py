@@ -21,7 +21,7 @@ class ProductProduct(models.Model):
             extra = 0
             ptav_ids = product.product_template_attribute_value_ids
             for ptav in ptav_ids:
-            combi_prices = product.product_template_attribute_value_ids.combi_price_ids
+                combi_prices = product.product_template_attribute_value_ids.combi_price_ids
             for combi in combi_prices:
                 if combi.condition_ptav_id in product.product_template_attribute_value_ids:
                     if combi.price_extra:
