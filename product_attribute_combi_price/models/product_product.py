@@ -19,15 +19,16 @@ class ProductProduct(models.Model):
         super()._compute_product_price_extra()
         for product in self:
             product_extra = 0
-            ptav_ids = product.product_template_attribute_value_ids
+            att_vals = product.product_template_attribute_value_ids
             # Attribute values have an "Extra Price" field.
             # An attribute combination may increase the "Extra Price" with a percentage.
-            # Therefore 
-            for ptav in ptav_ids:
+            # Therefore we need to compute extra price for each attribute value.
+            for att_val in att_vals:
                 extra = 0
-                combi_prices = product.product_template_attribute_value_ids.combi_price_ids
+                combi_prices = att_val.combi_price_ids
                 for combi in combi_prices:
-                    if combi.condition_ptav_id in product.product_template_attribute_value_ids:
+                    # Check if the combination applies to the current product
+                    if combi.condition_ptav_id in att_vals:
                         if combi.price_extra:
                             extra += combi.price_extra
                         elif combi.price_extra_percent:
