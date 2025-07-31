@@ -20,9 +20,6 @@
         <field name="inherit_id" ref="documents.document_view_form"/>
         <field name="arch" type="xml">
             <data>
-                <field name="type" position="attributes">
-                    <attribute name="readonly">0</attribute>
-                </field>
                 <field name="type" position="after">
                     <field name="url" placeholder="https://example.com/document.pdf"/>
                 </field>
