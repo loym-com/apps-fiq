@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Documents Project URL",
+    "name": "Project Folder URL",
     "summary": "",
     "author": "Loym",
     "data": [
