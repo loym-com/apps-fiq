@@ -1,10 +1,10 @@
-# Copyright 2025 Loym
+# Copyright 2025 FIQ as
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "norskph",
+    "name": "FIQ customizations",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ as",
     "data": [
         "views/res_partner_views.xml",
     ],
