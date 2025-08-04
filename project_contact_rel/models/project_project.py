@@ -1,5 +1,5 @@
 from odoo import api, fields, models
-from odoo.cli import Command
+from odoo.fields import Command
 
 
 class ProjectProject(models.Model):
@@ -16,7 +16,7 @@ class ProjectProject(models.Model):
         """Set partner_id as the default value for partner_ids."""
         res = super().default_get(fields)
         if res.get("partner_id") and "partner_ids" in fields and not res.get("partner_ids"):
-            res["partner_ids"] = [Command.add(res["partner_id"])]
+            res["partner_ids"] = [Command.link(res["partner_id"])]
         return res
 
     @api.onchange("partner_id")
@@ -24,7 +24,7 @@ class ProjectProject(models.Model):
         """When partner_id changes, add it to partner_ids if it"s not already there."""
         if self.partner_id:
             if self.partner_id not in self.partner_ids:
-                self.partner_ids = [Command.add(self.partner_id.id)]
+                self.partner_ids = [Command.link(self.partner_id.id)]
 
     @api.constrains("partner_id")
     def _check_partner_inclusion(self):
