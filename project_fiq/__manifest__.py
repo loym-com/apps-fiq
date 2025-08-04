@@ -7,11 +7,12 @@
     "author": "FIQ",
     "data": [],
     "depends": [
+        "documents_project_url",
         "project_internal_external",
         "project_unique_code",
         "sequence_choice",
     ],
     "license": "LGPL-3",
-    "version": "18.0.4.0.2",
+    "version": "18.0.4.0.3",
     "website": "https://www.fiq.no",
 }
