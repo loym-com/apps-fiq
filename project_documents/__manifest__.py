@@ -11,7 +11,7 @@
     ],
     "depends": [
         "documents_project",
-        "project_contact_rel",
+        "project_partner_rel",
     ],
     "license": "AGPL-3",
     "version": "18.0.4.0.2",
