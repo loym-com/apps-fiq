@@ -7,6 +7,8 @@
     "author": "FIQ",
     "data": [],
     "depends": [
+        # "project_contacts",
+        # "project_documents",
         "project_folder_url",
         "project_internal_external",
         "project_unique_code",
