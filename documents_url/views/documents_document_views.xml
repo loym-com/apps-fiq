@@ -8,14 +8,14 @@
                 <!-- Folder -->
                 <xpath expr="//templates/t/div/div[2]/div[1]/i[@t-else='']" position="before">
                     <field name="url" invisible="1"/>
-                    <a t-if="record.url.raw_value" t-att-href="record.url.raw_value">
+                    <a t-if="record.url.raw_value" t-att-href="record.url.raw_value" target="_blank">
                         <i class="fa fa-link me-2" role="img" aria-label="Link"/>
                     </a>
                 </xpath>
                 <!-- File -->
                 <xpath expr="//templates/t/div/div[2]/div[2]/div[1]/a" position="after">
                     <field name="url" invisible="1"/>
-                    <a t-elif="record.url.raw_value" t-att-href="record.url.raw_value">
+                    <a t-elif="record.url.raw_value" t-att-href="record.url.raw_value" target="_blank">
                         <i class="fa fa-link me-2" role="img" aria-label="Link"/>
                     </a>
                 </xpath>

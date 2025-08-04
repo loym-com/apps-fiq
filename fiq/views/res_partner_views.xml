@@ -12,8 +12,4 @@
     <record id="documents.documents_document_res_partner_view" model="ir.ui.view">
         <field name="priority">3</field>
     </record>
-    <!-- Tracking Emails -->
-    <record id="mail_tracking.view_partner_form" model="ir.ui.view">
-        <field name="priority">4</field>
-    </record>
 </data>

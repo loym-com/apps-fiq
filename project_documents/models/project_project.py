@@ -8,11 +8,12 @@ class ProjectProject(models.Model):
         "documents.document",
         compute="_compute_documents",
         string="Documents",
-        store=True,
     )
 
     def _compute_documents(self):
         for project in self:
             project.document_ids = self.env["documents.document"].search([
-                ("folder_id", "=", project.documents_folder_id.id)
+                "|",
+                "&", ("res_model", "=", "project.project"), ("res_id", "=", project.id),
+                "&", ("res_model", "=", "project.task"), ("res_id", "in", project.task_ids.ids),
             ])

@@ -13,6 +13,7 @@
         "project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.4.0.2",
+    "post_init_hook": "post_init_hook",
+    "version": "18.0.4.0.3",
     "website": "https://www.loym.com",
 }

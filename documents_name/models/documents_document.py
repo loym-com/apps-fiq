@@ -18,14 +18,7 @@ class DocumentsDocument(models.Model):
         for record in self:
             record.name = record.name_translate
 
-    # @api.model
-    # def create(self, vals_list):
-    #     for vals in vals_list:
-    #         if "name_translate" in vals and "name" not in vals:
-    #             vals["name"] = vals["name_translate"]
-    #     return super(YourModel, self).create(vals_list)
-
-    # def write(self, vals):
-    #     if "name_translate" in vals and "name" not in vals:
-    #         vals["name"] = vals["name_translate"]
-    #     return super().write(vals)
+    @api.constrains("name")
+    def _constrains_name_translate(self):
+        for record in self:
+            record.name_translate = record.name

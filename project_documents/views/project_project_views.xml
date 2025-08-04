@@ -9,8 +9,8 @@
                 <notebook position="inside">
                     <page name="document_ids" string="Documents">
                         <field name="document_ids">
-                            <list>
-                                <field name="display_name"/>
+                            <list default_order="name_translate">
+                                <field name="name_translate"/>
                             </list>
                         </field>
                     </page>
