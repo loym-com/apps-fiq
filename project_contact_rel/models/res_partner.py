@@ -6,6 +6,6 @@ class ResPartner(models.Model):
 
     project_ids = fields.Many2many(
         "project.project",
-        relation="project_project_res_partner_rel",
+        relation="project_contact_rel",
         string="Related Projects",
     )
