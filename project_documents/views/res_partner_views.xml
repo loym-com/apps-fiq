@@ -9,10 +9,7 @@
                 <notebook position="inside">
                     <page name="project_document_ids" string="Documents">
                         <field name="project_document_ids">
-                            <list default_order="name_translate">
-                                <field name="project_id"/>
-                                <field name="name_translate"/>
-                            </list>
+                            <list default_order="name_translate"/>
                         </field>
                     </page>
                 </notebook>
