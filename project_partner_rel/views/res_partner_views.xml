@@ -24,11 +24,7 @@
                 </xpath>
                 <notebook position="inside">
                     <page name="project_ids" string="Projects">
-                        <field name="project_ids">
-                            <list>
-                                <field name="display_name"/>
-                            </list>
-                        </field>
+                        <field name="project_ids"/>
                     </page>
                 </notebook>
             </data>

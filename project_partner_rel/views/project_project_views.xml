@@ -8,11 +8,7 @@
             <data>
                 <notebook position="inside">
                     <page name="partner_ids" string="Contacts">
-                        <field name="partner_ids">
-                            <list>
-                                <field name="display_name"/>
-                            </list>
-                        </field>
+                        <field name="partner_ids"/>
                     </page>
                 </notebook>
             </data>
