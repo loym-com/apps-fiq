@@ -28,8 +28,9 @@
         <field name="inherit_id" ref="documents.document_view_form"/>
         <field name="arch" type="xml">
             <data>
-                <field name="url" position="attributes">
-                    <attribute name="invisible">0</attribute>
+                <field name="url" position="replace"/>
+                <field name="lock_uid" position="after">
+                    <field name="url"/>
                 </field>
             </data>
         </field>
