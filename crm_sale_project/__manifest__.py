@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "CRM: Create sale order and project",
+    "name": "Lead: Create sale order and project",
     "summary": "",
     "author": "Loym, FIQ",
     "data": [
@@ -10,9 +10,8 @@
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "crm",
         "project",
-        "sale",
+        "sale_crm",
     ],
     "excludes": [""],
     "license": "AGPL-3",
