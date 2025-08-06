@@ -28,7 +28,7 @@ class SaleOrderLine(models.Model):
             for assignment in template.assignment_ids:
                 # user (public user ->> current user)
                 if assignment.user_id == self.env.ref("base.public_user"):
-                    user = self.env.user
+                    user = self.order_id.user_id
                 else:
                     user = assignment.user_id
                 assignment_values.append(
