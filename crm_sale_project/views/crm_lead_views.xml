@@ -12,6 +12,7 @@
                         name="action_create_sale_order_and_project"
                         type="object"
                         invisible="sale_order_project_count &gt; 0"
+                        groups="sales_team.group_sale_salesman"
                     />
                 </xpath>
             </data>

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Lead: Create sale order and project",
+    "name": "CRM: Create sale order and project",
     "summary": "",
     "author": "Loym, FIQ",
     "data": [
@@ -10,10 +10,11 @@
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "project",
+        "base_display_name", # sale.order.name: _get_value_from_indexed_pattern()
+        # "crm_security_group",
         "sale_crm",
+        "sale_project",
     ],
-    "excludes": [""],
     "license": "AGPL-3",
     "version": "18.0.1.0.0",
     "website": "https://www.loym.com",

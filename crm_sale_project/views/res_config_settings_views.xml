@@ -12,22 +12,24 @@
                         <div class="row mt16 o_settings_container">
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <label
-                                    for="crm_sale_project_sale_order_product_id"
-                                    string="Product for new order"
+                                    for="crm_sale_project__sale_order_product_id"
+                                    string="Product for new sale order"
                                 />
                                 <field
-                                    name="crm_sale_project_sale_order_product_id"
+                                    name="crm_sale_project__sale_order_product_id"
                                     class="w-100"
+                                    domain="[('project_template_id', '!=', False)]"
                                 />
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <label
-                                    for="crm_sale_project_project_template_id"
-                                    string="Template for new project"
+                                    for="crm_sale_project__project_name_pattern"
+                                    string="Name for new project"
                                 />
                                 <field
-                                    name="crm_sale_project_project_template_id"
+                                    name="crm_sale_project__project_name_pattern"
                                     class="w-100"
+                                    placeholder="{sale_order_id.name} {sale_order_id.partner_id.name}"
                                 />
                             </div>
                         </div>
