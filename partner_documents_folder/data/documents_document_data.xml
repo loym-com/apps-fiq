@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data noupdate="0">
+    <record id="documents_document_partner_folder" model="documents.document">
+        <field name="name">Contacts</field>
+        <field name="type">folder</field>
+    </record>
+    <record id="documents_document_customer_folder" model="documents.document">
+        <field name="name">Customers</field>
+        <field name="type">folder</field>
+    </record>
+    <record id="documents_document_supplier_folder" model="documents.document">
+        <field name="name">Suppliers</field>
+        <field name="type">folder</field>
+    </record>
+</data>
