@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Contact Documents Folder",
+    "name": "Contact Documents Folders",
     "summary": "",
     "author": "Loym, FIQ",
     "data": [
@@ -14,6 +14,12 @@
         "documents",
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "website": "https://www.loym.com",
 }
+# norskph: deaktivert sikkerhetsregler "Post-regel"
+
+# Documents.document: global read rule
+# Documents.document: global create rule
+
+# Dokument-foldere har feil navn: "Restricted Folder"
