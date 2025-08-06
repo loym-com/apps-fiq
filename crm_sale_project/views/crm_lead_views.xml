@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_view_form" model="ir.ui.view">
+        <field name="name">project.task.view.form.unique_code</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <h1 position="before">
+                <div class="d-flex h3">
+                    <!-- <label for="unique_code" string="No." /> -->
+                    <field name="unique_code" decoration-bf="1" readonly="1" />
+                </div>
+            </h1>
+        </field>
+    </record>
+    <record id="project_task_view_tree" model="ir.ui.view">
+        <field name="name">project.task.view.tree.unique_code</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="unique_code" />
+            </field>
+        </field>
+    </record>
+    <record id="project_task_view_kanban" model="ir.ui.view">
+        <field name="name">project.task.view.kanban.unique_code</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="unique_code" />
+            </field>
+        </field>
+    </record>
+    <record id="project_task_view_search" model="ir.ui.view">
+        <field name="name">project.task.view.search.unique_code</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="filter_domain">['|', ('name', 'ilike', self),
+                    ('unique_code', 'ilike', self)]
+                </attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

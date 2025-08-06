@@ -6,11 +6,11 @@ class ProjectProject(models.Model):
 
     document_ids = fields.Many2many(
         "documents.document",
-        compute="_compute_documents",
+        compute="_compute_document_ids",
         string="Documents",
     )
 
-    def _compute_documents(self):
+    def _compute_document_ids(self):
         for project in self:
             project.document_ids = self.env["documents.document"].search([
                 "|",

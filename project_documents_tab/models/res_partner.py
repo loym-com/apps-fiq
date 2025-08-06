@@ -6,10 +6,10 @@ class ResPartner(models.Model):
 
     project_document_ids = fields.Many2many(
         "documents.document",
-        compute="_compute_project_documents",
+        compute="_compute_project_document_ids",
         string="Project Documents",
     )
 
-    def _compute_project_documents(self):
+    def _compute_project_document_ids(self):
         for partner in self:
             partner.project_document_ids = partner.project_ids.document_ids
