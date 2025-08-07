@@ -40,6 +40,7 @@ class CrmLead(models.Model):
         
         # Check other values
         if not self.partner_id: raise UserError("Missing a contact.")
+        if not self.partner_id.is_company: raise UserError("Contact should be a company.")
 
         # Create
         if not self.sale_order_project_ids:
