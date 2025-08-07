@@ -6,15 +6,15 @@ class ResPartner(models.Model):
 
     partner_folder_id = fields.Many2one(
         "documents.document",
-        string="Contact Folder",
+        string="Contact Internal Folder",
     )
     customer_folder_id = fields.Many2one(
         "documents.document",
-        string="Customer Folder",
+        string="Customer Internal Folder",
     )
     supplier_folder_id = fields.Many2one(
         "documents.document",
-        string="Supplier Folder",
+        string="Supplier Internal Folder",
     )
 
     partner_folder_url = fields.Char(
@@ -42,6 +42,7 @@ class ResPartner(models.Model):
                     "name": self.name,
                     "url": self.partner_folder_url,
                     "type": "folder",
+                    "partner_id": self.id,
                     "folder_id": self.env.ref(root).id,
                 }
             )
@@ -55,6 +56,7 @@ class ResPartner(models.Model):
                     "name": self.name,
                     "url": self.customer_folder_url,
                     "type": "folder",
+                    "partner_id": self.id,
                     "folder_id": self.env.ref(root).id,
                 }
             )
@@ -68,6 +70,7 @@ class ResPartner(models.Model):
                     "name": self.name,
                     "url": self.supplier_folder_url,
                     "type": "folder",
+                    "partner_id": self.id,
                     "folder_id": self.env.ref(root).id,
                 }
             )
