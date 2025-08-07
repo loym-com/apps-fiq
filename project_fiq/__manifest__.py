@@ -7,12 +7,11 @@
     "author": "FIQ",
     "data": [],
     "depends": [
-        "project_documents_tab",
         "project_documents_folder_url",
+        "project_documents_tab",
         "project_internal_external",
         "project_partner_rel",
         "project_unique_code",
-        "sequence_choice",
     ],
     "license": "AGPL-3",
     "version": "18.0.4.0.4",
