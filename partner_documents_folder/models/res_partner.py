@@ -18,17 +18,17 @@ class ResPartner(models.Model):
     )
 
     partner_folder_url = fields.Char(
-        string="Contact Folder URL",
+        string="Contact External URL",
         related="partner_folder_id.url",
         readonly=False,
     )
     customer_folder_url = fields.Char(
-        string="Customer Folder URL",
+        string="Customer External URL",
         related="customer_folder_id.url",
         readonly=False,
     )
     supplier_folder_url = fields.Char(
-        string="Supplier Folder URL",
+        string="Supplier External URL",
         related="supplier_folder_id.url",
         readonly=False,
     )
