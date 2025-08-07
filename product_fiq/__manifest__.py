@@ -8,6 +8,7 @@
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
+        "base_fiq",
         "product_attribute_keep_variant",
         "product_unique_code",
     ],

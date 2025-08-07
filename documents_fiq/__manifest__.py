@@ -11,6 +11,7 @@
         "views/res_partner_views.xml",
     ],
     "depends": [
+        "base_fiq",
         "documents_color",
         "documents_form",
         "documents_name",

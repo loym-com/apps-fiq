@@ -7,6 +7,7 @@
     "author": "FIQ",
     "data": [],
     "depends": [
+        "base_fiq",
         "project_documents_folder_url",
         "project_documents_tab",
         "project_internal_external",

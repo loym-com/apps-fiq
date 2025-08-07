@@ -30,6 +30,7 @@
         "mail_tracking",
 
         # Loym/FIQ
+        "base_fiq",
         "mail_config_by_user",
         "mail_force_email_notification_compose",
         "mail_message_security",
