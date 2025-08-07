@@ -32,4 +32,5 @@ class ProjectProject(models.Model):
         """Ensure that partner_id is always included in partner_ids."""
         for record in self:
             if record.partner_id and record.partner_id not in record.partner_ids:
-                raise ValidationError("The Customer must be included in the Related Contacts.")
+                record.partner_ids = [Command.link(record.partner_id.id)]
+                # raise ValidationError("The Customer must be included in the Related Contacts.")
