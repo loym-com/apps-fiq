@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from odoo import api, fields, models
 
 
@@ -74,3 +76,25 @@ class ResPartner(models.Model):
                     "folder_id": self.env.ref(root).id,
                 }
             )
+
+    def action_goto_documents(self, contact_type, internal_external):
+        self.ensure_one()
+        folder = getattr(self, contact_type + "_folder_id")
+        if internal_external == "internal":
+            domain = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+            params = {
+                'action': self.env.ref("documents.document_action").id,
+                'menu_id': self.env.ref("documents.menu_root").id,
+                'model': 'documents.document',
+                'documents_init_folder_id': folder.id
+            }
+            url = f"{domain}/web#{urlencode(params)}"
+            target = "self"
+        else:
+            url = folder.url
+            target = "new"
+        return {
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": target,
+        }

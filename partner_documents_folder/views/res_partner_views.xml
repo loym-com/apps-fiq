@@ -1,58 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
-    <!-- URL actions -->
-    <record id="action_goto_partner_internal_documents" model="ir.actions.act_url">
-        <field name="name">Partner Documents (Internal)</field>
-        <field name="url">/odoo/documents/{{object.partner_folder_id.document_token}}</field>
-        <field name="target">self</field>
-    </record>
-    <record id="action_goto_customer_internal_documents" model="ir.actions.act_url">
-        <field name="name">Customer Documents (Internal)</field>
-        <field name="url">/odoo/documents/{{object.customer_folder_id.document_token}}</field>
-        <field name="target">self</field>
-    </record>
-    <record id="action_goto_supplier_internal_documents" model="ir.actions.act_url">
-        <field name="name">Supplier Documents (Internal)</field>
-        <field name="url">/odoo/documents/{{object.supplier_folder_id.document_token}}</field>
-        <field name="target">self</field>
-    </record>
-    <record id="action_goto_partner_external_documents" model="ir.actions.act_url">
-        <field name="name">Partner Documents (External)</field>
-        <field name="url">/odoo/{{object.partner_folder_url.raw_value}}</field>
-        <field name="target">new</field>
-    </record>
-    <record id="action_goto_customer_external_documents" model="ir.actions.act_url">
-        <field name="name">Customer Documents (External)</field>
-        <field name="url">/odoo/{{object.customer_folder_url}}</field>
-        <field name="target">new</field>
-    </record>
-    <record id="action_goto_supplier_external_documents" model="ir.actions.act_url">
-        <field name="name">Supplier Documents (External)</field>
-        <field name="url">{{object.supplier_folder_url}}</field>
-        <field name="target">new</field>
-    </record>
-
-    <!-- Views -->
-    <!-- <record id="res_partner_view_form" model="ir.ui.view">
-        <field name="name">res.partner.view.form.inherit.folder_url</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
-        <field name="arch" type="xml">
-            <data>
-                <group name="container_row_2" position="inside">
-                    <group name="document_folders">
-
-                        <field name="partner_folder_id" readonly="1" invisible="not partner_folder_id" />
-                        <field name="partner_folder_url" widget="url" readonly="partner_folder_id" />
-                        <field name="customer_folder_id" readonly="1" invisible="not customer_folder_id" />
-                        <field name="customer_folder_url" widget="url" readonly="customer_folder_id" />
-                        <field name="supplier_folder_id" readonly="1" invisible="not supplier_folder_id" />
-                        <field name="supplier_folder_url" widget="url" readonly="supplier_folder_id" />
-                    </group>
-                </group>
-            </data>
-        </field>
-    </record> -->
     <record id="res_partner_view_form" model="ir.ui.view">
         <field name="name">res.partner.view.form.inherit.documents</field>
         <field name="model">res.partner</field>
@@ -67,14 +14,16 @@
                             widget="url"
                             invisible="partner_folder_id"
                         />
-                        <button name="%(action_goto_partner_internal_documents)d"
-                                type="action"
+                        <button name="action_goto_documents"
+                                args="['partner', 'internal']"
+                                type="object"
                                 string="Internal"
                                 icon="fa-folder-open"
                                 invisible="not partner_folder_id"
                         />
-                        <button name="%(action_goto_partner_external_documents)d"
-                                type="action"
+                        <button name="action_goto_documents"
+                                args="['partner', 'external']"
+                                type="object"
                                 string="External"
                                 icon="fa-folder-open"
                                 invisible="not partner_folder_id"
@@ -87,14 +36,16 @@
                             widget="url"
                             invisible="customer_folder_id"
                         />
-                        <button name="%(action_goto_customer_internal_documents)d"
-                                type="action"
+                        <button name="action_goto_documents"
+                                args="['customer', 'internal']"
+                                type="object"
                                 string="Internal"
                                 icon="fa-folder-open"
                                 invisible="not customer_folder_id"
                         />
-                        <button name="%(action_goto_customer_external_documents)d"
-                                type="action"
+                        <button name="action_goto_documents"
+                                args="['customer', 'external']"
+                                type="object"
                                 string="External"
                                 icon="fa-folder-open"
                                 invisible="not customer_folder_id"
@@ -107,14 +58,17 @@
                             widget="url"
                             invisible="supplier_folder_id"
                         />
-                        <button name="%(action_goto_supplier_internal_documents)d"
-                                type="action"
+                        SUPPLIER
+                        <button name="action_goto_documents"
+                                args="['supplier', 'internal']"
+                                type="object"
                                 string="Internal"
                                 icon="fa-folder-open"
                                 invisible="not supplier_folder_id"
                         />
-                        <button name="%(action_goto_supplier_external_documents)d"
-                                type="action"
+                        <button name="action_goto_documents"
+                                args="['supplier', 'external']"
+                                type="object"
                                 string="External"
                                 icon="fa-folder-open"
                                 invisible="not supplier_folder_id"
