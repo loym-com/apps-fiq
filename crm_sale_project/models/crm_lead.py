@@ -44,12 +44,14 @@ class CrmLead(models.Model):
 
         # Create
         if not self.sale_order_project_ids:
+            if not self.company_id:
+                raise UserError("Missing a salesperson.")
             order = self.env["sale.order"].create(
                 {
                     "partner_id": self.partner_id.id, # Customer from the opportunity
                     "opportunity_id": self.id,        # Link to the opportunity
-                    "company_id": self.company_id.id,  # Company of the opportunity
-                    "user_id": self.user_id.id,          # Salesman
+                    "company_id": self.company_id.id, # Company of the opportunity
+                    "user_id": self.user_id.id,       # Salesman
                     "campaign_id": self.campaign_id.id,
                     "medium_id": self.medium_id.id,
                     "source_id": self.source_id.id,

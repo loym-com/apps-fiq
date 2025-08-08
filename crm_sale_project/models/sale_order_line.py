@@ -25,6 +25,10 @@ class SaleOrderLine(models.Model):
                 dummy_contact_ref = "crm_sale_project.res_users_dummy_contact"
                 if assignment.user_id == self.env.ref(dummy_salesperson_ref):
                     user = self.order_id.user_id
+                    if not user:
+                        raise UserError(
+                            "There is no salesperson."
+                        )
                 elif assignment.user_id == self.env.ref(dummy_contact_ref):
                     user = self.order_id.partner_id.user_ids
                     if not user:
@@ -43,8 +47,7 @@ class SaleOrderLine(models.Model):
                     )
                 )
             project_values["assignment_ids"] = assignment_values
-        except Exception as e:
-            # 'e' now holds the exception object
-            exception_type = type(e)
+        except AttributeError as e:
+            pass # no attr assignment_ids
 
         return project_values
