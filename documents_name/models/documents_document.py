@@ -8,17 +8,11 @@ class DocumentsDocument(models.Model):
         translate=True,
     )
 
-    @api.onchange("name_translate")
-    def _onchange_name_translate(self):
-        if self.name_translate:
-            self.name = self.name_translate
-
-    @api.constrains("name_translate")
-    def _constrains_name_translate(self):
+    @api.onchange("name", "name_translate")
+    @api.constrains("name", "name_translate")
+    def _set_name_or_name_translate(self):
         for record in self:
-            record.name = record.name_translate
-
-    @api.constrains("name")
-    def _constrains_name_translate(self):
-        for record in self:
-            record.name_translate = record.name
+            if record.name_translate:
+                record.name = record.name_translate
+            elif record.name:
+                record.name_translate = record.name
