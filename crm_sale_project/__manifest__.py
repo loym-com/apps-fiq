@@ -6,7 +6,9 @@
     "summary": "",
     "author": "Loym, FIQ",
     "data": [
+        "data/res_users_data.xml",
         "views/crm_lead_views.xml",
+        "views/portal_wizard.xml",
         "views/res_config_settings_views.xml",
     ],
     "depends": [
@@ -16,6 +18,6 @@
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.2",
     "website": "https://www.loym.com",
 }

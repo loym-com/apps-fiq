@@ -14,21 +14,23 @@ class SaleOrderLine(models.Model):
 
     def _timesheet_create_project_prepare_values(self):
         project_values = super()._timesheet_create_project_prepare_values()
-
-        # user
-        # default: 'user_id': self.product_id.project_template_id.user_id.id,
-        # product_values["user_id"] = order.user_id.id
-
-        # project.set_sequence_code_unique_code_and_name()
+        project_values["user_id"] = self.order_id.user_id.id
 
         template = self.product_id.project_template_id
 
         try: # assignment_ids (OCA/project project_role)
             assignment_values = []
             for assignment in template.assignment_ids:
-                # user (public user ->> current user)
-                if assignment.user_id == self.env.ref("base.public_user"):
+                dummy_salesperson_ref = "crm_sale_project.res_users_dummy_salesperson"
+                dummy_contact_ref = "crm_sale_project.res_users_dummy_contact"
+                if assignment.user_id == self.env.ref(dummy_salesperson_ref):
                     user = self.order_id.user_id
+                elif assignment.user_id == self.env.ref(dummy_contact_ref):
+                    user = self.order_id.partner_id.user_ids
+                    if not user:
+                        raise UserError(
+                            "The contact is not a user. Tip: Grant portal access."
+                        )
                 else:
                     user = assignment.user_id
                 assignment_values.append(
@@ -41,7 +43,8 @@ class SaleOrderLine(models.Model):
                     )
                 )
             project_values["assignment_ids"] = assignment_values
-        except:
-            pass
+        except Exception as e:
+            # 'e' now holds the exception object
+            exception_type = type(e)
 
         return project_values
