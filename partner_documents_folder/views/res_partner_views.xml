@@ -5,77 +5,76 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <group name="container_row_2" position="inside">
-                <group name="document_folders" string="Document Folders">
-                    <group string="Contact">
+            <xpath expr="//sheet/group" position="inside">
+                <group name="document_folders">
+                    <group>
                         <field name="partner_folder_id" invisible="1" />
                         <field name="partner_folder_url"
-                            string="External Link"
+                            string="Contact Document URL"
                             widget="url"
                             invisible="partner_folder_id"
                         />
                         <button name="action_goto_documents"
                                 args="['partner', 'internal']"
                                 type="object"
-                                string="Internal"
+                                string="Contact Doc"
                                 icon="fa-folder-open"
                                 invisible="not partner_folder_id"
                         />
                         <button name="action_goto_documents"
                                 args="['partner', 'external']"
                                 type="object"
-                                string="External"
-                                icon="fa-folder-open"
+                                string="Contact URL"
+                                icon="fa-link"
                                 invisible="not partner_folder_id"
                         />
                     </group>
-                    <group string="Customer">
+                    <group>
                         <field name="customer_folder_id" invisible="1" />
                         <field name="customer_folder_url"
-                            string="External Link"
+                            string="Customer Document URL"
                             widget="url"
                             invisible="customer_folder_id"
                         />
                         <button name="action_goto_documents"
                                 args="['customer', 'internal']"
                                 type="object"
-                                string="Internal"
+                                string="Customer Doc"
                                 icon="fa-folder-open"
                                 invisible="not customer_folder_id"
                         />
                         <button name="action_goto_documents"
                                 args="['customer', 'external']"
                                 type="object"
-                                string="External"
-                                icon="fa-folder-open"
+                                string="Customer URL"
+                                icon="fa-link"
                                 invisible="not customer_folder_id"
                         />
                     </group>
-                    <group string="Supplier">
+                    <group>
                         <field name="supplier_folder_id" invisible="1" />
                         <field name="supplier_folder_url"
-                            string="External Link"
+                            string="Supplier Document URL"
                             widget="url"
                             invisible="supplier_folder_id"
                         />
-                        SUPPLIER
                         <button name="action_goto_documents"
                                 args="['supplier', 'internal']"
                                 type="object"
-                                string="Internal"
+                                string="Supplier Doc"
                                 icon="fa-folder-open"
                                 invisible="not supplier_folder_id"
                         />
                         <button name="action_goto_documents"
                                 args="['supplier', 'external']"
                                 type="object"
-                                string="External"
-                                icon="fa-folder-open"
+                                string="Supplier URL"
+                                icon="fa-link"
                                 invisible="not supplier_folder_id"
                         />
                     </group>
                 </group>
-            </group>
+            </xpath>
         </field>
     </record>
 </data>
