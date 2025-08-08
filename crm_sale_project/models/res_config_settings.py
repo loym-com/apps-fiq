@@ -21,11 +21,12 @@ class ResConfigSettings(models.TransientModel):
     def _check_project_name_pattern(self):
         Project = self.env["project.project"]
         pattern = self.crm_sale_project__project_name_pattern
-        field_paths = Project._get_display_field_paths_from_pattern(
-            pattern, validate=False
-        )
-        if not Project._is_valid_display_field_paths(field_paths):
-            raise ValidationError(
-                f"_check_project_name_pattern: "
-                f"At least one field is not valid: {field_paths}"
+        if pattern:
+            field_paths = Project._get_display_field_paths_from_pattern(
+                pattern, validate=False
             )
+            if not Project._is_valid_display_field_paths(field_paths):
+                raise ValidationError(
+                    f"_check_project_name_pattern: "
+                    f"At least one field is not valid: {field_paths}"
+                )
