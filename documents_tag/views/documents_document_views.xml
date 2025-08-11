@@ -1,0 +1,31 @@
+<odoo>
+    <record id="documents_document_view_kanban" model="ir.ui.view">
+        <field name="name">documents.document.view.kanban.inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_kanban"/>
+        <field name="arch" type="xml">
+            <data>
+                <footer position="attributes">
+                    <attribute name="t-if">record.tag_ids.raw_value.length</attribute>
+                    <attribute name="class">px-2</attribute>
+                </footer>
+                <field name="tag_ids" position="before">
+                    <field name="tag_tooltip_translate" string="Tooltip" />
+                </field>
+            </data>
+        </field>
+    </record>
+    <record id="documents_document_view_form" model="ir.ui.view">
+        <field name="name">documents.document.view.form.inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <field name="tag_ids" position="before">
+                    <field name="tag_id"/>
+                    <field name="tag_tooltip_translate" />
+                </field>
+            </data>
+        </field>
+    </record>
+</odoo>

@@ -12,7 +12,7 @@ class DocumentsDocument(models.Model):
     @api.constrains("name", "name_translate")
     def _set_name_or_name_translate(self):
         for record in self:
-            if record.name_translate:
+            if record.name_translate and record.name_translate != record.name:
                 record.name = record.name_translate
-            elif record.name:
+            elif record.name and record.name != record.name_translate:
                 record.name_translate = record.name
