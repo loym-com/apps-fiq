@@ -77,8 +77,10 @@ class ResPartner(models.Model):
                 }
             )
 
-    def action_goto_documents(self, contact_type, internal_external):
+    def action_goto_documents(self):
         self.ensure_one()
+        contact_type = self.env.context.get("contact_type")
+        internal_external = self.env.context.get("internal_external")
         folder = getattr(self, contact_type + "_folder_id")
         if internal_external == "internal":
             domain = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
