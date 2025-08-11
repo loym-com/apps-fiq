@@ -5,9 +5,10 @@
     "summary": "",
     "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/knowledge",
-    "version": "18.0.1.0.4",
+    "version": "18.0.1.0.6",
     "license": "AGPL-3",
     "data": [
+        "views/documents_document_views.xml",
         "views/res_partner_views.xml",
     ],
     "depends": [
