@@ -13,7 +13,6 @@
     ],
     "depends": [
         "base_fiq",
-        "documents_color",
         "documents_form",
         "documents_name",
         "documents_tag",
