@@ -5,7 +5,7 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
 
     documents_folder_url = fields.Char(
-        string="Folder URL",
+        string="External URL",
         related="documents_folder_id.url",
         readonly=False,
     )
