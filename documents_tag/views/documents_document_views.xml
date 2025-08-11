@@ -5,6 +5,9 @@
         <field name="inherit_id" ref="documents.document_view_kanban"/>
         <field name="arch" type="xml">
             <data>
+                <kanban position="attributes">
+                    <attribute name="highlight_color">tag_color</attribute>
+                </kanban>
                 <footer position="attributes">
                     <attribute name="t-if">record.tag_ids.raw_value.length</attribute>
                     <attribute name="class">px-2</attribute>
@@ -25,6 +28,9 @@
                     <field name="tag_id"/>
                     <field name="tag_tooltip_translate" />
                 </field>
+                <!-- <field name="type" position="after">
+                    <field name="tag_color" widget="color_picker" class="me-2"/>
+                </field> -->
             </data>
         </field>
     </record>

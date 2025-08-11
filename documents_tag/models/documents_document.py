@@ -11,3 +11,4 @@ class DocumentsDocument(models.Model):
         string="Tag Tooltip",
         related="tag_id.tooltip_translate",
     )
+    tag_color = fields.Integer(string="Tag Color Index", related="tag_id.color")
