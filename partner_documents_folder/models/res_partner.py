@@ -91,12 +91,10 @@ class ResPartner(models.Model):
                 'documents_init_folder_id': folder.id
             }
             url = f"{domain}/web#{urlencode(params)}"
-            target = "self"
         else:
             url = folder.url
-            target = "new"
         return {
             "type": "ir.actions.act_url",
-            "url": url,
+            "url": "new",
             "target": target,
         }
