@@ -21,8 +21,8 @@ class SaleOrderLine(models.Model):
         try: # assignment_ids (OCA/project project_role)
             assignment_values = []
             for assignment in template.assignment_ids:
-                dummy_salesperson_ref = "crm_sale_project.res_users_dummy_salesperson"
-                dummy_contact_ref = "crm_sale_project.res_users_dummy_contact"
+                dummy_salesperson_ref = "portal_user.res_users_dummy_salesperson"
+                dummy_contact_ref = "portal_user.res_users_dummy_contact"
                 if assignment.user_id == self.env.ref(dummy_salesperson_ref):
                     user = self.order_id.user_id
                     if not user:

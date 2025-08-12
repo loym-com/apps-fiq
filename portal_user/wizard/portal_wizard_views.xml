@@ -6,6 +6,9 @@
         <field name="inherit_id" ref="portal.wizard_view" />
         <field name="arch" type="xml">
             <data>
+                <button name="action_grant_access" position="attributes">
+                    <attribute name="context">{'do_not_send_email': False}</attribute>
+                </button>
                 <button name="action_grant_access" position="after">
                     <button
                         string="Grant Access (no email)"
