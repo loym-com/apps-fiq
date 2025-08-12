@@ -24,7 +24,7 @@ class CrmLead(models.Model):
     )
     sale_order_project_count = fields.Integer(
         compute="_compute_sale_order_project_count",
-        string="Sale Order Projects",
+        string="Sale Order Project Count",
     )
 
     def action_create_sale_order_and_project(self):
