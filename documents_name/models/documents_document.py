@@ -8,11 +8,12 @@ class DocumentsDocument(models.Model):
         translate=True,
     )
 
-    @api.onchange("name", "name_translate")
-    @api.constrains("name", "name_translate")
-    def _set_name_or_name_translate(self):
+    @api.onchange("name_translate")
+    @api.constrains("name_translate")
+    def _set_name(self):
         for record in self:
-            if record.name_translate and record.name_translate != record.name:
-                record.name = record.name_translate
-            elif record.name and record.name != record.name_translate:
-                record.name_translate = record.name
+            record.name = record.name_translate
+
+    def _set_name_translate(self):
+        for record in self:
+            record.name_translate = record.name

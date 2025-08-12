@@ -9,11 +9,12 @@ class DocumentsTag(models.Model):
         translate=True,
     )
 
-    @api.onchange("tooltip", "tooltip_translate")
-    @api.constrains("tooltip", "tooltip_translate")
-    def _set_tooltip_or_tooltip_translate(self):
+    @api.onchange("tooltip_translate")
+    @api.constrains("tooltip_translate")
+    def _set_tooltip(self):
         for record in self:
-            if record.tooltip_translate and record.tooltip_translate != record.tooltip:
-                record.tooltip = record.tooltip_translate
-            elif record.tooltip and record.tooltip != record.tooltip_translate:
-                record.tooltip_translate = record.tooltip
+            record.tooltip = record.tooltip_translate
+
+    def _set_tooltip_translate(self):
+        for record in self:
+            record.tooltip_translate = record.tooltip

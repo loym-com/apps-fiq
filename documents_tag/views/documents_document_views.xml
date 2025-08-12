@@ -8,12 +8,21 @@
                 <kanban position="attributes">
                     <attribute name="highlight_color">tag_color</attribute>
                 </kanban>
+                <kanban position="inside">
+                    <field name="tag_id"/>
+                </kanban>
                 <footer position="attributes">
-                    <attribute name="t-if">record.tag_ids.raw_value.length</attribute>
-                    <attribute name="class">px-2</attribute>
+                    <attribute name="groups">base.group_user</attribute>
+                    <attribute name="t-if"></attribute>
+                    <attribute name="class">d-flex flex-column px-2</attribute>
                 </footer>
+                <field name="tag_ids" position="attributes">
+                    <attribute name="groups">base.group_user</attribute>
+                    <attribute name="invisible">type == 'folder'</attribute>
+                </field>
                 <field name="tag_ids" position="before">
-                    <field name="tag_tooltip_translate" string="Tooltip" />
+                    <field name="tag_id" invisible="type != 'folder'" groups="base.group_user" />
+                    <field name="tag_tooltip_translate" invisible="type != 'folder'" groups="base.group_user" />
                 </field>
             </data>
         </field>
