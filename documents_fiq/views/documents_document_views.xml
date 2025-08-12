@@ -9,7 +9,7 @@
             <data>
                 <kanban position="attributes">
                     <!-- Not working -->
-                    <attribute name="default_order">is_folder,name</attribute>
+                    <attribute name="default_order">name</attribute>
                 </kanban>
             </data>
         </field>
