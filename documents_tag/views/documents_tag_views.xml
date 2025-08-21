@@ -11,6 +11,12 @@
                 <field name="tooltip" position="after">
                     <field name="tooltip_translate" string="Tooltip" />
                 </field>
+                <sheet position="inside">
+                    <group name="group_tag_hierarchy" string="Tag Hierarchy">
+                        <field name="parent_id" />
+                        <field name="child_ids" />
+                    </group>
+                </sheet>
             </data>
         </field>
     </record>

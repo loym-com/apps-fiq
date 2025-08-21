@@ -4,26 +4,38 @@ from odoo import models, fields, api
 class DocumentsTag(models.Model):
     _inherit = "documents.tag"
 
+    parent_id = fields.Many2one(
+        "documents.tag",
+        string="Parent Tag",
+        ondelete="restrict",
+    )
+    child_ids = fields.One2many(
+        "documents.tag",
+        "parent_id",
+        string="Child Tags",
+    )
+
     tooltip_translate = fields.Char(
         string="Tooltip.",
         translate=True,
     )
 
-    # @api.onchange("tooltip_translate")
-    # @api.constrains("tooltip_translate")
-    # def _set_tooltip(self):
-    #     for record in self:
-    #         record.tooltip = record.tooltip_translate
+    # TODO: New module base_new_field_translate with mixin to handle this
+    # Use a new field tooltip_translate or in-place update tooltip field (needs uninstall hook)?
 
-    # def _set_tooltip_translate(self):
-    #     for record in self:
-    #         record.tooltip_translate = record.tooltip
-
-    @api.onchange("tooltip", "tooltip_translate")
-    @api.constrains("tooltip", "tooltip_translate")
-    def _set_tooltip_or_tooltip_translate(self):
-        for record in self:
-            if record.tooltip_translate and record.tooltip_translate != record.tooltip:
-                record.tooltip = record.tooltip_translate
-            elif record.tooltip and record.tooltip != record.tooltip_translate:
-                record.tooltip_translate = record.tooltip
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals = self._set_tooltip_or_tooltip_translate(vals)
+        return super().create(vals_list)
+    
+    def write(self, vals):
+        vals = self._set_tooltip_or_tooltip_translate(vals)
+        return super().write(vals)
+    
+    def _set_tooltip_or_tooltip_translate(self, vals):
+        if "tooltip_translate" in vals:
+            vals["tooltip"] = vals["tooltip_translate"]
+        elif "tooltip" in vals:
+            vals["tooltip_translate"] = vals["tooltip"]
+        return vals
