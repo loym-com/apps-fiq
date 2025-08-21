@@ -95,6 +95,6 @@ class ResPartner(models.Model):
             url = folder.url
         return {
             "type": "ir.actions.act_url",
-            "url": "new",
-            "target": target,
+            "url": url,
+            "target": "new",
         }
