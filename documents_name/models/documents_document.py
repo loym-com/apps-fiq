@@ -14,16 +14,30 @@ class DocumentsDocument(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            vals = self._set_name_or_name_translate(vals)
-        return super().create(vals_list)
+            vals = self._set_name_or_name_translate_in_vals(vals)
+        records = super().create(vals_list)
+        # If name is not in vals, it is computed.
+        records._set_name_or_name_translate()
+        return records
     
     def write(self, vals):
-        vals = self._set_name_or_name_translate(vals)
-        return super().write(vals)
+        vals = self._set_name_or_name_translate_in_vals(vals)
+        true = super().write(vals)
+        # If name is not in vals, it is computed.
+        if true:
+            return self._set_name_or_name_translate()
     
-    def _set_name_or_name_translate(self, vals):
+    def _set_name_or_name_translate_in_vals(self, vals):
         if "name_translate" in vals:
             vals["name"] = vals["name_translate"]
         elif "name" in vals:
             vals["name_translate"] = vals["name"]
         return vals
+
+    def _set_name_or_name_translate(self):
+        for record in self:
+            if not record.name_translate and record.name:
+                record.name_translate = record.name
+            elif not record.name and record.name_translate:
+                record.name = record.name_translate
+        return True

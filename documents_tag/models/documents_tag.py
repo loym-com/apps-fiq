@@ -20,8 +20,7 @@ class DocumentsTag(models.Model):
         translate=True,
     )
 
-    # TODO: New module base_new_field_translate with mixin to handle this
-    # Use a new field tooltip_translate or in-place update tooltip field (needs uninstall hook)?
+    # TODO: Create a translate mixin based on documents_name/models/documents_document.py
 
     @api.model_create_multi
     def create(self, vals_list):
