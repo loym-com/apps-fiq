@@ -6,9 +6,21 @@
         <field name="inherit_id" ref="project.view_task_form2" />
         <field name="arch" type="xml">
             <data>
-                <field name="active" position="after">
-                    <field name="project_documents_folder_url" widget="url"/>
-                </field>
+                <xpath expr="//form/sheet/group/group/div" position="inside">
+                    <button name="action_goto_documents"
+                            context="{'internal_external': 'internal'}"
+                            type="object"
+                            icon="fa-folder-open"
+                            invisible="not project_id"
+                    />
+                    <field name="project_documents_folder_url" invisible="1" />
+                    <button name="action_goto_documents"
+                            context="{'internal_external': 'external'}"
+                            type="object"
+                            icon="fa-link"
+                            invisible="not project_documents_folder_url"
+                    />
+                </xpath>
             </data>
         </field>
     </record>
