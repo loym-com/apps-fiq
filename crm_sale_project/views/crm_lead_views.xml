@@ -18,6 +18,11 @@
                 <field name="user_id" position="after">
                     <field name="sale_order_product_id" domain="[('project_template_id', '!=', False)]"/>
                 </field>
+                <notebook position="inside">
+                    <page name="sale_order_project_ids" string="Projects" invisible="sale_order_project_count == 0">
+                        <field name="sale_order_project_ids" readonly="1" />
+                    </page>
+                </notebook>
             </data>
         </field>
     </record>
