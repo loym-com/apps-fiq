@@ -10,8 +10,9 @@
         "wizard/portal_wizard_views.xml",
     ],
     "depends": [
+        "account",
         "portal",
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.2",
 }

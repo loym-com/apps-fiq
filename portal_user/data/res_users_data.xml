@@ -7,6 +7,7 @@
             <field name="active">True</field>
             <field name="share">True</field>
             <field name="groups_id" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="autopost_bills">ask</field>
         </record>
         <record id="res_users_dummy_contact" model="res.users">
             <field name="name">Contact Placeholder</field>
@@ -14,6 +15,7 @@
             <field name="active">True</field>
             <field name="share">True</field>
             <field name="groups_id" eval="[(4, ref('base.group_portal'))]"/>
+            <field name="autopost_bills">ask</field>
         </record>
     </data>
 </odoo>
