@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="crm.crm_lead_view_form" />
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//form[1]/header[1]/field" position="inside">
+                <xpath expr="//form[1]/header[1]" position="inside">
                     <button
                         string="Check Location"
                         name="action_check_location"
