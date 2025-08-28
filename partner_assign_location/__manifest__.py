@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Assign Locations to Agent",
+    "name": "Assign Partner Location",
     "summary": "",
     "author": "FIQ, Loym",
     "data": [
@@ -14,9 +14,9 @@
     "depends": [
         "base_location",
         "contacts",
-        "crm",
+        "crm", # Move to separate module
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.0",
-    "website": "https://www.loym.com",
+    "version": "18.0.1.0.1",
+    # "website": "https://www.loym.com",
 }

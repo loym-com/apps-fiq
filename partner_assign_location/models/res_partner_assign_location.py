@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.fields import Command
 
 
 class ResPartnerAssignLocation(models.Model):
@@ -7,22 +8,44 @@ class ResPartnerAssignLocation(models.Model):
     _description = "res.partner.assign.location"
 
     @api.depends("location_field", "zip_id", "city_id", "state_id", "country_id")
-    def _compute_name(self):
+    def _compute_display_name(self):
         for record in self:
             if record.location_field == "zip_id" and record.zip_id:
-                record.name = record.zip_id.display_name
+                name = record.zip_id.display_name
             elif record.location_field == "city_id" and record.city_id:
-                record.name = record.city_id.display_name
+                name = record.city_id.display_name
             elif record.location_field == "state_id" and record.state_id:
-                record.name = record.state_id.display_name
+                name = record.state_id.display_name
             elif record.location_field == "country_id" and record.country_id:
-                record.name = record.country_id.display_name
+                name = record.country_id.display_name
             else:
-                record.name = "Undefined"
+                name = "Undefined"
+            record.display_name = name
 
-    name = fields.Char(
-        string="Name",
-        compute="_compute_name",
+    conflict_ids = fields.Many2many(
+        comodel_name="res.partner.assign.location",
+        relation="res_partner_assign_location_conflict",
+        column1="assign_id",
+        column2="conflicts_with",
+        string="Conflicts",
+        readonly=True,
+    )
+    state = fields.Selection(
+        [
+            ("draft", "Draft"),
+            ("confirmed", "Confirmed"),
+        ],
+        default="draft",
+        required=True,
+    )
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Contact",
+        required=True,
+    )
+    is_exclusive = fields.Boolean(
+        string="Exclusive",
+        help="If checked, this location will only be assigned to this contact.",
     )
     location_field = fields.Selection(
         [
@@ -36,76 +59,82 @@ class ResPartnerAssignLocation(models.Model):
     )
     zip_id = fields.Many2one(
         "res.city.zip",
-        string="zip_id",
-        required=True,
+        string="Zip",
     )
     city_id = fields.Many2one(
         "res.city",
-        string="city_id",
-        required=True,
+        string="City",
     )
     state_id = fields.Many2one(
         "res.country.state",
-        string="state_id",
-        required=True,
+        string="State",
     )
     country_id = fields.Many2one(
         "res.country",
-        string="country_id",
-        required=True,
-    )
-    partner_id = fields.Many2one(
-        "res.partner",
-        string="Contact",
-    )
-    is_exclusive = fields.Boolean(
-        string="Exclusive",
-        help="If checked, this location will only be assigned to this contact.",
-    )
-    active = fields.Boolean(
-        string="Active",
+        string="Country",
     )
 
-    @api.constrains("partner_id", "is_exclusive", "location_field", "zip_id", "city_id", "state_id", "country_id", "active")
-    def _check_exclusive(self):
-        """ Ensure no conflicting assignments. """
-        if not any(record.active for record in self):
-            return
+    @api.model_create_multi
+    def create(self, vals_list):
+        """ Always draft state, check for conflicts """
+        for vals in vals_list:
+            vals["state"] = "draft"
+        records = super().create(vals_list)
+        records._check_for_conflicts()
+        return records
 
-        self.ensure_one()
+    def write(self, vals):
+        """ Do not confirm if there are conflicts. Do not change confirmed records. """
+
+        if "conflict_ids" in vals:
+            assert len(vals) == 1
+            return super().write(vals)
+
+        if "state" in vals:
+            if vals["state"] == "confirmed":
+                assert len(vals) == 1
+                self._check_for_conflicts()
+                if self.mapped("conflict_ids"):
+                    return # Rather update conflicts than notify user
+            return super().write(vals)
+
+        if "confirmed" in self.mapped("state"):
+            raise ValidationError("Do not change confirmed records.")
+
+        super().write(vals)
+        self._check_for_conflicts()
+
+    def _check_for_conflicts(self):
+        """ List conflicting assignments. """
 
         fields = ["zip_id", "city_id", "state_id", "country_id"]
-        i = fields.index(self.location_field)
+        for record in self:
+            index = fields.index(record.location_field)
 
-        # The location_field will determine how specific the search is.
-        # If the current record is assigned to a zip, search for conflicing zip/city/state/country.
-        # If the current record is assigned to a country, search for conflicting country
-        # (the location_field may be zip/city/state/country).
-        search_fields = fields[i:]
-        location_fields = fields[:i+1]
+            # The location_field will determine how specific the search is.
+            # If the current record is assigned to a zip, search for conflicing zip/city/state/country.
+            # If the current record is assigned to a country, search for conflicting country
+            # (the location_field may be zip/city/state/country).
+            search_fields = fields[index:]
+            location_fields = fields[:index+1]
 
-        # Build the domain dynamically
-        domain = [("id", "!=", self.id)]
-        domain += ["|"] * (len(search_fields) - 1)
-        for search_field in search_fields:
-            location_fields = location_fields or [search_field]
-            domain += [
-                "&",
-                ("location_field", "in", location_fields),
-                (search_field, "=", getattr(self, search_field).id)
-            ]
-            location_fields = None
+            # Build the domain dynamically
+            domain = [("id", "!=", record.id)]
+            domain += ["|"] * (len(search_fields) - 1)
+            for search_field in search_fields:
+                location_fields = location_fields or [search_field]
+                domain += [
+                    "&",
+                    ("location_field", "in", location_fields),
+                    (search_field, "=", getattr(record, search_field).id)
+                ]
+                location_fields = None
 
-        existing = self.search(domain)
-        exclusive = existing.filtered(lambda r: r.is_exclusive)
-        if exclusive:
-            names = ", ".join(existing.mapped("partner_id").mapped("name"))
-            raise ValidationError(
-                f"This assignment conflicts with assignments to {names}"
-            )
-        if self.is_exclusive:
-            non_exclusive = existing - exclusive
-            non_exclusive.write({"active": False})
+            # Save conflicts
+            conflicts = record.search(domain)
+            if not self.is_exclusive:
+                conflicts = conflicts.filtered(lambda r: r.is_exclusive)
+            record.conflict_ids = [Command.set(conflicts.ids)]
         
         # Build the domain dynamically
         # should produce the same domains as below:
@@ -135,12 +164,3 @@ class ResPartnerAssignLocation(models.Model):
         #     ("id", "!=", self.id),
         #     "&", ("location_field", "in", ["zip_id", "city_id", "state_id", "country_id"]), ("state_id", "=", self.state_id.id),
         # ]
-
-        # if self.location_field == "zip_id":
-        #     domain = domain_zip
-        # elif self.location_field == "city_id":
-        #     domain = domain_city
-        # elif self.location_field == "state_id":
-        #     domain = domain_state
-        # else:
-        #     domain = domain_country

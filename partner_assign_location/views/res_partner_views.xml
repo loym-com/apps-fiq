@@ -11,7 +11,8 @@
                         <list>
                             <field name="is_exclusive"/>
                             <field name="location_field"/>
-                            <field name="name"/>
+                            <field name="display_name"/>
+                            <field name="state"/>
                         </list>
                     </field>
                 </page>
