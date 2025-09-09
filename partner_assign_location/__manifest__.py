@@ -7,14 +7,19 @@
     "author": "FIQ, Loym",
     "data": [
         "security/ir.model.access.csv",
+        "views/res_city_zip_views.xml",
+        "views/res_city_views.xml",
+        "views/res_country_state_views.xml",
+        "views/res_country_views.xml",
         "views/res_partner_assign_location_views.xml",
         "views/res_partner_views.xml",
     ],
     "depends": [
+        "base_address_extended",
         "base_location",
         "contacts",
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.2",
+    "version": "18.0.1.0.3",
     # "website": "https://www.loym.com",
 }

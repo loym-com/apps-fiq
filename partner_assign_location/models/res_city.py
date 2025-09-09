@@ -1,4 +1,4 @@
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class ResCity(models.Model):
@@ -17,3 +17,9 @@ class ResCity(models.Model):
             else:
                 name = f"{r.name}, {r.country_id.name}"
             r.display_name = name
+
+    assign_location_ids = fields.One2many(
+        "res.partner.assign.location",
+        "city_id",
+        string="Assigned Locations",
+    )

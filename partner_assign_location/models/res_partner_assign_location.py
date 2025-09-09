@@ -80,6 +80,7 @@ class ResPartnerAssignLocation(models.Model):
         for vals in vals_list:
             vals["state"] = "draft"
         records = super().create(vals_list)
+        records._set_location_fields()
         records._check_for_conflicts()
         return records
 
@@ -102,7 +103,28 @@ class ResPartnerAssignLocation(models.Model):
             raise ValidationError("Do not change confirmed records.")
 
         super().write(vals)
-        self._check_for_conflicts()
+        if not self.env.context.get("_setting_location_fields"):
+            self._set_location_fields()
+            self._check_for_conflicts()
+
+    def _set_location_fields(self):
+        for record in self.with_context(_setting_location_fields=True):
+            if record.location_field == "zip_id":
+                record.city_id = record.zip_id.city_id
+                record.state_id = record.zip_id.state_id
+                record.country_id = record.zip_id.country_id
+            elif record.location_field == "city_id":
+                record.zip_id = False
+                record.state_id = record.city_id.state_id
+                record.country_id = record.city_id.country_id
+            elif record.location_field == "state_id":
+                record.zip_id = False
+                record.city_id = False
+                record.country_id = record.state_id.country_id
+            elif record.location_field == "country_id":
+                record.zip_id = False
+                record.city_id = False
+                record.state_id = False
 
     def _check_for_conflicts(self):
         """ List conflicting assignments. """
@@ -113,54 +135,17 @@ class ResPartnerAssignLocation(models.Model):
 
             # The location_field will determine how specific the search is.
             # If the current record is assigned to a zip, search for conflicing zip/city/state/country.
-            # If the current record is assigned to a country, search for conflicting country
-            # (the location_field may be zip/city/state/country).
+            # If the current record is assigned to a country, search for conflicting country.
             search_fields = fields[index:]
-            location_fields = fields[:index+1]
 
             # Build the domain dynamically
             domain = [("id", "!=", record.id)]
             domain += ["|"] * (len(search_fields) - 1)
             for search_field in search_fields:
-                location_fields = location_fields or [search_field]
-                domain += [
-                    "&",
-                    ("location_field", "in", location_fields),
-                    (search_field, "=", getattr(record, search_field).id)
-                ]
-                location_fields = None
+                domain += [(search_field, "=", getattr(record, search_field).id)]
 
             # Save conflicts
             conflicts = record.search(domain)
             if not self.is_exclusive:
                 conflicts = conflicts.filtered(lambda r: r.is_exclusive)
             record.conflict_ids = [Command.set(conflicts.ids)]
-        
-        # Build the domain dynamically
-        # should produce the same domains as below:
-
-        # domain_zip = [
-        #     ("id", "!=", self.id),
-        #     "|", "|", "|",
-        #     "&", ("location_field", "=", "zip_id"), ("zip_id", "=", self.zip_id.id),
-        #     "&", ("location_field", "=", "city_id"), ("city_id", "=", self.city_id.id),
-        #     "&", ("location_field", "=", "state_id"), ("state_id", "=", self.state_id.id),
-        #     "&", ("location_field", "=", "country_id"), ("country_id", "=", self.country_id.id),
-        # ]
-        # domain_city = [
-        #     ("id", "!=", self.id),
-        #     "|", "|",
-        #     "&", ("location_field", "in", ["zip_id", "city_id"]), ("city_id", "=", self.city_id.id),
-        #     "&", ("location_field", "=", "state_id"), ("state_id", "=", self.state_id.id),
-        #     "&", ("location_field", "=", "country_id"), ("country_id", "=", self.country_id.id),
-        # ]
-        # domain_state = [
-        #     ("id", "!=", self.id),
-        #     "|",
-        #     "&", ("location_field", "in", ["zip_id", "city_id", "state_id"]), ("state_id", "=", self.state_id.id),
-        #     "&", ("location_field", "=", "country_id"), ("country_id", "=", self.country_id.id),
-        # ]
-        # domain_country = [
-        #     ("id", "!=", self.id),
-        #     "&", ("location_field", "in", ["zip_id", "city_id", "state_id", "country_id"]), ("state_id", "=", self.state_id.id),
-        # ]
