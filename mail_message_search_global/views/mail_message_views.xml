@@ -1,0 +1,23 @@
+<odoo>
+    <record id="mail_message_view_list" model="ir.ui.view">
+        <field name="model">mail.message</field>
+        <field name="inherit_id" ref="mail.view_message_tree" />
+        <field name="arch" type="xml">
+            <list position="inside">
+                <button name="action_open_related"
+                        type="object"
+                        string="Open"
+                        class="oe_stat_button"
+                />
+            </list>
+        </field>
+    </record>
+    <menuitem
+        id="menu_view_mail_message"
+        name="Messages"
+        action="mail.action_view_mail_message"
+        parent="mail.menu_root_discuss"
+        sequence="50"
+        groups="base.group_system"
+    />
+</odoo>
