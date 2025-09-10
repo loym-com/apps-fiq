@@ -4,7 +4,7 @@
     "name": "FIQ Mail Apps",
     "author": "FIQ as, Odoo Community Association (OCA)",
     "website": "https://fiq.no",
-    "version": "18.0.1.0.2",
+    "version": "18.0.1.0.3",
     "license": "AGPL-3",
     "data": [
         "data/ir_config_parameter_data.xml",
@@ -18,6 +18,7 @@
 
         # OCA
         "mail_composer_cc_bcc", # git@github.com:norlinhenrik/oca-mail.git      ### 18.0-fix-mail_mail-email_to                  ### beta/mail
+        "mail_message_search",
         "mail_optional_follower_notification", # git@github.com:odoonz/mail.git ### 18.0-mig-mail_optional_follower_notification ### beta/.mail_optional_follower_notification
             # shell
             #   cd src/user/beta
