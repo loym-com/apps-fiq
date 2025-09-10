@@ -15,10 +15,14 @@
                         groups="sales_team.group_sale_salesman"
                     />
                 </xpath>
-                <field name="partner_id" position="after">
+                <xpath expr="//group[@name='lead_partner']/field[@name='partner_id']" position="after">
                     <field name="partner_short_name" readonly="1"/>
                     <field name="project"/>
-                </field>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="after">
+                    <field name="partner_short_name" readonly="1"/>
+                    <field name="project"/>
+                </xpath>
                 <field name="user_id" position="after">
                     <field name="sale_order_product_id" domain="[('project_template_id', '!=', False)]"/>
                 </field>

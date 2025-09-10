@@ -33,7 +33,7 @@ class CrmLead(models.Model):
     )
     partner_short_name = fields.Char(
         related="partner_id.short_name",
-        string="Partner Short Name",
+        string="Short Name",
     )
     project = fields.Char()
 
