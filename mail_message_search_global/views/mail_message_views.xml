@@ -7,7 +7,7 @@
                 <button name="action_open_related"
                         type="object"
                         string="Open"
-                        class="oe_stat_button"
+                        class="btn btn-primary"
                 />
             </list>
         </field>
