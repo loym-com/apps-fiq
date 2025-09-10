@@ -12,11 +12,12 @@
     "depends": [
         "base_display_name", # sale.order.name: _get_value_from_indexed_pattern()
         # "crm_security_group",
+        "partner_short_name",
         "portal_user", # dummy placeholders
         "sale_crm",
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.7",
+    "version": "18.0.1.0.8",
     "website": "https://www.loym.com",
 }

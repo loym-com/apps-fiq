@@ -4,7 +4,7 @@
     "name": "FIQ Mail Apps",
     "author": "FIQ as, Odoo Community Association (OCA)",
     "website": "https://fiq.no",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "license": "AGPL-3",
     "data": [
         "data/ir_config_parameter_data.xml",
@@ -27,6 +27,7 @@
             #   git commit -am "link mail_optional_follower_notification"
             #   git push -u origin Staging
         "mail_quoted_reply",
+        "mail_send_confirmation",
         "mail_tracking",
 
         # Loym/FIQ
