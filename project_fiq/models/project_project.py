@@ -22,8 +22,8 @@ class ProjectProject(models.Model):
     sp_folder_name = fields.Char(
         string="SP Folder Name",
         compute="_compute_sp_folder_name",
-        store=True,
     )
+
     def _compute_sp_folder_name(self):
         for record in self:
             if record.unique_code:
