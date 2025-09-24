@@ -14,4 +14,16 @@
             </data>
         </field>
     </record>
+    <record id="documents_tag_view_search" model="ir.ui.view">
+        <field name="name">documents.tag.view.search.inherit</field>
+        <field name="model">documents.tag</field>
+        <field name="inherit_id" ref="documents.tag_view_search"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <searchpanel>
+                    <field name="parent_id" view_types="list,kanban,pivot,graph,calendar" hierarchize="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
 </odoo>
