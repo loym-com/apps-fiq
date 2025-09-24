@@ -6,6 +6,7 @@
     "summary": "Set alias & doc folder name",
     "author": "FIQ",
     "data": [
+        "views/project_project_views.xml",
         "views/project_task_views.xml",
     ],
     "depends": [
@@ -17,6 +18,6 @@
         "project_unique_code",
     ],
     "license": "AGPL-3",
-    "version": "18.0.4.0.6",
+    "version": "18.0.4.0.7",
     "website": "https://www.fiq.no",
 }

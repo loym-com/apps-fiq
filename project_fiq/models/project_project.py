@@ -17,3 +17,16 @@ class ProjectProject(models.Model):
             # Set documents folder name
             if record._fields.get("documents_folder_id") and record.documents_folder_id:
                 record.documents_folder_id.name = record.display_name
+
+    # Until sharepoint integration
+    sp_folder_name = fields.Char(
+        string="SP Folder Name",
+        compute="_compute_sp_folder_name",
+        store=True,
+    )
+    def _compute_sp_folder_name(self):
+        for record in self:
+            if record.unique_code:
+                record.sp_folder_name = record.unique_code + " " + record.name
+            else:
+                record.sp_folder_name = record.name
