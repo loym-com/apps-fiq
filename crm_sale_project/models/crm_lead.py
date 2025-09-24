@@ -17,6 +17,11 @@ class CrmLead(models.Model):
                 [("sale_order_id.opportunity_id.id", "=", r.id)]
             )
 
+    sale_order_product_id = fields.Many2one(
+        "product.product",
+        string="Sale Order Product",
+        help="Product used when creating a sale order from the opportunity.",
+    )
     sale_order_project_ids = fields.Many2many(
         "project.project",
         compute="_compute_sale_order_project_ids",
@@ -26,18 +31,25 @@ class CrmLead(models.Model):
         compute="_compute_sale_order_project_count",
         string="Sale Order Project Count",
     )
+    partner_short_name = fields.Char(
+        related="partner_id.short_name",
+        string="Short Name",
+    )
+    project = fields.Char()
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
         
-        # Get sale order PRODUCT & project TEMPLATE from settings
-        get_param = self.env["ir.config_parameter"].sudo().get_param
-        product_id = get_param("crm_sale_project.sale_order_product_id")
-        if product_id:
-            product = self.env["product.product"].browse(int(product_id))
-        else:
-            raise UserError("Missing a product in Settings.")
-        
+        # Get sale order PRODUCT >> project TEMPLATE
+        product = self.sale_order_product_id
+        if not product:
+            get_param = self.env["ir.config_parameter"].sudo().get_param
+            product_id = get_param("crm_sale_project.sale_order_product_id")
+            if product_id:
+                product = self.env["product.product"].browse(int(product_id))
+            else:
+                raise UserError("Missing a sale order product (set on the lead or in Settings).")
+
         # Check other values
         if not self.partner_id: raise UserError("Missing a contact.")
         if not self.partner_id.is_company: raise UserError("Contact should be a company.")

@@ -1,4 +1,16 @@
 <odoo>
+    <record id="documents_document_view_list" model="ir.ui.view">
+        <field name="name">documents.document.view.list.inherit</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.documents_view_list"/>
+        <field name="arch" type="xml">
+            <data>
+                <field name="url" position="attributes">
+                    <attribute name="widget">url</attribute>
+                </field>
+            </data>
+        </field>
+    </record>
     <record id="documents_document_view_kanban" model="ir.ui.view">
         <field name="name">documents.document.view.kanban.inherit</field>
         <field name="model">documents.document</field>

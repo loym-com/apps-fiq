@@ -26,3 +26,15 @@ class DocumentsDocument(models.Model):
             return
         else:
             return super()._compute_name_and_preview()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        If no url, a document (record with attachment) will get the url of the folder.
+        """
+        for vals in vals_list:
+            if "attachment_id" in vals and "url" not in vals and "folder_id" in vals:
+                folder = self.browse(vals["folder_id"])
+                if folder and folder.url:
+                    vals["url"] = folder.url
+        return super().create(vals_list)

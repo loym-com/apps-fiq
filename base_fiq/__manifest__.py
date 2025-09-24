@@ -13,6 +13,7 @@
     "depends": [
         "base_unique_code",
         "document_url", # OCA/document (attachment url)
+        # "partner_assign_location",
         "portal_user",
         "sequence_choice",
     ],
