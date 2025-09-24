@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class ProjectProject(models.Model):
     _inherit = "project.project"
+    _order = "name"
 
     @api.constrains("unique_code")
     def _set_alias_name(self):

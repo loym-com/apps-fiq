@@ -17,6 +17,6 @@
         "project_unique_code",
     ],
     "license": "AGPL-3",
-    "version": "18.0.4.0.5",
+    "version": "18.0.4.0.6",
     "website": "https://www.fiq.no",
 }
