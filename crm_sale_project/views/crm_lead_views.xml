@@ -8,7 +8,7 @@
             <data>
                 <xpath expr="//form[1]/header[1]/field[@name='stage_id']" position="after">
                     <button
-                        string="Create SO &amp; PRJ (beta)"
+                        string="Create SO &amp; PRJ"
                         name="action_create_sale_order_and_project"
                         type="object"
                         invisible="sale_order_project_count &gt; 0"
