@@ -1,6 +1,10 @@
+import logging
+
 from odoo import models
 
 from odoo.addons.base_display_name.tools import get_indexed_pattern
+
+_logger = logging.getLogger(__name__)
 
 
 class ProjectProject(models.Model):
@@ -16,4 +20,11 @@ class ProjectProject(models.Model):
                 name = self._get_value_from_indexed_pattern(
                     self, field_paths, indexed_pattern
                 )
-                self.name = name
+                if name:
+                    self.name = name
+                else:
+                    _logger.warning(
+                        "Could not compute project name for project %s using pattern %s",
+                        self.id,
+                        name_pattern,
+                    )
