@@ -3,6 +3,7 @@ from odoo import models, fields, api
 
 class DocumentsTag(models.Model):
     _inherit = "documents.tag"
+    _order = "name"
 
     parent_id = fields.Many2one(
         "documents.tag",
