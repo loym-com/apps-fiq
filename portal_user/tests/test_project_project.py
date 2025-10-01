@@ -31,7 +31,7 @@ class TestProjectSequence(TransactionCase):
         )
         cls.ir_model = cls.env["project.project"]._get_ir_model()
         cls.ir_model.display_name_pattern = "{unique_code} - {name}"
-        cls.ir_model.unique_code_pattern = "{__sequence__}"
+        cls.ir_model.unique_code_pattern = "{sequence_code}"
         cls.ir_model.unique_code_sequence_id = cls.prj_seq.id
         default_plan_id = cls.env["account.analytic.plan"].search([], limit=1)
         cls.analytic_account = cls.env["account.analytic.account"].create(
