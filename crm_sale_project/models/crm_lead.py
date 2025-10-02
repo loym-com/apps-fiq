@@ -31,11 +31,7 @@ class CrmLead(models.Model):
         compute="_compute_sale_order_project_count",
         string="Sale Order Project Count",
     )
-    partner_short_name = fields.Char(
-        related="partner_id.short_name",
-        string="Short Name",
-    )
-    project = fields.Char()
+    project_address = fields.Char("Project Address")
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
