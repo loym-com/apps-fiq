@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_crm_sale_project" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.crm.sale.project</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="crm.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//app[@name='crm']/div[@data-string='Display']/div" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <label
+                            for="crm_lead_name_pattern"
+                            string="Stored Unique Lead Name Pattern"
+                        />
+                        <field
+                            name="crm_lead_name_pattern"
+                            class="w-100"
+                            placeholder="{partner_id.short_name if partner_id.short_name else partner_id.name}"
+                        />
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <label
+                            for="crm_lead_name_pattern_triggers"
+                            string="Stored Unique Lead Name Pattern Triggers"
+                        />
+                        <field
+                            name="crm_lead_name_pattern_triggers"
+                            class="w-100"
+                            placeholder="partner_id, partner_id.name, partner_id.short_name"
+                        />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
