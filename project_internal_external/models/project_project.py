@@ -12,6 +12,8 @@ class ProjectProject(models.Model):
         default=lambda self: self.env.company,
     )
 
+    # TODO: Replace constrains with create/write?
+
     @api.constrains("company_id", "internal_external")
     def set_sequence_code_unique_code_and_name(self):
         self.unique_code = None

@@ -8,7 +8,7 @@ class ResCity(models.Model):
     # @api.depends(lambda self: self._get_display_field_paths("display_name_pattern"))
     # def _compute_display_name(self):
     #     super()._compute_display_name()
-    #     self._set_field_from_pattern_fname("display_name", "display_name_pattern")
+    #     self._set_field_from_pattern_name("display_name", "display_name_pattern")
 
     def _compute_display_name(self):
         for r in self:

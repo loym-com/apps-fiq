@@ -5,6 +5,8 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
     _order = "name"
 
+    # TODO: Replace constrains with create/write?
+
     @api.constrains("unique_code")
     def _set_alias_name(self):
         for record in self:

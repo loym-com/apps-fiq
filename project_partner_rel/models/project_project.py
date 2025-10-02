@@ -27,6 +27,8 @@ class ProjectProject(models.Model):
             if self.partner_id not in self.partner_ids:
                 self.partner_ids = [Command.link(self.partner_id.id)]
 
+    # TODO: Replace constrains with create/write?
+
     @api.constrains("partner_id")
     def _check_partner_inclusion(self):
         """Ensure that partner_id is always included in partner_ids."""
