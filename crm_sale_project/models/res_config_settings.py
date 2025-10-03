@@ -22,7 +22,7 @@ class ResConfigSettings(models.TransientModel):
         Project = self.env["project.project"]
         pattern = self.crm_sale_project__project_name_pattern
         if pattern:
-            field_paths = Project._get_display_field_paths_from_pattern(
+            field_paths = Project._get_display_field_paths_from_string(
                 pattern, validate=False
             )
             if not Project._is_valid_display_field_paths(field_paths):

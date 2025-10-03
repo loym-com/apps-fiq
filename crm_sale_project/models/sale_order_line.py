@@ -15,7 +15,8 @@ class SaleOrderLine(models.Model):
     def _timesheet_create_project_prepare_values(self):
         project_values = super()._timesheet_create_project_prepare_values()
         project_values["user_id"] = self.order_id.user_id.id
-        project_values["parent_id"] = False
+        if "parent_id" in self.env["project.project"]._fields:
+            project_values["parent_id"] = False
 
         template = self.product_id.project_template_id
 

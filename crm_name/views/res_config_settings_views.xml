@@ -10,18 +10,18 @@
                     <div class="col-12 col-lg-6 o_setting_box">
                         <label
                             for="crm_lead_name_pattern"
-                            string="Stored Unique Lead Name Pattern"
+                            string="Stored Lead Name Pattern"
                         />
                         <field
                             name="crm_lead_name_pattern"
                             class="w-100"
-                            placeholder="{partner_id.short_name if partner_id.short_name else partner_id.name}"
+                            placeholder="{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}"
                         />
                     </div>
                     <div class="col-12 col-lg-6 o_setting_box">
                         <label
                             for="crm_lead_name_pattern_triggers"
-                            string="Stored Unique Lead Name Pattern Triggers"
+                            string="Update Lead Name when these fields change"
                         />
                         <field
                             name="crm_lead_name_pattern_triggers"
