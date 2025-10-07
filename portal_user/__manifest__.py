@@ -14,5 +14,5 @@
         "portal",
     ],
     "license": "AGPL-3",
-    "version": "18.0.1.0.2",
+    "version": "19.0.1.0.2",
 }

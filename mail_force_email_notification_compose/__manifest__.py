@@ -5,7 +5,7 @@
     "author": "Loym AS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/mail",
     "category": "Social Network",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "license": "AGPL-3",
     "depends": ["mail_force_email_notification"],
     "data": [
