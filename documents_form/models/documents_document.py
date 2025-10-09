@@ -19,5 +19,5 @@ class DocumentsDocument(models.Model):
             'res_model': 'documents.document',
             'view_mode': 'form',
             'res_id': self.id,
-            'views': [(self.env.ref('documents.document_view_form').id, 'form')],
+            'views': [(self.env.ref('documents_form.document_view_form').id, 'form')],
         }

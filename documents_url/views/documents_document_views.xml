@@ -37,7 +37,7 @@
     <record id="documents_document_view_form" model="ir.ui.view">
         <field name="name">documents.document.view.form.inherit</field>
         <field name="model">documents.document</field>
-        <field name="inherit_id" ref="documents.document_view_form"/>
+        <field name="inherit_id" ref="documents_form.document_view_form"/>
         <field name="arch" type="xml">
             <data>
                 <field name="url" position="replace"/>

@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "data": [
         "data/ir_config_parameter_data.xml",
-        "security/mail_message_security.xml",
+        # "security/mail_message_security.xml",
         "views/res_users_views.xml",
     ],
     "depends": [
@@ -17,24 +17,24 @@
         "microsoft_outlook",
 
         # OCA
-        "mail_composer_cc_bcc", # git@github.com:norlinhenrik/oca-mail.git      ### 19.0-fix-mail_mail-email_to                  ### beta/mail
-        "mail_message_search",
-        "mail_optional_follower_notification", # git@github.com:odoonz/mail.git ### 19.0-mig-mail_optional_follower_notification ### beta/.mail_optional_follower_notification
-            # shell
-            #   cd src/user/beta
-            #   git checkout Staging
-            #   ln -s ./.mail_optional_follower_notification/mail_optional_follower_notification mail_optional_follower_notification
-            #   git add mail_optional_follower_notification
-            #   git commit -am "link mail_optional_follower_notification"
-            #   git push -u origin Staging
-        "mail_quoted_reply",
-        "mail_send_confirmation",
-        "mail_tracking",
+        # "mail_composer_cc_bcc", # git@github.com:norlinhenrik/oca-mail.git      ### 19.0-fix-mail_mail-email_to                  ### beta/mail
+        # "mail_message_search",
+        # "mail_optional_follower_notification", # git@github.com:odoonz/mail.git ### 19.0-mig-mail_optional_follower_notification ### beta/.mail_optional_follower_notification
+        #     # shell
+        #     #   cd src/user/beta
+        #     #   git checkout Staging
+        #     #   ln -s ./.mail_optional_follower_notification/mail_optional_follower_notification mail_optional_follower_notification
+        #     #   git add mail_optional_follower_notification
+        #     #   git commit -am "link mail_optional_follower_notification"
+        #     #   git push -u origin Staging
+        # "mail_quoted_reply",
+        # "mail_send_confirmation",
+        # "mail_tracking",
 
         # Loym/FIQ
         "base_fiq",
         "mail_config_by_user",
-        "mail_force_email_notification_compose",
+        # "mail_force_email_notification_compose",
         "mail_message_security",
         "mail_never_autofollow", # consider mail_optional_autofollow https://github.com/OCA/mail/pull/29
 

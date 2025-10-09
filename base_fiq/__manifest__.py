@@ -12,7 +12,7 @@
     ],
     "depends": [
         "base_unique_code",
-        "document_url", # OCA/document (attachment url)
+        # "document_url", # OCA/document (attachment url)
         # "partner_assign_location",
         # "portal_user", # Cannot install fiq_base when portal_user is a dependency
         "sequence_choice",

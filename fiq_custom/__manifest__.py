@@ -10,7 +10,7 @@
     ],
     "depends": [
         "documents",
-        "partner_risk_insurance",
+        # "partner_risk_insurance",
         "project",
         "project_partner_rel",
     ],
