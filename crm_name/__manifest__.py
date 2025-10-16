@@ -1,6 +1,7 @@
 # Copyright 2025 FIQ & Loym
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+
 {
     "name": "CRM Name",
     "summary": "",
