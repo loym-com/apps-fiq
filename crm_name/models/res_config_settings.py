@@ -18,16 +18,15 @@ class ResConfigSettings(models.TransientModel):
 
     @api.constrains("crm_lead_name_pattern", "crm_lead_name_pattern_triggers")
     def _check_crm_lead_name_pattern_and_triggers(self):
-        def _check_field_input(field_input):
-            Lead = self.env["crm.lead"]
-            if field_input:
-                field_paths = Lead._get_display_field_paths_from_string(
-                    field_input, validate=False
+        Lead = self.env["crm.lead"]
+
+        def _check_fields(field_paths):
+            if not Lead._is_valid_display_field_paths(field_paths):
+                raise ValidationError(
+                    f"_check_crm_lead_name_pattern_and_triggers: "
+                    f"At least one field is not valid: {field_paths}"
                 )
-                if not Lead._is_valid_display_field_paths(field_paths):
-                    raise ValidationError(
-                        f"_check_crm_lead_name_pattern_and_triggers: "
-                        f"At least one field is not valid: {field_paths}"
-                    )
-        _check_field_input(self.crm_lead_name_pattern)
-        _check_field_input(self.crm_lead_name_pattern_triggers)
+        pattern_fields = Lead._get_display_field_paths("crm_lead_name_pattern", "ir.config_parameter", validate=False)
+        _check_fields(pattern_fields)
+        trigger_fields = [part.strip() for part in self.crm_lead_name_pattern_triggers.split(",") if part.strip()]
+        _check_fields(trigger_fields)
