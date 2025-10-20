@@ -6,8 +6,6 @@
     "summary": "",
     "author": "Loym, FIQ",
     "data": [
-        "views/crm_lead_views.xml",
-        "views/res_config_settings_views.xml",
     ],
     "depends": [
         "base_display_name", # sale.order.name: _get_value_from_indexed_pattern()
@@ -18,6 +16,6 @@
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.5.0.0",
+    "version": "18.0.5.0.1",
     "website": "https://www.loym.com",
 }
