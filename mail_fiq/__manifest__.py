@@ -4,7 +4,7 @@
     "name": "FIQ Mail Apps",
     "author": "FIQ, Loym",
     "website": "https://fiq.no",
-    "version": "18.0.1.0.3",
+    "version": "18.0.5.1.0",
     "license": "AGPL-3",
     "data": [
         "data/ir_config_parameter_data.xml",
