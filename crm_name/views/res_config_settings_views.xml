@@ -6,29 +6,23 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="crm.res_config_settings_view_form" />
             <field name="arch" type="xml">
-                <xpath expr="//app[@name='crm']/div[@data-string='Display']/div" position="inside">
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <label
-                            for="crm_lead_name_expression"
-                            string="Stored Lead Name Pattern"
-                        />
-                        <field
-                            name="crm_lead_name_expression"
-                            class="w-100"
-                            placeholder="{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}"
-                        />
-                    </div>
-                    <div class="col-12 col-lg-6 o_setting_box">
-                        <label
-                            for="crm_lead_name_expression_triggers"
-                            string="Update Lead Name when these fields change"
-                        />
-                        <field
-                            name="crm_lead_name_expression_triggers"
-                            class="w-100"
-                            placeholder="partner_id, partner_id.name, partner_id.short_name"
-                        />
-                    </div>
+                <xpath expr="//app[@name='crm']" position="inside">
+                    <block name="lead_name" title="Lead/Opportunity Name">
+                        <setting string="Lead Name Expression">
+                            <field
+                                name="crm_lead_name_expression"
+                                placeholder="{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}"
+                                class="w-100"
+                            />
+                        </setting>
+                        <setting string="Update Lead Name when these fields change">
+                            <field
+                                name="crm_lead_name_expression_triggers"
+                                placeholder="partner_id, partner_id.name, partner_id.short_name"
+                                class="w-100"
+                            />
+                        </setting>
+                    </block>
                 </xpath>
             </field>
         </record>
