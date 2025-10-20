@@ -20,13 +20,9 @@ class ResConfigSettings(models.TransientModel):
     def _check_crm_lead_name_expression_and_triggers(self):
         Lead = self.env["crm.lead"]
 
-        def _check_fields(field_paths):
-            if not Lead._is_valid_display_field_paths(field_paths):
-                raise ValidationError(
-                    f"_check_crm_lead_name_expression_and_triggers: "
-                    f"At least one field is not valid: {field_paths}"
-                )
-        pattern_fields = Lead._get_display_field_paths("crm_lead_name_expression", "ir.config_parameter", validate=False)
-        _check_fields(pattern_fields)
-        trigger_fields = [part.strip() for part in self.crm_lead_name_expression_triggers.split(",") if part.strip()]
-        _check_fields(trigger_fields)
+        Lead.raise_error_if_invalid_field_paths_from_source(
+            "ir.config_parameter", "crm_lead_name_expression"
+        )
+
+        trigger_paths = [part.strip() for part in self.crm_lead_name_expression_triggers.split(",") if part.strip()]
+        Lead.raise_error_if_invalid_field_paths(trigger_paths)
