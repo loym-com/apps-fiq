@@ -4,7 +4,7 @@
     "name": "Mail Config By User",
     "author": "Loym AS, Odoo Community Association (OCA)",
     "website": "https://loym.com",
-    "version": "18.0.1.0.0",
+    "version": "18.0.5.0.0",
     "license": "AGPL-3",
     "depends": [
         "mail",

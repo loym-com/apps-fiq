@@ -13,6 +13,6 @@
     ],
     "excludes": [""],
     "license": "LGPL-3",
-    "version": "18.0.4.0.2",
+    "version": "18.0.5.0.0",
     "website": "https://www.loym.com",
 }
