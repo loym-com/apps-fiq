@@ -10,7 +10,7 @@
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "base_expression_value"
+        "base_mixin_expression_value",
         # "crm_security_group",
         "crm_name",
         "portal_user", # dummy placeholders

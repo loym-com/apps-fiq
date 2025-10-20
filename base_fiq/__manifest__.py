@@ -11,10 +11,9 @@
         "views/ir_module_views.xml",
     ],
     "depends": [
-        "base_sequence_number",
+        "partner_sequence_number",
         "document_url", # OCA/document (attachment url)
         # "partner_assign_location",
         # "portal_user", # Cannot install fiq_base when portal_user is a dependency
-        "sequence_choice",
     ],
 }
