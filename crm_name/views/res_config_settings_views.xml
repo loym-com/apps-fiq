@@ -9,22 +9,22 @@
                 <xpath expr="//app[@name='crm']/div[@data-string='Display']/div" position="inside">
                     <div class="col-12 col-lg-6 o_setting_box">
                         <label
-                            for="crm_lead_name_pattern"
+                            for="crm_lead_name_expression"
                             string="Stored Lead Name Pattern"
                         />
                         <field
-                            name="crm_lead_name_pattern"
+                            name="crm_lead_name_expression"
                             class="w-100"
                             placeholder="{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}"
                         />
                     </div>
                     <div class="col-12 col-lg-6 o_setting_box">
                         <label
-                            for="crm_lead_name_pattern_triggers"
+                            for="crm_lead_name_expression_triggers"
                             string="Update Lead Name when these fields change"
                         />
                         <field
-                            name="crm_lead_name_pattern_triggers"
+                            name="crm_lead_name_expression_triggers"
                             class="w-100"
                             placeholder="partner_id, partner_id.name, partner_id.short_name"
                         />

@@ -3,7 +3,7 @@
 {
     "name": "FIQ Base",
     "summary": "",
-    "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/knowledge",
     "version": "18.0.1.0.2",
     "license": "AGPL-3",
@@ -11,7 +11,7 @@
         "views/ir_module_views.xml",
     ],
     "depends": [
-        "base_unique_code",
+        "base_sequence_number",
         "document_url", # OCA/document (attachment url)
         # "partner_assign_location",
         # "portal_user", # Cannot install fiq_base when portal_user is a dependency

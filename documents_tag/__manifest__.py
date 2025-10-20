@@ -3,7 +3,7 @@
 {
     "name": "Documents Tag",
     "summary": "",
-    "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/knowledge",
     "version": "18.0.1.0.7",
     "license": "AGPL-3",

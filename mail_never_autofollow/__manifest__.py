@@ -5,7 +5,7 @@
     "summary": """
         Never automatically add new recipients as followers
         on mail.compose.message""",
-    "author": "Loym AS," "Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/mail",
     "category": "Social Network",
     "version": "18.0.1.0.0",

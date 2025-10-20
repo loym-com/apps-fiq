@@ -3,7 +3,7 @@
 {
     "name": "Mail Message Search Global",
     "summary": "",
-    "author": "FIQ, Loym, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/mail",
     "category": "",
     "version": "18.0.1.0.2",

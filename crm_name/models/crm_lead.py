@@ -12,11 +12,11 @@ class CrmLead(models.Model):
     @api.depends(lambda self: self._compute_name_depends())
     def _compute_name(self):
         self.name = False
-        self._set_field_from_pattern_name("name", "crm_name.crm_lead_name_pattern", source="ir.config_parameter")
+        self.name = self.get_value_from_source("ir.config_parameter", "crm_name.crm_lead_name_expression")
 
     def _compute_name_depends(self):
         fields = self._get_display_pattern(
-            "crm_name.crm_lead_name_pattern_triggers",
+            "crm_name.crm_lead_name_expression_triggers",
             source="ir.config_parameter",
         )
         return tuple(

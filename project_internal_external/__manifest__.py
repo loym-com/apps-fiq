@@ -4,12 +4,12 @@
 {
     "name": "Internal/External Projects",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "views/project_project_views.xml",
     ],
     "depends": [
-        "project_unique_code",
+        "project_sequence_number",
     ],
     "excludes": [""],
     "license": "LGPL-3",

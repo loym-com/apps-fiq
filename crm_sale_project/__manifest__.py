@@ -4,13 +4,13 @@
 {
     "name": "CRM: Create sale order and project",
     "summary": "",
-    "author": "Loym, FIQ",
+    "author": "FIQ, Loym",
     "data": [
         "views/crm_lead_views.xml",
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "base_display_name", # sale.order.name: _get_value_from_indexed_pattern()
+        "base_expression_value"
         # "crm_security_group",
         "crm_name",
         "portal_user", # dummy placeholders

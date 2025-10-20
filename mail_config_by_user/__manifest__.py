@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Mail Config By User",
-    "author": "Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://loym.com",
     "version": "18.0.1.0.0",
     "license": "AGPL-3",

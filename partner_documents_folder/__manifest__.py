@@ -4,7 +4,7 @@
 {
     "name": "Contact Documents Folders",
     "summary": "",
-    "author": "Loym, FIQ",
+    "author": "FIQ, Loym",
     "data": [
         "data/documents_document_data.xml",
         "views/res_partner_views.xml",

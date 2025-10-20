@@ -4,7 +4,7 @@
 {
     "name": "FIQ Project",
     "summary": "Set alias & doc folder name",
-    "author": "FIQ",
+    "author": "FIQ, Loym",
     "data": [
         "views/project_project_views.xml",
         "views/project_task_views.xml",
@@ -15,7 +15,7 @@
         "project_documents_tab",
         "project_internal_external",
         "project_partner_rel",
-        "project_unique_code",
+        "project_sequence_number",
     ],
     "license": "AGPL-3",
     "version": "18.0.4.0.10",

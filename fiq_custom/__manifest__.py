@@ -4,7 +4,7 @@
 {
     "name": "FIQ customizations",
     "summary": "",
-    "author": "FIQ as",
+    "author": "FIQ, Loym",
     "data": [
         "views/res_partner_views.xml",
     ],

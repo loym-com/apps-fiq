@@ -35,10 +35,10 @@
                         </div>
                     </div>
                 </xpath>
-                <field name="crm_lead_name_pattern" position="attributes">
+                <field name="crm_lead_name_expression" position="attributes">
                     <attribute name="placeholder">{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}{' - ' if r.project_address else ''}{r.project_address}</attribute>
                 </field>
-                <field name="crm_lead_name_pattern_triggers" position="attributes">
+                <field name="crm_lead_name_expression_triggers" position="attributes">
                     <attribute name="placeholder">partner_id, project_address</attribute>
                 </field>
             </field>

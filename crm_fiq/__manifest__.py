@@ -3,13 +3,13 @@
 {
     "name": "FIQ CRM",
     "summary": "",
-    "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/knowledge",
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
         "base_fiq",
         "crm_sale_project",
-        "crm_unique_code",
+        "crm_sequence_number",
     ],
 }

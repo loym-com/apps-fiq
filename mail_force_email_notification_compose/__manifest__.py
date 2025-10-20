@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Mail Force Email Notification Compose",
-    "author": "Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/mail",
     "category": "Social Network",
     "version": "18.0.1.0.0",

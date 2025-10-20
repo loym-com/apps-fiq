@@ -4,7 +4,7 @@
 {
     "name": "Project Documents",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "views/project_project_views.xml",
         "views/res_partner_views.xml",

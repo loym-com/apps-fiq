@@ -3,7 +3,7 @@
 {
     "name": "Mail Message Security",
     "summary": "Receipents and Author have access",
-    "author": "Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/mail",
     "category": "Social Network",
     "version": "18.0.1.0.7",

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "FIQ Mail Apps",
-    "author": "FIQ as, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://fiq.no",
     "version": "18.0.1.0.3",
     "license": "AGPL-3",

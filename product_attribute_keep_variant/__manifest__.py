@@ -3,7 +3,7 @@
 {
     "name": "Product Attribute: Keep Variant",
     "summary": "New Attribute: Max 1 Value",
-    "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
+    "author": "FIQ, Loym",
     "website": "https://github.com/OCA/product-attribute",
     "version": "18.0.1.0.0",
     "license": "AGPL-3",

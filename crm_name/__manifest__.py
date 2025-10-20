@@ -12,7 +12,7 @@
     ],
     "depends": [
         "crm",
-        "crm_unique_code",
+        "crm_sequence_number",
         "partner_short_name",
     ],
     "license": "AGPL-3",

@@ -4,7 +4,7 @@
 {
     "name": "Project Folder URL",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "views/project_project_views.xml",
         "views/project_task_views.xml",

@@ -4,7 +4,7 @@
 {
     "name": "FIQ modules",
     "summary": "",
-    "author": "FIQ as",
+    "author": "FIQ, Loym",
     "depends": [
         "base_fiq",
         "crm_fiq",

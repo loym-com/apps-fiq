@@ -4,8 +4,7 @@
 {
     "name": "Partner short name",
     "version": "18.0.1.0.0",
-    "author": "FIQ, Loym, "
-    "Odoo Community Association (OCA)",
+    "author": "FIQ, Loym,",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/partner-contact",
     "depends": ["base"],
