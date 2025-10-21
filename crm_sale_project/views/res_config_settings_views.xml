@@ -7,33 +7,21 @@
             <field name="inherit_id" ref="crm_name.res_config_settings_view_form" />
             <field name="arch" type="xml">
                 <xpath expr="//app[@name='crm']" position="inside">
-                    <div class="app_settings_block" data-string="create-so-prj" string="Create SO &amp; PRJ">
-                        <h2>Create sale order and project</h2>
-                        <div class="row mt16 o_settings_container">
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <label
-                                    for="crm_sale_project__sale_order_product_id"
-                                    string="Product for new sale order"
-                                />
-                                <field
-                                    name="crm_sale_project__sale_order_product_id"
-                                    class="w-100"
-                                    domain="[('project_template_id', '!=', False)]"
-                                />
-                            </div>
-                            <div class="col-12 col-lg-6 o_setting_box">
-                                <label
-                                    for="crm_sale_project__project_name_pattern"
-                                    string="Name for new project"
-                                />
-                                <field
-                                    name="crm_sale_project__project_name_pattern"
-                                    class="w-100"
-                                    placeholder="{r.sale_order_id.name} {r.sale_order_id.opportunity_id.name}"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <block name="crm_sale_project" title="Create sale order and project">
+                        <setting string="Product for new sale order">
+                            <field
+                                name="crm_sale_project__sale_order_product_id"
+                                class="w-100"
+                            />
+                        </setting>
+                        <setting string="Name for new project">
+                            <field
+                                name="crm_sale_project__project_name_pattern"
+                                placeholder="{r.sale_order_id.name} {r.sale_order_id.opportunity_id.name}"
+                                class="w-100"
+                            />
+                        </setting>
+                    </block>
                 </xpath>
                 <field name="crm_lead_name_expression" position="attributes">
                     <attribute name="placeholder">{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}{' - ' if r.project_address else ''}{r.project_address}</attribute>
