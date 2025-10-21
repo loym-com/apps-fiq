@@ -24,5 +24,7 @@ class ResConfigSettings(models.TransientModel):
             "ir.config_parameter", "crm_lead_name_expression"
         )
 
-        trigger_paths = [part.strip() for part in self.crm_lead_name_expression_triggers.split(",") if part.strip()]
-        Lead.raise_error_if_invalid_field_paths(trigger_paths)
+        triggers = self.crm_lead_name_expression_triggers
+        if triggers:
+            trigger_paths = [part.strip() for part in self.crm_lead_name_expression_triggers.split(",") if part.strip()]
+            Lead.raise_error_if_invalid_field_paths(trigger_paths)
