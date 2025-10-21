@@ -5,6 +5,10 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
     _order = "name"
 
+    # TODO: Remove when databases are clean
+
+    unique_code = fields.Char()
+
     # TODO: Replace constrains with create/write?
 
     @api.constrains("sequence_number")
