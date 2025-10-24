@@ -33,6 +33,29 @@ class CrmLead(models.Model):
     )
     project_address = fields.Char("Project Address")
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if "name" in vals:
+                vals["project_address"] = vals["name"]
+            if "partner_name" in vals:
+                vals["contact_name"] = vals["partner_name"]
+        return super().create(vals_list)
+
+    def get_partner_name_and_project_address(self, delimiter):
+        self.ensure_one()
+        result = []
+        partner = self.partner_id
+        if partner and partner.short_name:
+            result.append(partner.short_name)
+        elif partner and partner.name:
+            result.append(partner.name)
+        elif self.partner_name:
+            result.append(self.partner_name)
+        if self.project_address:
+            result.append(self.project_address)
+        return delimiter.join(result)
+
     def action_create_sale_order_and_project(self):
         self.ensure_one()
         

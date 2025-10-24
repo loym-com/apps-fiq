@@ -13,11 +13,12 @@
         "base_mixin_expression_value",
         # "crm_security_group",
         "crm_name",
+        "partner_short_name",
         "portal_user", # dummy placeholders
         "sale_crm",
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.5.1.4",
+    "version": "18.0.5.1.5",
     "website": "https://www.loym.com",
 }
