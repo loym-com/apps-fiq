@@ -6,11 +6,9 @@ _old_compute_name = crm_lead.Lead._compute_name
 
 def get_trigger_paths(self):
     xmlid = "crm_name.crm_lead_name_expression_triggers"
-    paths = self.env["ir.config_parameter"].sudo().get_param(xmlid)
-    if paths:
-        return (path.strip() for path in paths.split(",") if path.strip())
-    else:
-        return ()
+    paths = self.env["ir.config_parameter"].sudo().get_param(xmlid) or ""
+    path_list = [path.strip() for path in paths.split(",") if path.strip()]
+    return self.get_valid_field_paths(path_list)
 
 @api.depends(lambda self: get_trigger_paths(self))
 def _patched_compute_name(self):

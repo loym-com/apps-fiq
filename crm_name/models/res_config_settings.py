@@ -14,6 +14,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="crm_name.crm_lead_name_expression_triggers",
         readonly=False,
         string="Lead Name Pattern Triggers",
+        help="Restart Odoo for changes to take effect"
     )
 
     @api.constrains("crm_lead_name_expression", "crm_lead_name_expression_triggers")

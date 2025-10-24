@@ -15,7 +15,7 @@
                                 class="w-100"
                             />
                         </setting>
-                        <setting string="Update Lead Name when these fields change">
+                        <setting string="Update Lead Name when these fields change (must restart Odoo)">
                             <field
                                 name="crm_lead_name_expression_triggers"
                                 placeholder="partner_id, partner_id.name, partner_id.short_name"
