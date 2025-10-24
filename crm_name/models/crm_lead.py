@@ -27,7 +27,10 @@ crm_lead.Lead._compute_name = _patched_compute_name
 
 class CrmLead(models.Model):
     _name = "crm.lead"
-    _inherit = ["crm.lead", "expression.value.mixin"]
+    _inherit = [
+        "crm.lead",
+        "sequence.number.mixin", # Cannot inherit "expression.value.mixin" directly
+    ]
 
     partner_short_name = fields.Char(
         related="partner_id.short_name",
