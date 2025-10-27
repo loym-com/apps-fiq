@@ -33,6 +33,10 @@ class CrmLead(models.Model):
     )
     project_address = fields.Char("Project Address")
 
+    @api.depends("project_address")
+    def _compute_name(self):
+        return super()._compute_name()
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -40,9 +44,7 @@ class CrmLead(models.Model):
                 vals["project_address"] = vals["name"]
             if "partner_name" in vals and not vals.get("contact_name"):
                 vals["contact_name"] = vals["partner_name"]
-        records = super().create(vals_list)
-        records._compute_name()
-        return records
+        return super().create(vals_list)
 
     def get_partner_name_and_project_address(self, delimiter):
         self.ensure_one()

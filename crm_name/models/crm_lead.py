@@ -1,29 +1,5 @@
 from odoo import api, fields, models
 
-from odoo.addons.crm.models import crm_lead
-
-_old_compute_name = crm_lead.Lead._compute_name
-
-def get_trigger_paths(self):
-    xmlid = "crm_name.crm_lead_name_expression_triggers"
-    paths = self.env["ir.config_parameter"].sudo().get_param(xmlid) or ""
-    path_list = [path.strip() for path in paths.split(",") if path.strip()]
-    return self.get_valid_field_paths(path_list)
-
-@api.depends(lambda self: get_trigger_paths(self))
-def _patched_compute_name(self):
-    """
-    The original _compute_name() depends on "partner_id".
-    The method is patched to get rid of this dependency.
-    """
-    for lead in self:
-        lead.name = False
-        lead.name = self.get_value_from_source(
-            "ir.config_parameter", "crm_name.crm_lead_name_expression"
-        )
-
-crm_lead.Lead._compute_name = _patched_compute_name
-
 
 class CrmLead(models.Model):
     _name = "crm.lead"
@@ -36,3 +12,22 @@ class CrmLead(models.Model):
         related="partner_id.short_name",
         string="Short Name",
     )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._compute_name()
+        return records
+
+    def write(self, vals):
+        super().write(vals)
+        if "name" not in vals:
+            self._compute_name()
+        return self
+
+    def _compute_name(self):
+        for lead in self:
+            lead.name = False
+            lead.name = self.get_value_from_source(
+                "ir.config_parameter", "crm_name.crm_lead_name_expression"
+            )
