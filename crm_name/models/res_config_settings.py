@@ -10,22 +10,9 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         string="Lead Name Pattern",
     )
-    crm_lead_name_expression_triggers = fields.Char(
-        config_parameter="crm_name.crm_lead_name_expression_triggers",
-        readonly=False,
-        string="Lead Name Pattern Triggers",
-        help="Restart Odoo for changes to take effect"
-    )
 
     @api.constrains("crm_lead_name_expression", "crm_lead_name_expression_triggers")
     def _check_crm_lead_name_expression_and_triggers(self):
-        Lead = self.env["crm.lead"]
-
-        Lead.raise_error_if_invalid_field_paths_from_source(
+        self.env["crm.lead"].raise_error_if_invalid_field_paths_from_source(
             "ir.config_parameter", "crm_lead_name_expression"
         )
-
-        triggers = self.crm_lead_name_expression_triggers
-        if triggers:
-            trigger_paths = [part.strip() for part in self.crm_lead_name_expression_triggers.split(",") if part.strip()]
-            Lead.raise_error_if_invalid_field_paths(trigger_paths)

@@ -24,10 +24,7 @@
                     </block>
                 </xpath>
                 <field name="crm_lead_name_expression" position="attributes">
-                    <attribute name="placeholder">{r.partner_id.short_name if r.partner_id.short_name else r.partner_id.name}{' - ' + r.project_address if r.project_address else ''}</attribute>
-                </field>
-                <field name="crm_lead_name_expression_triggers" position="attributes">
-                    <attribute name="placeholder">partner_id, project_address</attribute>
+                    <attribute name="placeholder">{r.get_partner_name_and_project_address()}</attribute>
                 </field>
             </field>
         </record>
