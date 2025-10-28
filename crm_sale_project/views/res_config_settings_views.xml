@@ -14,17 +14,10 @@
                                 class="w-100"
                             />
                         </setting>
-                        <setting string="Name for new project">
-                            <field
-                                name="crm_sale_project__project_name_pattern"
-                                placeholder="{r.sale_order_id.name} {r.sale_order_id.opportunity_id.name}"
-                                class="w-100"
-                            />
-                        </setting>
                     </block>
                 </xpath>
                 <field name="crm_lead_name_expression" position="attributes">
-                    <attribute name="placeholder">{r.get_partner_name_and_project_address()}</attribute>
+                    <attribute name="placeholder">{r.get_partner_name_and_project_address(' - ')}</attribute>
                 </field>
             </field>
         </record>

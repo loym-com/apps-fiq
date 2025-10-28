@@ -19,6 +19,6 @@
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.5.1.7",
+    "version": "18.0.5.1.8",
     "website": "https://www.loym.com",
 }

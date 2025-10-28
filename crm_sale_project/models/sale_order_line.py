@@ -9,7 +9,8 @@ class SaleOrderLine(models.Model):
     def _timesheet_create_project(self):
         # name
         project = super()._timesheet_create_project()
-        project._compute_name_from_settings()
+        if self.order_id.opportunity_id:
+            project.name = f"{self.order_id.name} {self.order_id.opportunity_id.name}"
         return project
 
     def _timesheet_create_project_prepare_values(self):
