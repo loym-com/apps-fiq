@@ -15,13 +15,14 @@ class SaleOrderLine(models.Model):
 
     def _timesheet_create_project_prepare_values(self):
         project_values = super()._timesheet_create_project_prepare_values()
+        # Set user
         project_values["user_id"] = self.order_id.user_id.id
+        # Set no parent
         if "parent_id" in self.env["project.project"]._fields:
             project_values["parent_id"] = False
-
-        template = self.product_id.project_template_id
-
+        # Set assignments
         try: # assignment_ids (OCA/project project_role)
+            template = self.product_id.project_template_id
             assignment_values = []
             for assignment in template.assignment_ids:
                 dummy_salesperson_ref = "portal_user.res_users_dummy_salesperson"
@@ -54,3 +55,19 @@ class SaleOrderLine(models.Model):
             pass # no attr assignment_ids
 
         return project_values
+
+    def _timesheet_create_task(self, project):
+        # name
+        task = super()._timesheet_create_task(project)
+        if self.order_id.opportunity_id:
+            task.name = f"{self.order_id.name} {self.order_id.opportunity_id.name}"
+        return task
+
+    def _timesheet_create_task_prepare_values(self, project):
+        task_values = super()._timesheet_create_task_prepare_values(project)
+        # Set user
+        task_values["user_ids"] = [Command.set([self.order_id.user_id.id])]
+        # Set no parent
+        if "parent_id" in self.env["project.project"]._fields:
+            task_values["parent_id"] = False
+        return task_values
