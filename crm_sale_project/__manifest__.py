@@ -10,7 +10,7 @@
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "base_mixin_expression_value",
+        "base_mixin_sequence_number", # "base_mixin_expression_value",
         # "crm_security_group",
         "crm_name",
         "partner_short_name",
@@ -19,6 +19,6 @@
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "18.0.5.1.5",
+    "version": "18.0.5.1.7",
     "website": "https://www.loym.com",
 }
