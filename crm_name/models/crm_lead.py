@@ -28,6 +28,6 @@ class CrmLead(models.Model):
     def _compute_name(self):
         for lead in self:
             lead.name = False
-            lead.name = self.get_value_from_source(
+            lead.name = lead.get_value_from_source(
                 "ir.config_parameter", "crm_name.crm_lead_name_expression"
             )
