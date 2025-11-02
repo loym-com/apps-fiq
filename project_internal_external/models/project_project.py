@@ -3,7 +3,10 @@ from odoo import api, fields, models
 
 class ProjectProject(models.Model):
     _name = "project.project"
-    _inherit = ["project.project", "sequence.number.mixin"]
+    _inherit = [
+        "project.project",
+        "display.name.mixin",  # Cannot inherit "expression.value.mixin" directly
+    ]
 
     internal_external = fields.Selection(
         string="Internal/External",

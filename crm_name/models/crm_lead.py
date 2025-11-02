@@ -5,7 +5,7 @@ class CrmLead(models.Model):
     _name = "crm.lead"
     _inherit = [
         "crm.lead",
-        "sequence.number.mixin", # Cannot inherit "expression.value.mixin" directly
+        "display.name.mixin",  # Cannot inherit "expression.value.mixin" directly
     ]
 
     partner_short_name = fields.Char(
@@ -25,6 +25,7 @@ class CrmLead(models.Model):
             self._compute_name()
         return self
 
+    @api.depends("write_date", "partner_id.name", "partner_id.short_name")
     def _compute_name(self):
         for lead in self:
             lead.name = False
