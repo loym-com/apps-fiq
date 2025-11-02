@@ -20,7 +20,7 @@ class ProjectProject(models.Model):
     def set_sequence_code(self):
         for rec in self:
             if not rec.sequence_sequence:
-                rec.sequence_sequence = rec.sequence_code
+                rec.sequence_sequence = self.env["ir.sequence"].next_by_code("project.sequence")
             rec.sequence_code = rec.get_value_from_source(
                 "ir.config_parameter", "project_internal_external.project_sequence_pattern"
             )
