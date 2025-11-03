@@ -25,13 +25,15 @@ class TestCrmLead(TransactionCase):
         lead.partner_id = self.env["res.partner"].create(
             {"name": "Contact", "is_company": True}
         ).id
-        lead.sale_order_product_id = self.env["product.template"].create(
+        product_template = self.env["product.template"].create(
             {
                 "name": "Project",
                 "type": "service",
                 "service_tracking": "task_in_project",
+                "sale_line_warn": "no-message",
             }
-        ).id
+        )
+        lead.sale_order_product_id = product_template.product_variant_ids.id
         lead.action_create_sale_order_and_project()
         correct_name = f"{lead.order_ids.name} {lead.name}"
         # Project name

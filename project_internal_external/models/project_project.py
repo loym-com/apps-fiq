@@ -5,7 +5,7 @@ class ProjectProject(models.Model):
     _name = "project.project"
     _inherit = [
         "project.project",
-        "display.name.mixin",  # Cannot inherit "expression.value.mixin" directly
+        "expression.value.mixin",
     ]
 
     internal_external = fields.Selection(

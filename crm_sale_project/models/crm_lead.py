@@ -74,7 +74,7 @@ class CrmLead(models.Model):
                 raise UserError("Missing a sale order product (set on the lead or in Settings).")
 
         # Check other values
-        if getattr(product.project_template_id, "is_fsm", False):
+        if product.project_template_id and getattr(product.project_template_id, "is_fsm", False):
             raise UserError("The product's project template is for field service management. Please select another product.")
         if not self.partner_id: raise UserError("Missing a contact.")
         if not self.partner_id.is_company: raise UserError("Contact should be a company.")

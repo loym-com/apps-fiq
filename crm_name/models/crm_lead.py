@@ -5,7 +5,7 @@ class CrmLead(models.Model):
     _name = "crm.lead"
     _inherit = [
         "crm.lead",
-        "display.name.mixin",  # Cannot inherit "expression.value.mixin" directly
+        "expression.value.mixin",
     ]
 
     partner_short_name = fields.Char(

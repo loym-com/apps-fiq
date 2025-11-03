@@ -11,7 +11,7 @@
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "base_mixin_sequence_number",
+        "base_mixin_expression_value",
         "crm",
         "partner_short_name",
     ],
