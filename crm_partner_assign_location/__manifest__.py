@@ -13,6 +13,6 @@
         "partner_assign_location",
     ],
     "license": "AGPL-3",
-    "version": "18.0.5.1.0",
+    "version": "18.0.5.1.11",
     # "website": "https://www.loym.com",
 }
