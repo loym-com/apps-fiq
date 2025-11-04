@@ -6,7 +6,7 @@
     "author": "Norsk Pharma",
     "website": "",
     "category": "",
-    "version": "19.0.1.0.0",
+    "version": "19.0.5.0.0",
     "license": "AGPL-3",
     "depends": ["website_crm_partner_assign"],
     "data": [

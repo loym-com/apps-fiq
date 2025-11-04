@@ -6,7 +6,7 @@
     "author": "FIQ, Loym, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/mail",
     "category": "",
-    "version": "19.0.1.0.2",
+    "version": "19.0.5.0.0",
     "license": "AGPL-3",
     "depends": ["mail_message_search"],
     "data": [

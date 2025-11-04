@@ -13,6 +13,6 @@
         "documents_project",
     ],
     "license": "AGPL-3",
-    "version": "19.0.4.0.6",
+    "version": "19.0.5.0.0",
     "website": "https://www.loym.com",
 }

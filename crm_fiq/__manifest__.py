@@ -5,11 +5,11 @@
     "summary": "",
     "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/knowledge",
-    "version": "19.0.1.0.0",
+    "version": "19.0.5.0.0",
     "license": "AGPL-3",
     "depends": [
         "base_fiq",
         "crm_sale_project",
-        "crm_unique_code",
+        "crm_sequence_number",
     ],
 }

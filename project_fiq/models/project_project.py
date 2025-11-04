@@ -1,3 +1,4 @@
+
 from odoo import api, fields, models
 
 
@@ -5,13 +6,19 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
     _order = "name"
 
-    @api.constrains("unique_code")
+    # TODO: Remove when databases are clean
+
+    unique_code = fields.Char()
+
+    # TODO: Replace constrains with create/write?
+
+    @api.constrains("sequence_number")
     def _set_alias_name(self):
         for record in self:
             # Set alias name
-            record.alias_name = record.unique_code
+            record.alias_name = record.sequence_number
 
-    @api.constrains("unique_code", "name")
+    @api.constrains("sequence_number", "name")
     def _set_documents_folder_name(self):
         for record in self:
             # Set documents folder name
@@ -26,7 +33,7 @@ class ProjectProject(models.Model):
 
     def _compute_sp_folder_name(self):
         for record in self:
-            if record.unique_code:
-                record.sp_folder_name = record.unique_code + " " + record.name
+            if record.sequence_number:
+                record.sp_folder_name = record.sequence_number + " " + record.name
             else:
                 record.sp_folder_name = record.name

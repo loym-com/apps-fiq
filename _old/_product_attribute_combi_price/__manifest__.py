@@ -4,7 +4,7 @@
     "name": "NOT IN USE - Product Attribute Value Combination Price",
     "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/product-attribute",
-    "version": "19.0.1.0.1",
+    "version": "19.0.5.0.0",
     "license": "AGPL-3",
     "depends": ["product"],
     "data": [

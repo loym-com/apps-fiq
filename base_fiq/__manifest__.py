@@ -5,16 +5,15 @@
     "summary": "",
     "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/knowledge",
-    "version": "19.0.1.0.2",
+    "version": "19.0.5.0.0",
     "license": "AGPL-3",
     "data": [
         "views/ir_module_views.xml",
     ],
     "depends": [
-        "base_unique_code",
+        "partner_sequence_number",
         # "document_url", # OCA/document (attachment url)
         # "partner_assign_location",
         # "portal_user", # Cannot install fiq_base when portal_user is a dependency
-        "sequence_choice",
     ],
 }
