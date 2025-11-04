@@ -30,7 +30,6 @@ class TestCrmLead(TransactionCase):
                 "name": "Project",
                 "type": "service",
                 "service_tracking": "task_in_project",
-                "sale_line_warn": "no-message",
             }
         )
         lead.sale_order_product_id = product_template.product_variant_ids.id
