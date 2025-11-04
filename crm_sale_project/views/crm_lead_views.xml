@@ -16,15 +16,13 @@
                     />
                 </xpath>
                 <xpath expr="//group[@name='lead_partner']/field[@name='partner_id']" position="after">
-                    <field name="partner_short_name" readonly="1"/>
-                    <field name="project"/>
+                    <field name="project_address"/>
                 </xpath>
                 <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="after">
-                    <field name="partner_short_name" readonly="1"/>
-                    <field name="project"/>
+                    <field name="project_address"/>
                 </xpath>
                 <field name="user_id" position="after">
-                    <field name="sale_order_product_id" domain="[('project_template_id', '!=', False)]"/>
+                    <field name="sale_order_product_id" domain="['|', ('project_id', '!=', False), ('project_template_id', '!=', False)]"/>
                 </field>
                 <notebook position="inside">
                     <page name="sale_order_project_ids" string="Projects" invisible="sale_order_project_count == 0">

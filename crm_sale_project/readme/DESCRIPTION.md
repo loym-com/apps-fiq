@@ -2,7 +2,7 @@ This module adds sequence and display of projects and tasks.
 
 All features of `project_sequence` and `project_task_code` are included,
 except for the changes listed below.
-Generic features are moved to dependency modules `sequence` and `display_name`.
+Generic features are moved to dependency modules `base_sequence_number` and `base_expression_value`.
 
 Important changes:
 

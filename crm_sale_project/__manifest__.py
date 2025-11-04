@@ -4,20 +4,21 @@
 {
     "name": "CRM: Create sale order and project",
     "summary": "",
-    "author": "Loym, FIQ",
+    "author": "FIQ, Loym",
     "data": [
         "views/crm_lead_views.xml",
         "views/res_config_settings_views.xml",
     ],
     "depends": [
-        "base_display_name", # sale.order.name: _get_value_from_indexed_pattern()
+        "base_mixin_sequence_number", # "base_mixin_expression_value",
         # "crm_security_group",
+        "crm_name",
         "partner_short_name",
         "portal_user", # dummy placeholders
         "sale_crm",
         "sale_project",
     ],
     "license": "AGPL-3",
-    "version": "19.0.1.0.14",
+    "version": "19.0.2.0.0",
     "website": "https://www.loym.com",
 }

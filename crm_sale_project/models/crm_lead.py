@@ -31,11 +31,34 @@ class CrmLead(models.Model):
         compute="_compute_sale_order_project_count",
         string="Sale Order Project Count",
     )
-    partner_short_name = fields.Char(
-        related="partner_id.short_name",
-        string="Short Name",
-    )
-    project = fields.Char()
+    project_address = fields.Char("Project Address")
+
+    @api.depends("project_address")
+    def _compute_name(self):
+        return super()._compute_name()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if "name" in vals and not vals.get("project_address"):
+                vals["project_address"] = vals["name"]
+            if "partner_name" in vals and not vals.get("contact_name"):
+                vals["contact_name"] = vals["partner_name"]
+        return super().create(vals_list)
+
+    def get_partner_name_and_project_address(self, delimiter):
+        self.ensure_one()
+        result = []
+        partner = self.partner_id
+        if partner and partner.short_name:
+            result.append(partner.short_name)
+        elif partner and partner.name:
+            result.append(partner.name)
+        elif self.partner_name:
+            result.append(self.partner_name)
+        if self.project_address:
+            result.append(self.project_address)
+        return delimiter.join(result)
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
@@ -51,7 +74,7 @@ class CrmLead(models.Model):
                 raise UserError("Missing a sale order product (set on the lead or in Settings).")
 
         # Check other values
-        if product.project_template_id.is_fsm:
+        if product.project_template_id and getattr(product.project_template_id, "is_fsm", False):
             raise UserError("The product's project template is for field service management. Please select another product.")
         if not self.partner_id: raise UserError("Missing a contact.")
         if not self.partner_id.is_company: raise UserError("Contact should be a company.")
