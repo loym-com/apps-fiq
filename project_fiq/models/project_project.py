@@ -34,6 +34,6 @@ class ProjectProject(models.Model):
     def _compute_sp_folder_name(self):
         for record in self:
             if record.sequence_number:
-                record.sp_folder_name = record.sequence_number + " " + record.name
+                record.sp_folder_name = record.sequence_code + " " + record.name
             else:
                 record.sp_folder_name = record.name
