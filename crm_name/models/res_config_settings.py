@@ -13,6 +13,6 @@ class ResConfigSettings(models.TransientModel):
 
     @api.constrains("crm_lead_name_expression")
     def _check_crm_lead_name_expression_and_triggers(self):
-        self.env["crm.lead"].raise_error_if_invalid_field_paths_from_expression(
+        self.env["crm.lead"].raise_error_if_invalid_expression(
             self.crm_lead_name_expression
         )
