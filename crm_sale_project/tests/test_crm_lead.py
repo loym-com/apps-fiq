@@ -1,3 +1,4 @@
+from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
 
 
@@ -40,3 +41,20 @@ class TestCrmLead(TransactionCase):
         self.assertEqual(lead.sale_order_project_ids.name, correct_name)
         # Task name
         self.assertEqual(lead.sale_order_project_ids.task_ids.name, correct_name)
+
+    def test_crm_lead_valid_field_and_method(self):
+        self.env["crm.lead"].raise_error_if_invalid_expression(
+            "{r.id} {r.get_partner_name_and_project_address(' - ')}"
+        )
+
+    def test_crm_lead_invalid_field(self):
+        with self.assertRaises(ValidationError):
+            self.env["crm.lead"].raise_error_if_invalid_expression(
+                "{r.non_existing_field}"
+            )
+
+    def test_crm_lead_invalid_method(self):
+        with self.assertRaises(ValidationError):
+            self.env["crm.lead"].raise_error_if_invalid_expression(
+                "{r.non_existing_method()}"
+            )
