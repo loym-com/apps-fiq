@@ -4,7 +4,7 @@
     "name": "FIQ Mail Apps",
     "author": "FIQ as, Odoo Community Association (OCA)",
     "website": "https://fiq.no",
-    "version": "19.0.5.0.0",
+    "version": "19.0.5.0.1",
     "license": "AGPL-3",
     "data": [
         "data/ir_config_parameter_data.xml",
