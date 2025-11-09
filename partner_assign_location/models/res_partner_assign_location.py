@@ -106,6 +106,7 @@ class ResPartnerAssignLocation(models.Model):
         if not self.env.context.get("_setting_location_fields"):
             self._set_location_fields()
             self._check_for_conflicts()
+        return True
 
     def _set_location_fields(self):
         for record in self.with_context(_setting_location_fields=True):

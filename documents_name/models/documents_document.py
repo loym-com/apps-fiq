@@ -22,10 +22,10 @@ class DocumentsDocument(models.Model):
     
     def write(self, vals):
         vals = self._set_name_or_name_translate_in_vals(vals)
-        true = super().write(vals)
+        super().write(vals)
         # If name is not in vals, it is computed.
-        if true:
-            return self._set_name_or_name_translate()
+        self._set_name_or_name_translate()
+        return True
     
     def _set_name_or_name_translate_in_vals(self, vals):
         if "name_translate" in vals:
@@ -40,4 +40,3 @@ class DocumentsDocument(models.Model):
                 record.name_translate = record.name
             elif not record.name and record.name_translate:
                 record.name = record.name_translate
-        return True
