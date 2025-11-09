@@ -23,7 +23,7 @@ class CrmLead(models.Model):
         super().write(vals)
         if "name" not in vals:
             self._compute_name()
-        return self
+        return True
 
     @api.depends("write_date", "partner_id.name", "partner_id.short_name")
     def _compute_name(self):
