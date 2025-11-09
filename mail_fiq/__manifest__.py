@@ -18,7 +18,8 @@
 
         # OCA
         # "mail_composer_cc_bcc", # git@github.com:norlinhenrik/oca-mail.git      ### 19.0-fix-mail_mail-email_to                  ### beta/mail
-        # "mail_message_search",
+        # "mail_force_email_notification",
+        "mail_message_search",
         # "mail_optional_follower_notification", # git@github.com:odoonz/mail.git ### 19.0-mig-mail_optional_follower_notification ### beta/.mail_optional_follower_notification
         #     # shell
         #     #   cd src/user/beta
@@ -28,13 +29,14 @@
         #     #   git commit -am "link mail_optional_follower_notification"
         #     #   git push -u origin Staging
         # "mail_quoted_reply",
-        # "mail_send_confirmation",
+        "mail_send_confirmation",
         # "mail_tracking",
 
         # Loym/FIQ
         "base_fiq",
         "mail_config_by_user",
         # "mail_force_email_notification_compose",
+        "mail_message_search_global",
         "mail_message_security",
         "mail_never_autofollow", # consider mail_optional_autofollow https://github.com/OCA/mail/pull/29
 
