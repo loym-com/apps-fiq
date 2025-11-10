@@ -5,12 +5,11 @@
         <field name="inherit_id" ref="documents.tag_view_form"/>
         <field name="arch" type="xml">
             <data>
-                <field name="tooltip" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </field>
-                <field name="tooltip" position="after">
-                    <field name="tooltip_translate" string="Tooltip" />
-                </field>
+                <group name="tooltip" position="replace">
+                    <group name="tooltip_translate" string="Tooltip" >
+                        <field name="tooltip_translate" string="Tooltip" />
+                    </group>
+                </group>
                 <sheet position="inside">
                     <group name="group_tag_hierarchy" string="Tag Hierarchy">
                         <field name="parent_id" />
