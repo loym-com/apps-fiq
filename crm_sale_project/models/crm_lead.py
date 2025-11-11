@@ -62,7 +62,7 @@ class CrmLead(models.Model):
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
-        
+
         # Get sale order PRODUCT >> project TEMPLATE
         product = self.sale_order_product_id
         if not product:
