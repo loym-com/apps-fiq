@@ -147,6 +147,6 @@ class ResPartnerAssignLocation(models.Model):
 
             # Save conflicts
             conflicts = record.search(domain)
-            if not self.is_exclusive:
+            if not record.is_exclusive:
                 conflicts = conflicts.filtered(lambda r: r.is_exclusive)
             record.conflict_ids = [Command.set(conflicts.ids)]

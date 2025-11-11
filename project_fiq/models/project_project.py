@@ -12,13 +12,13 @@ class ProjectProject(models.Model):
 
     # TODO: Replace constrains with create/write?
 
-    @api.constrains("sequence_number")
+    @api.constrains("sequence_code")
     def _set_alias_name(self):
         for record in self:
             # Set alias name
-            record.alias_name = record.sequence_number
+            record.alias_name = record.sequence_code
 
-    @api.constrains("sequence_number", "name")
+    @api.constrains("sequence_code", "name")
     def _set_documents_folder_name(self):
         for record in self:
             # Set documents folder name
@@ -33,7 +33,7 @@ class ProjectProject(models.Model):
 
     def _compute_sp_folder_name(self):
         for record in self:
-            if record.sequence_number:
+            if record.sequence_code:
                 record.sp_folder_name = record.sequence_code + " " + record.name
             else:
                 record.sp_folder_name = record.name
