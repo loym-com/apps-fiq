@@ -20,6 +20,6 @@
         "contacts",
     ],
     "license": "AGPL-3",
-    "version": "18.0.5.1.1",
+    "version": "18.0.5.1.2",
     # "website": "https://www.loym.com",
 }
