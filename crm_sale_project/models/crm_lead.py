@@ -8,7 +8,7 @@ class CrmLead(models.Model):
     @api.depends("order_ids")
     def _compute_sale_order_project_ids(self):
         for r in self:
-            r.sale_order_project_ids = r.order_ids.mapped(lambda o: o.project_ids).ids
+            r.sale_order_project_ids = r.order_ids.mapped(lambda o: o.order_line).mapped(lambda o: o.project_id).ids
 
     @api.depends("order_ids")
     def _compute_sale_order_project_count(self):
@@ -58,7 +58,10 @@ class CrmLead(models.Model):
             result.append(self.partner_name)
         if self.project_address:
             result.append(self.project_address)
-        return delimiter.join(result)
+        if result:
+            return delimiter.join(result)
+        else:
+            return self.id
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
@@ -73,6 +76,12 @@ class CrmLead(models.Model):
             else:
                 raise UserError("Missing a sale order product (set on the lead or in Settings).")
 
+        # Product's PROJECT - depends on crm_timesheet
+        original_product_project = None
+        if product.service_tracking == "task_global_project" and self.project_id:
+            original_product_project = product.project_id
+            product.project_id = self.project_id
+
         # Check other values
         if product.project_template_id and getattr(product.project_template_id, "is_fsm", False):
             raise UserError("The product's project template is for field service management. Please select another product.")
@@ -80,6 +89,7 @@ class CrmLead(models.Model):
         if not self.partner_id.is_company: raise UserError("Contact should be a company.")
 
         # Create
+        order_line = None
         if not self.sale_order_project_ids:
             if not self.company_id:
                 raise UserError("Missing a salesperson.")
@@ -101,4 +111,12 @@ class CrmLead(models.Model):
                     "product_id": product.id,
                 }
             )
-            order.action_confirm() # will create project
+            order.action_confirm() # will create project and/or task
+
+        # Product's PROJECT reset
+        if original_product_project:
+            product.project_id = original_product_project
+            if order_line:
+                # Link project to sale.order.line
+                order_line.project_id = self.project_id
+                order_line.project_id.sale_line_id = order_line.id

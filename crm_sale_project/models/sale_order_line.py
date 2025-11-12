@@ -52,7 +52,10 @@ class SaleOrderLine(models.Model):
                 )
             project_values["assignment_ids"] = assignment_values
         except AttributeError as e:
-            pass # no attr assignment_ids
+            pass # no attr
+
+        # sale_timesheet
+        project_values.setdefault('billing_type', 'not_billable')
 
         return project_values
 
