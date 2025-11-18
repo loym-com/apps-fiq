@@ -19,3 +19,15 @@ class ProjectProject(models.Model):
         compute="_compute_sp_folder_name",
         help="Sharepoint folder name"
     )
+
+    def _sync_related_records(self, vals=None):
+        super()._sync_related_records(vals)
+        for project in self:
+            # --- documents folder ---
+            # TODO: Write test
+            if project._fields.get("documents_folder_id") and project.documents_folder_id:
+                if not vals or "sequence_code" in vals:
+                    if project.documents_folder_id._fields.get("code"):
+                        project.documents_folder_id.code = project.sequence_code
+                if not vals or "name" in vals:
+                    project.documents_folder_id.name = project.name
