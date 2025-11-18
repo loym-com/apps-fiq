@@ -5,34 +5,17 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
     _order = "name"
 
-    # TODO: Remove when databases are clean
-
-    unique_code = fields.Char()
-
-    # TODO: Replace constrains with create/write?
-
-    @api.constrains("sequence_code")
-    def _set_alias_name(self):
+    @api.depends("sequence_code", "name")
+    def _compute_sp_folder_name(self):
         for record in self:
-            # Set alias name
-            record.alias_name = record.sequence_code
+            folder = record.documents_folder_id
+            if folder:
+                record.sp_folder_name = folder.display_name
+            else:
+                record.sp_folder_name = ""
 
-    @api.constrains("sequence_code", "name")
-    def _set_documents_folder_name(self):
-        for record in self:
-            # Set documents folder name
-            if record._fields.get("documents_folder_id") and record.documents_folder_id:
-                record.documents_folder_id.name = record.display_name
-
-    # Until sharepoint integration
     sp_folder_name = fields.Char(
         string="SP Folder Name",
         compute="_compute_sp_folder_name",
+        help="Sharepoint folder name"
     )
-
-    def _compute_sp_folder_name(self):
-        for record in self:
-            if record.sequence_code:
-                record.sp_folder_name = record.sequence_code + " " + record.name
-            else:
-                record.sp_folder_name = record.name
