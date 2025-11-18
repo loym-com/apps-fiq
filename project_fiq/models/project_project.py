@@ -24,6 +24,12 @@ class ProjectProject(models.Model):
     def _sync_related_records(self, vals=None):
         super()._sync_related_records(vals)
         for project in self:
+
+            # --- alias_name ---
+            # TODO: Write test
+            if not vals or "sequence_code" in vals:
+                project.alias_name = project.sequence_code
+
             # --- documents folder ---
             # TODO: Write test
             if project._fields.get("documents_folder_id") and project.documents_folder_id:
