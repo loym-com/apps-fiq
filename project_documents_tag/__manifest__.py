@@ -2,19 +2,17 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Project Documents Tab",
+    "name": "Project Documents Tags",
     "summary": "",
-    "author": "Loym",
+    "author": "FIQ, Loym",
     "data": [
         "views/project_project_views.xml",
-        "views/res_partner_views.xml",
+        "views/project_task_views.xml",
     ],
     "depends": [
-        "documents_name", # default_order
         "documents_project",
-        "project_partner_rel",
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.0.0",
+    "version": "18.0.5.1.0",
     "website": "https://www.loym.com",
 }
