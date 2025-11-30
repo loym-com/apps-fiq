@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.partner_documents_tag</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <data>
+                <field name="vat" position="after">
+                    <field name="documents_tag_id" />
+                    <field name="documents_tag_ids_filter" widget="boolean_toggle" />
+                    <field
+                        name="documents_tag_ids"
+                        invisible="documents_tag_ids_filter"
+                        widget="many2many_tags"
+                        options="{'no_quick_create': True}"
+                    />
+                    <field
+                        name="documents_tag_ids"
+                        domain="[('id', 'child_of', documents_tag_id)]"
+                        invisible="not documents_tag_ids_filter"
+                        widget="many2many_tags"
+                        options="{'no_quick_create': True}"
+                    />
+                </field>
+            </data>
+        </field>
+    </record>
+</data>
