@@ -20,3 +20,9 @@ class ProjectProject(models.Model):
 
     def _compute_documents_tag_ids_filter(self):
         self.documents_tag_ids_filter = True
+
+    def _get_document_vals(self, attachment):
+        vals = super()._get_document_vals(attachment)
+        if self.documents_tag_id:
+            vals['tag_id'] = self.documents_tag_id.id
+        return vals
