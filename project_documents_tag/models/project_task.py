@@ -4,24 +4,8 @@ from odoo import api, fields, models, Command
 
 
 class ProjectTask(models.Model):
-    _inherit = "project.task"
-
-    documents_tag_id = fields.Many2one(
-        comodel_name="documents.tag",
-        string="Default Main Tag",
-    )
-    documents_tag_ids = fields.Many2many(
-        comodel_name="documents.tag",
-        string="Default Tags",
-    )
-    documents_tag_ids_filter = fields.Boolean(
-        string="Default Tags Filter",
-        default=True,
-        store=False,
-    )
-
-    def _compute_documents_tag_ids_filter(self):
-        self.documents_tag_ids_filter = True
+    _name = "project.task"
+    _inherit = ["project.task", "documents.tag.mixin"]
 
     def _get_document_vals(self, attachment):
         vals = super()._get_document_vals(attachment)

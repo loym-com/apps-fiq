@@ -30,10 +30,9 @@
                 </footer>
                 <field name="tag_ids" position="attributes">
                     <attribute name="groups">base.group_user</attribute>
-                    <attribute name="invisible">type == 'folder'</attribute>
                 </field>
                 <field name="tag_ids" position="before">
-                    <field name="tag_id" invisible="type != 'folder'" groups="base.group_user" />
+                    <field name="tag_id" groups="base.group_user" />
                     <field name="tag_tooltip_translate" invisible="type != 'folder'" groups="base.group_user" />
                 </field>
             </data>

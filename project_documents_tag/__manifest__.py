@@ -11,6 +11,7 @@
     ],
     "depends": [
         "documents_project",
+        "documents_tag",
     ],
     "license": "AGPL-3",
     "version": "18.0.5.1.0",
