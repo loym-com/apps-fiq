@@ -1,26 +1,33 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
 class CrmLead(models.Model):
     _inherit = "crm.lead"
 
+    def _default_sale_order_product_id(self):
+        product_id = self.env["ir.config_parameter"].sudo().get_param(
+            "crm_sale_project.sale_order_product_id"
+        )
+        if product_id:
+            return int(product_id)
+        return False
+
     @api.depends("order_ids")
     def _compute_sale_order_project_ids(self):
         for r in self:
-            r.sale_order_project_ids = r.order_ids.mapped(lambda o: o.order_line).mapped(lambda o: o.project_id).ids
+            r.sale_order_project_ids = r.order_ids.mapped(lambda o: o.project_id).ids
 
     @api.depends("order_ids")
     def _compute_sale_order_project_count(self):
         for r in self:
-            r.sale_order_project_count = self.env["project.project"].search_count(
-                [("sale_order_id.opportunity_id.id", "=", r.id)]
-            )
+            r.sale_order_project_count = len(self.sale_order_project_ids)
 
     sale_order_product_id = fields.Many2one(
         "product.product",
         string="Sale Order Product",
         help="Product used when creating a sale order from the opportunity.",
+        default=lambda self: self._default_sale_order_product_id(),
     )
     sale_order_project_ids = fields.Many2many(
         "project.project",
@@ -65,22 +72,14 @@ class CrmLead(models.Model):
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
+        self.create_sale_order_and_project()
+        self.move_attachments_to_task_or_project()
 
+    def create_sale_order_and_project(self):
         # Get sale order PRODUCT >> project TEMPLATE
         product = self.sale_order_product_id
         if not product:
-            get_param = self.env["ir.config_parameter"].sudo().get_param
-            product_id = get_param("crm_sale_project.sale_order_product_id")
-            if product_id:
-                product = self.env["product.product"].browse(int(product_id))
-            else:
-                raise UserError("Missing a sale order product (set on the lead or in Settings).")
-
-        # Product's PROJECT - depends on crm_timesheet
-        original_product_project = None
-        if product.service_tracking == "task_global_project" and self.project_id:
-            original_product_project = product.project_id
-            product.project_id = self.project_id
+            raise UserError("Missing a sale order product (set on the lead or in Settings).")
 
         # Check other values
         # if product.project_template_id and getattr(product.project_template_id, "is_fsm", False):
@@ -103,6 +102,7 @@ class CrmLead(models.Model):
                     "campaign_id": self.campaign_id.id,
                     "medium_id": self.medium_id.id,
                     "source_id": self.source_id.id,
+                    "project_id": self.project_id.id, # if empty, Odoo will fill it based on the product service_tracking
                 }
             )
             order_line = self.env["sale.order.line"].create(
@@ -114,10 +114,64 @@ class CrmLead(models.Model):
             )
             order.action_confirm() # will create project and/or task
 
-        # Product's PROJECT reset
-        if original_product_project:
-            product.project_id = original_product_project
-            if order_line:
-                # Link project to sale.order.line
-                order_line.project_id = self.project_id
-                order_line.project_id.sale_line_id = order_line.id
+    def move_attachments_to_task_or_project(self):
+        """Associate existing CRM lead attachments with project/task depending on service_tracking"""
+        self.ensure_one()
+        attachments = self.env['ir.attachment'].search([
+            ('res_model', '=', 'crm.lead'),
+            ('res_id', '=', self.id)
+        ])
+        if not attachments:
+            return
+
+        product = self.sale_order_product_id
+        if not product:
+            raise UserError(_("No product is selected for the CRM lead name %s.") % (self.name))
+
+        service_tracking = product.service_tracking
+        if not service_tracking:
+            raise UserError(_("Product '%s' has no service_tracking.") % (product.name))
+
+        Project = self.env['project.project']
+        Task = self.env['project.task']
+
+        if service_tracking == "project_only":
+            # Find project where name contains lead name
+            projects = self.sale_order_project_ids.filtered(lambda p: self.name in p.name)
+            if len(projects) != 1:
+                raise UserError(_("There must be exactly one project containing the CRM lead name '%s'. Found: %d") % (self.name, len(projects)))
+            project = projects[0]
+
+            attachments.write({
+                'res_model': 'project.project',
+                'res_id': project.id,
+            })
+
+        elif service_tracking == "task_global_project":
+            tasks = self.sale_order_project_ids.mapped('task_ids').filtered(lambda t: self.name in t.name)
+            if len(tasks) != 1:
+                raise UserError(_("There must be exactly one task containing the CRM lead name '%s'. Found: %d") % (self.name, len(tasks)))
+            task = tasks[0]
+
+            attachments.write({
+                'res_model': 'project.task',
+                'res_id': task.id,
+            })
+
+        elif service_tracking == "task_in_project":
+            projects = self.sale_order_project_ids.filtered(lambda p: self.name in p.name)
+            if len(projects) != 1:
+                raise UserError(_("There must be exactly one project containing the CRM lead name '%s'. Found: %d") % (self.name, len(projects)))
+            project = projects[0]
+
+            tasks = project.task_ids.filtered(lambda t: self.name in t.name)
+            if len(tasks) != 1:
+                raise UserError(_("There must be exactly one task in project '%s' containing the CRM lead name '%s'. Found: %d") % (project.name, self.name, len(tasks)))
+            task = tasks[0]
+
+            attachments.write({
+                'res_model': 'project.task',
+                'res_id': task.id,
+            })
+        else:
+            raise UserError(_("Unknown service tracking type: %s") % service_tracking)
