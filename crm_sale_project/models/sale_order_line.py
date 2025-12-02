@@ -59,12 +59,13 @@ class SaleOrderLine(models.Model):
 
         return project_values
 
-    # def _timesheet_create_task(self, project):
-    #     # name
-    #     task = super()._timesheet_create_task(project)
-    #     if self.order_id.opportunity_id:
-    #         task.name = f"{self.order_id.name} {self.order_id.opportunity_id.name}"
-    #     return task
+    def _timesheet_create_task(self, project):
+        # name
+        task = super()._timesheet_create_task(project)
+        if self.order_id.opportunity_id:
+            partner = self.order_partner_id
+            task.name = f"{self.product_id.name} - {partner.short_name or partner.name}"
+        return task
 
     def _timesheet_create_task_prepare_values(self, project):
         task_values = super()._timesheet_create_task_prepare_values(project)
