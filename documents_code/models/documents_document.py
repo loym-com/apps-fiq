@@ -14,6 +14,7 @@ class DocumentsDocument(models.Model):
     code = fields.Char(
         string="Code",
         help="Internal code to identify the document or folder",
+        copy=False,
     )
 
     @api.depends("code", "name")
