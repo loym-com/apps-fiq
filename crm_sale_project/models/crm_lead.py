@@ -72,8 +72,8 @@ class CrmLead(models.Model):
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
-        self.create_sale_order_and_project()
-        self.move_attachments_to_task_or_project()
+        order = self.create_sale_order_and_project()
+        self.move_attachments_to_task_or_project(order.order_line)
 
     def create_sale_order_and_project(self):
         # Get sale order PRODUCT >> project TEMPLATE
@@ -89,7 +89,6 @@ class CrmLead(models.Model):
         # if not self.partner_id.is_company: raise UserError("Contact should be a company.")
 
         # Create
-        order_line = None
         if not self.sale_order_project_ids:
             if not self.company_id:
                 raise UserError("Missing a salesperson.")
@@ -113,8 +112,9 @@ class CrmLead(models.Model):
                 }
             )
             order.action_confirm() # will create project and/or task
+            return order
 
-    def move_attachments_to_task_or_project(self):
+    def move_attachments_to_task_or_project(self, order_line):
         """Associate existing CRM lead attachments with project/task depending on service_tracking"""
         self.ensure_one()
         attachments = self.env['ir.attachment'].search([
@@ -164,7 +164,7 @@ class CrmLead(models.Model):
                 raise UserError(_("There must be exactly one project containing the CRM lead name '%s'. Found: %d") % (self.name, len(projects)))
             project = projects[0]
 
-            tasks = project.task_ids.filtered(lambda t: self.name in t.name)
+            tasks = project.task_ids.filtered(lambda t: t.name == order_line._timesheet_get_task_name())
             if len(tasks) != 1:
                 raise UserError(_("There must be exactly one task in project '%s' containing the CRM lead name '%s'. Found: %d") % (project.name, self.name, len(tasks)))
             task = tasks[0]
