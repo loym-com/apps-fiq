@@ -13,7 +13,7 @@
     ],
     "depends": [
         "base_fiq",
-        # "documents_code", # First install documents_code
+        "documents_code",
         "documents_form",
         "documents_name",
         "documents_tag",
