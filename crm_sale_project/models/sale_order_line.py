@@ -60,11 +60,10 @@ class SaleOrderLine(models.Model):
         return project_values
 
     def _timesheet_create_task(self, project):
-        # name
+        # Set name
         task = super()._timesheet_create_task(project)
         if self.order_id.opportunity_id:
-            partner = self.order_partner_id
-            task.name = f"{self.product_id.name} - {partner.short_name or partner.name}"
+            task.name = self._timesheet_get_task_name()
         return task
 
     def _timesheet_create_task_prepare_values(self, project):
@@ -75,3 +74,7 @@ class SaleOrderLine(models.Model):
         if "parent_id" in self.env["project.project"]._fields:
             task_values["parent_id"] = False
         return task_values
+
+    def _timesheet_get_task_name(self):
+        partner = self.order_partner_id
+        return f"{self.product_id.name} - {partner.short_name or partner.name}"
