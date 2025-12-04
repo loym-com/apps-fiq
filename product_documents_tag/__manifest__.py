@@ -2,14 +2,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "CRM Documents Tags",
+    "name": "Product Variant Documents Tags",
     "summary": "",
     "author": "FIQ, Loym",
     "data": [
         "views/product_product_views.xml",
     ],
     "depends": [
-        "crm",
+        "product",
         "documents_tag",
     ],
     "license": "AGPL-3",
