@@ -9,6 +9,11 @@ class DocumentsTag(models.Model):
         string="Tooltip.",
         translate=True,
     )
+    parent_id = fields.Many2one(
+        "documents.tag",
+        compute="_compute_parent_id",
+        store=True,
+    )
     parent_ids = fields.Many2many(
         'documents.tag',
         'documents_tag_hierarchy_rel',
@@ -47,6 +52,14 @@ class DocumentsTag(models.Model):
         elif "tooltip" in vals:
             vals["tooltip_translate"] = vals["tooltip"]
         return vals
+
+    @api.depends('parent_ids')
+    def _compute_parent_id(self):
+        for tag in self:
+            if len(tag.parent_ids) == 1:
+                tag.parent_id = tag.parent_ids[0]
+            else:
+                tag.parent_id = False
 
     def _compute_all_child_ids(self):
         for tag in self:

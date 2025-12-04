@@ -7,18 +7,30 @@ def migrate(cr, version):
     """
     env = api.Environment(cr, SUPERUSER_ID, {})
 
-    Tag = env['documents.tag']
+    # 1) Create the new M2M relation table if it doesn't exist
+    cr.execute("""
+        CREATE TABLE IF NOT EXISTS documents_tag_hierarchy_rel (
+            parent_id INTEGER NOT NULL,
+            child_id INTEGER NOT NULL,
+            CONSTRAINT documents_tag_hierarchy_rel_pkey PRIMARY KEY (parent_id, child_id)
+        )
+    """)
 
-    # Loop over all tags that have a parent
-    for tag in Tag.search([('parent_id', '!=', False)]):
-        parent = tag.parent_id
-        if parent:
-            # Insert into relation table if not already present
-            cr.execute("""
-                INSERT INTO documents_tag_hierarchy_rel (parent_id, child_id)
-                SELECT %s, %s
-                WHERE NOT EXISTS (
-                    SELECT 1 FROM documents_tag_hierarchy_rel
-                    WHERE parent_id = %s AND child_id = %s
-                )
-            """, (parent.id, tag.id, parent.id, tag.id))
+    # 2) Fetch all tags with a parent using SQL
+    cr.execute("""
+        SELECT id, parent_id
+        FROM documents_tag
+        WHERE parent_id IS NOT NULL
+    """)
+    rows = cr.fetchall()
+
+    for tag_id, parent_id in rows:
+        # Insert into relation table if not already present
+        cr.execute("""
+            INSERT INTO documents_tag_hierarchy_rel (parent_id, child_id)
+            SELECT %s, %s
+            WHERE NOT EXISTS (
+                SELECT 1 FROM documents_tag_hierarchy_rel
+                WHERE parent_id = %s AND child_id = %s
+            )
+        """, (parent_id, tag_id, parent_id, tag_id))
