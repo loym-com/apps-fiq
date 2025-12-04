@@ -44,9 +44,23 @@
         <field name="inherit_id" ref="documents.document_view_form"/>
         <field name="arch" type="xml">
             <data>
-                <field name="tag_ids" position="before">
-                    <field name="tag_id"/>
+                <field name="tag_ids" position="replace">
+                    <field name="tag_id" />
                     <field name="tag_tooltip_translate" />
+                    <field name="tag_ids_filter" widget="boolean_toggle" />
+                    <field
+                        name="tag_ids"
+                        invisible="tag_ids_filter"
+                        widget="many2many_tags"
+                        options="{'no_quick_create': True}"
+                    />
+                    <field
+                        name="tag_ids"
+                        domain="[('id', 'in', tag_all_child_ids)]"
+                        invisible="not tag_ids_filter"
+                        widget="many2many_tags"
+                        options="{'no_quick_create': True}"
+                    />
                 </field>
                 <!-- <field name="type" position="after">
                     <field name="tag_color" widget="color_picker" class="me-2"/>
