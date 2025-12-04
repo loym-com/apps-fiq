@@ -81,4 +81,8 @@ class DocumentsTag(models.Model):
             """
             self.env.cr.execute(query, (tag.id,))
             child_ids = [row[0] for row in self.env.cr.fetchall()]
-            tag.all_child_ids = self.env['documents.tag'].browse(child_ids)
+            tag.all_child_ids = (
+                self.env['documents.tag']
+                .browse(child_ids)
+                .sorted(key=lambda t: t.name)
+            )

@@ -6,12 +6,12 @@
         <field name="arch" type="xml">
             <data>
                 <group name="tooltip" position="replace">
-                    <group name="tooltip_translate" string="Tooltip" >
+                    <group name="tooltip_translate">
                         <field name="tooltip_translate" string="Tooltip" />
                     </group>
                 </group>
                 <sheet position="inside">
-                    <group name="group_tag_hierarchy" string="Tag Hierarchy">
+                    <group name="group_tag_hierarchy" string="Hierarchy">
                         <group>
                             <field name="parent_ids" />
                         </group>
