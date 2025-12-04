@@ -18,7 +18,7 @@
                         <group>
                             <field name="child_ids" />
                         </group>
-                        <group>
+                        <group colspan="2">
                             <field name="all_child_ids" widget="many2many_tags" />
                         </group>
                     </group>
