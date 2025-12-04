@@ -1,8 +1,7 @@
 from odoo import models, fields, api
 
 class DocumentsDocument(models.Model):
-    _name = "documents.document"
-    _inherit = ["documents.document", "documents.tag.mixin"]
+    _inherit = "documents.document"
 
     tag_id = fields.Many2one(
         comodel_name="documents.tag",

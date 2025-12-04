@@ -19,7 +19,7 @@
                             <field name="child_ids" />
                         </group>
                         <group>
-                            <field name="all_child_ids" />
+                            <field name="all_child_ids" widget="many2many_tags" />
                         </group>
                     </group>
                 </sheet>
