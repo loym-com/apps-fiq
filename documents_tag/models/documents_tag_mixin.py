@@ -10,15 +10,24 @@ class DocumentsTagMixin(models.AbstractModel):
         string="DOC Main Tag",
         help="Set this tag on new and existing documents",
     )
-    documents_tag_ids = fields.Many2many(
-        comodel_name="documents.tag",
-        string="DOC Tags",
-        help="Add these tags to new and existing documents",
+    documents_tag_tooltip_translate = fields.Char(
+        string="Tag Tooltip",
+        related="documents_tag_id.tooltip_translate",
+    )
+    documents_tag_all_child_ids = fields.Many2many(
+        'documents.tag',
+        related="documents_tag_id.all_child_ids",
+        string="DOC All Children",
     )
     documents_tag_ids_filter = fields.Boolean(
         string="DOC Tags Filter",
         default=True,
         store=False,
+    )
+    documents_tag_ids = fields.Many2many(
+        comodel_name="documents.tag",
+        string="DOC Tags",
+        help="Add these tags to new and existing documents",
     )
 
     def _compute_documents_tag_ids_filter(self):
