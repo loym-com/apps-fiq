@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
+    <record id="res_partner_view_list" model="ir.ui.view">
+        <field name="name">res.partner.view.list.inherit.partner_documents_tag</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <list position="inside">
+                <field name="documents_tag_id" optional="hide" />
+                <field name="documents_tag_ids" optional="hide" widget="many2many_tags" />
+            </list>
+        </field>
+    </record>
     <record id="res_partner_view_form" model="ir.ui.view">
         <field name="name">res.partner.view.form.inherit.partner_documents_tag</field>
         <field name="model">res.partner</field>
@@ -10,19 +21,26 @@
                     <field name="documents_tag_id" />
                     <field name="documents_tag_tooltip_translate" />
                     <field name="documents_tag_ids_filter" widget="boolean_toggle" />
-                    <field
-                        name="documents_tag_ids"
-                        invisible="documents_tag_ids_filter"
-                        widget="many2many_tags"
-                        options="{'no_quick_create': True}"
-                    />
-                    <field
-                        name="documents_tag_ids"
-                        domain="[('id', 'in', documents_tag_all_child_ids)]"
-                        invisible="not documents_tag_ids_filter"
-                        widget="many2many_tags"
-                        options="{'no_quick_create': True}"
-                    />
+                    <div class="d-inline-flex w-100">
+                        <button string="Select DOC Tags"
+                                type="action"
+                                name="%(documents_tag.action_documents_tag_select_list)d"
+                                class="btn-secondary"
+                                context="{'model_name': 'res.partner', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
+                        <field
+                            name="documents_tag_ids"
+                            invisible="documents_tag_ids_filter"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True}"
+                        />
+                        <field
+                            name="documents_tag_ids"
+                            domain="[('id', 'in', documents_tag_all_child_ids)]"
+                            invisible="not documents_tag_ids_filter"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True}"
+                        />
+                    </div>
                 </field>
             </data>
         </field>

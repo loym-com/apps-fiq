@@ -1,4 +1,5 @@
 from odoo import fields, models, Command
+from odoo.exceptions import ValidationError
 
 
 class DocumentsTagMixin(models.AbstractModel):
