@@ -1,4 +1,32 @@
 <odoo>
+    <!-- List view of tags with selectable rows -->
+    <record id="view_documents_tag_list_select" model="ir.ui.view">
+        <field name="name">documents.tag.list.selection</field>
+        <field name="model">documents.tag</field>
+        <field name="inherit_id" ref="documents.tag_view_list"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <list position="inside">
+                    <header>
+                        <button string="Add Selected"
+                                type="object"
+                                name="add_selected_tags"
+                                class="btn-primary"/>
+                    </header>
+                </list>
+            </data>
+        </field>
+    </record>
+    <!-- Single static window action to open the selectable list -->
+    <record id="action_documents_tag_select_list" model="ir.actions.act_window">
+        <field name="name">Select Document Tags</field>
+        <field name="res_model">documents.tag</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_documents_tag_list_select"/>
+        <field name="target">new</field>
+    </record>
+    <!-- Regular views -->
     <record id="documents_tag_view_list" model="ir.ui.view">
         <field name="name">documents.tag.view.list.inherit</field>
         <field name="model">documents.tag</field>
@@ -25,9 +53,19 @@
                 <sheet position="inside">
                     <group name="group_tag_hierarchy" string="Hierarchy">
                         <group>
+                            <button string="Select Parents"
+                                    type="action"
+                                    name="%(action_documents_tag_select_list)d"
+                                    class="btn-secondary"
+                                    context="{'model_name': 'documents.tag', 'field_name': 'parent_ids', 'active_id': id}"/>
                             <field name="parent_ids" />
                         </group>
                         <group>
+                            <button string="Select Children"
+                                    type="action"
+                                    name="%(action_documents_tag_select_list)d"
+                                    class="btn-secondary"
+                                    context="{'model_name': 'documents.tag', 'field_name': 'child_ids', 'active_id': id}"/>
                             <field name="child_ids" />
                         </group>
                         <group colspan="2">

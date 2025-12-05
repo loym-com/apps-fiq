@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="documents_project.edit_project_document_form_inherit" />
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//setting[@id='documents_setting']/div/div[div/field[@name='documents_tag_ids']]" position="before">
+                <xpath expr="//setting[@id='documents_setting']/div/div[div/field[@name='documents_tag_ids']]" position="replace">
                     <div class="row align-items-center mb-2">
                         <div class="col-auto pe-2">
                             <label for="documents_tag_id" class="fw-bold mb-0">DOC Main Tag</label>
@@ -31,23 +31,17 @@
                             <field name="documents_tag_ids_filter" widget="boolean_toggle" class="w-100"/>
                         </div>
                     </div>
+                    <div class="row align-items-center mb-2">
+                        <div class="col-auto pe-2">
+                            <label for="documents_tag_ids" class="fw-bold mb-0">DOC Tags</label>
+                        </div>
+                        <div class="col d-inline-flex w-100">
+                            <field name="documents_tag_ids" invisible="documents_tag_ids_filter" widget="many2many_tags" options="{'no_quick_create': True}"/>
+                            <field name="documents_tag_ids" domain="[('id', 'in', documents_tag_all_child_ids)]" invisible="not documents_tag_ids_filter" widget="many2many_tags" options="{'no_quick_create': True}"/>
+                            <button string="Select DOC Tags" type="action" name="123" class="btn-secondary" context="{'model_name': 'project.project', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
+                        </div>
+                    </div>
                 </xpath>
-                <field name="documents_tag_ids" position="attributes">
-                    <attribute name="invisible">documents_tag_ids_filter</attribute>
-                    <attribute name="string">DOC Tags</attribute>
-                </field>
-                <field name="documents_tag_ids" position="after">
-                    <field
-                        string="DOC Tags"
-                        name="documents_tag_ids"
-                        domain="[('id', 'in', documents_tag_all_child_ids)]"
-                        invisible="not documents_tag_ids_filter"
-                        widget="many2many_tags"
-                        class="ps-3 w-100"
-                        options="{'no_quick_create': True}"
-                        context="{'documents_project_folder': documents_folder_id}"
-                    />
-                </field>
             </data>
         </field>
     </record>
@@ -58,7 +52,7 @@
         <field name="arch" type="xml">
             <field name="user_id" position="after">
                 <field name="documents_tag_id" optional="hide" />
-                <field name="documents_tag_ids" optional="hide" />
+                <field name="documents_tag_ids" optional="hide" widget="many2many_tags" />
             </field>
         </field>
     </record>

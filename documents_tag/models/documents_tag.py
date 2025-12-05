@@ -1,5 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from odoo.models import Command
+
 
 class DocumentsTag(models.Model):
     _inherit = "documents.tag"
@@ -92,3 +94,31 @@ class DocumentsTag(models.Model):
         for tag in self:
             if tag in tag.parent_ids:
                 raise ValidationError(f"The tag '{tag.name}' cannot be its own parent or child.")
+
+    def add_selected_tags(self):
+        """
+        Called from the header button in the selectable tree view.
+        Context must include:
+            - active_id: the ID of the original record
+            - field_name: the Many2many field to update
+            - model_name: the model of the original record
+        """
+        original_model_name = self._context.get('model_name')
+        original_record_id = self._context.get('active_id')
+        field_name = self._context.get('field_name')
+
+        if not (original_model_name and original_record_id and field_name):
+            raise ValidationError("Missing context keys for adding selected tags.")
+
+        original_record = self.env[original_model_name].browse(original_record_id)
+        if not original_record.exists():
+            raise ValidationError("Original record not found.")
+
+        # Exclude self if original record is a documents.tag to prevent self-reference
+        if original_model_name == 'documents.tag':
+            selected_tags = self.filtered(lambda t: t.id != original_record_id)
+        else:
+            selected_tags = self
+
+        # Use Command.link to link each selected tag
+        original_record.write({field_name: [Command.link(tag.id) for tag in selected_tags]})
