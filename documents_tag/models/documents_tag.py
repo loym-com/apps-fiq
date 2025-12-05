@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-
+from odoo.exceptions import ValidationError
 
 class DocumentsTag(models.Model):
     _inherit = "documents.tag"
@@ -86,3 +86,9 @@ class DocumentsTag(models.Model):
                 .browse(child_ids)
                 .sorted(key=lambda t: t.name)
             )
+
+    @api.constrains('parent_ids', 'child_ids')
+    def _check_self_reference(self):
+        for tag in self:
+            if tag in tag.parent_ids:
+                raise ValidationError(f"The tag '{tag.name}' cannot be its own parent or child.")

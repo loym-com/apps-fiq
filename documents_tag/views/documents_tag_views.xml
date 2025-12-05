@@ -1,4 +1,16 @@
 <odoo>
+    <record id="documents_tag_view_list" model="ir.ui.view">
+        <field name="name">documents.tag.view.list.inherit</field>
+        <field name="model">documents.tag</field>
+        <field name="inherit_id" ref="documents.tag_view_list"/>
+        <field name="arch" type="xml">
+            <data>
+                <list position="attributes">
+                    <attribute name="default_order">name</attribute>
+                </list>
+            </data>
+        </field>
+    </record>
     <record id="documents_tag_view_form" model="ir.ui.view">
         <field name="name">documents.tag.view.form.inherit</field>
         <field name="model">documents.tag</field>
