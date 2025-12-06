@@ -1,6 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-from odoo.models import Command
+from odoo.commands import Command
 
 
 class DocumentsTag(models.Model):
