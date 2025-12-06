@@ -14,6 +14,6 @@
         "documents_tag",
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.2.0",
+    "version": "19.0.5.2.1",
     "website": "https://www.loym.com",
 }

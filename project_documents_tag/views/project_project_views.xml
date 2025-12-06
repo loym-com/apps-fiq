@@ -6,42 +6,31 @@
         <field name="inherit_id" ref="documents_project.edit_project_document_form_inherit" />
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//setting[@id='documents_setting']/div/div[div/field[@name='documents_tag_ids']]" position="replace">
-                    <div class="row align-items-center mb-2">
-                        <div class="col-auto pe-2">
-                            <label for="documents_tag_id" class="fw-bold mb-0">DOC Main Tag</label>
-                        </div>
-                        <div class="col">
-                            <field name="documents_tag_id" class="w-100"/>
-                        </div>
+                <field name="documents_folder_id" position="replace">
+                    <field name="documents_tag_id" />
+                    <field name="documents_tag_tooltip_translate" />
+                    <field name="documents_tag_ids_filter" widget="boolean_toggle" />
+                    <div colspan="2" class="d-flex w-100">
+                        <button string="Select DOC Tags"
+                                type="action"
+                                name="%(documents_tag.action_documents_tag_select_list)d"
+                                class="btn-secondary"
+                                context="{'model_name': 'project.project', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
+                        <field
+                            name="documents_tag_ids"
+                            invisible="documents_tag_ids_filter"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True}"
+                        />
+                        <field
+                            name="documents_tag_ids"
+                            domain="[('id', 'in', documents_tag_all_child_ids)]"
+                            invisible="not documents_tag_ids_filter"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True}"
+                        />
                     </div>
-                    <div class="row align-items-center mb-2">
-                        <div class="col-auto pe-2">
-                            <label for="documents_tag_tooltip_translate" class="fw-bold mb-0">DOC Tooltip</label>
-                        </div>
-                        <div class="col">
-                            <field name="documents_tag_tooltip_translate" class="w-100"/>
-                        </div>
-                    </div>
-                    <div class="row align-items-center mb-2">
-                        <div class="col-auto pe-2">
-                            <label for="documents_tag_ids_filter" class="fw-bold mb-0">Filter by Main Tag</label>
-                        </div>
-                        <div class="col">
-                            <field name="documents_tag_ids_filter" widget="boolean_toggle" class="w-100"/>
-                        </div>
-                    </div>
-                    <div class="row align-items-center mb-2">
-                        <div class="col-auto pe-2">
-                            <label for="documents_tag_ids" class="fw-bold mb-0">DOC Tags</label>
-                        </div>
-                        <div class="col d-inline-flex w-100">
-                            <field name="documents_tag_ids" invisible="documents_tag_ids_filter" widget="many2many_tags" options="{'no_quick_create': True}"/>
-                            <field name="documents_tag_ids" domain="[('id', 'in', documents_tag_all_child_ids)]" invisible="not documents_tag_ids_filter" widget="many2many_tags" options="{'no_quick_create': True}"/>
-                            <button string="Select DOC Tags" type="action" name="123" class="btn-secondary" context="{'model_name': 'project.project', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
-                        </div>
-                    </div>
-                </xpath>
+                </field>
             </data>
         </field>
     </record>
