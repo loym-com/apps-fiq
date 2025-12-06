@@ -36,9 +36,25 @@
                             <label for="documents_tag_ids" class="fw-bold mb-0">DOC Tags</label>
                         </div>
                         <div class="col d-inline-flex w-100">
-                            <field name="documents_tag_ids" invisible="documents_tag_ids_filter" widget="many2many_tags" options="{'no_quick_create': True}"/>
-                            <field name="documents_tag_ids" domain="[('id', 'in', documents_tag_all_child_ids)]" invisible="not documents_tag_ids_filter" widget="many2many_tags" options="{'no_quick_create': True}"/>
-                            <button string="Select DOC Tags" type="action" name="123" class="btn-secondary" context="{'model_name': 'project.project', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
+                            <field
+                                name="documents_tag_ids"
+                                invisible="documents_tag_ids_filter"
+                                widget="many2many_tags"
+                                options="{'no_quick_create': True}"
+                            />
+                            <field
+                                name="documents_tag_ids"
+                                domain="[('id', 'in', documents_tag_all_child_ids)]"
+                                invisible="not documents_tag_ids_filter" widget="many2many_tags"
+                                options="{'no_quick_create': True}"
+                            />
+                            <button
+                                string="Select DOC Tags"
+                                type="action"
+                                name="%(documents_tag.action_documents_tag_select_list)d"
+                                class="btn-secondary"
+                                context="{'model_name': 'project.project', 'field_name': 'documents_tag_ids', 'active_id': id}"
+                            />
                         </div>
                     </div>
                 </xpath>
