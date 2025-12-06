@@ -116,12 +116,17 @@
         <field name="model">documents.document</field>
         <field name="inherit_id" ref="document_view_form"/>
         <field name="arch" type="xml">
-            <sheet position="inside">
-                <group>
-                    <field name="access_internal" readonly="1"/>
-                    <field name="access_ids" readonly="1"/>
-                </group>
-            </sheet>
+            <data>
+                <sheet position="inside">
+                    <group>
+                        <field name="access_internal" readonly="1"/>
+                        <field name="access_ids" readonly="1"/>
+                    </group>
+                </sheet>
+                <field name="folder_id" position="attributes">
+                    <attribute name="widget">many2one</attribute>
+                </field>
+            </data>
         </field>
     </record>
 </odoo>
