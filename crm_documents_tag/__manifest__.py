@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "CRM Documents Tags",
+    "name": "[DEV] CRM Documents Tags",
     "summary": "",
     "author": "FIQ, Loym",
     "data": [

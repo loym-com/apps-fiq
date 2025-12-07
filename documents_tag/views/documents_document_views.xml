@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <data>
                 <list position="inside">
-                    <field name="tag_id" optional="hide" />
+                    <field name="documents_tag_id" optional="hide" />
                 </list>
             </data>
         </field>
@@ -18,10 +18,10 @@
         <field name="arch" type="xml">
             <data>
                 <kanban position="attributes">
-                    <attribute name="highlight_color">tag_color</attribute>
+                    <attribute name="highlight_color">documents_tag_color</attribute>
                 </kanban>
                 <kanban position="inside">
-                    <field name="tag_id"/>
+                    <field name="documents_tag_id"/>
                 </kanban>
                 <footer position="attributes">
                     <attribute name="groups">base.group_user</attribute>
@@ -32,8 +32,8 @@
                     <attribute name="groups">base.group_user</attribute>
                 </field>
                 <field name="tag_ids" position="before">
-                    <field name="tag_id" groups="base.group_user" />
-                    <field name="tag_tooltip_translate" invisible="type != 'folder'" groups="base.group_user" />
+                    <field name="documents_tag_id" groups="base.group_user" />
+                    <field name="documents_tag_tooltip_translate" invisible="type != 'folder'" groups="base.group_user" />
                 </field>
             </data>
         </field>
@@ -45,26 +45,31 @@
         <field name="arch" type="xml">
             <data>
                 <field name="tag_ids" position="replace">
-                    <field name="tag_id" />
-                    <field name="tag_tooltip_translate" />
-                    <field name="tag_ids_filter" widget="boolean_toggle" />
-                    <field
-                        name="tag_ids"
-                        invisible="tag_ids_filter"
-                        widget="many2many_tags"
-                        options="{'no_quick_create': True}"
-                    />
-                    <field
-                        name="tag_ids"
-                        domain="[('id', 'in', tag_all_child_ids)]"
-                        invisible="not tag_ids_filter"
-                        widget="many2many_tags"
-                        options="{'no_quick_create': True}"
-                    />
+                    <field name="documents_tag_id" />
+                    <field name="documents_tag_tooltip_translate" />
+                    <field name="documents_tag_ids_filter" widget="boolean_toggle" />
+                    <div class="d-inline-flex w-100">
+                        <button
+                            string="Select DOC Tags"
+                            type="object"
+                            name="action_open_tag_selector"
+                            class="btn-secondary"
+                        />
+                        <field
+                            name="documents_tag_ids"
+                            invisible="documents_tag_ids_filter"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True}"
+                        />
+                        <field
+                            name="documents_tag_ids"
+                            domain="[('id', 'in', documents_tag_all_child_ids)]"
+                            invisible="not documents_tag_ids_filter"
+                            widget="many2many_tags"
+                            options="{'no_quick_create': True}"
+                        />
+                    </div>
                 </field>
-                <!-- <field name="type" position="after">
-                    <field name="tag_color" widget="color_picker" class="me-2"/>
-                </field> -->
             </data>
         </field>
     </record>

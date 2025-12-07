@@ -37,11 +37,12 @@
                     <field name="documents_tag_tooltip_translate" />
                     <field name="documents_tag_ids_filter" widget="boolean_toggle" />
                     <div class="d-inline-flex w-100">
-                        <button string="Select DOC Tags"
-                                type="action"
-                                name="%(documents_tag.action_documents_tag_select_list)d"
-                                class="btn-secondary"
-                                context="{'model_name': 'crm.lead', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
+                        <button
+                            string="Select DOC Tags"
+                            type="object"
+                            name="action_open_tag_selector"
+                            class="btn-secondary"
+                        />
                         <field
                             name="documents_tag_ids"
                             invisible="documents_tag_ids_filter"
@@ -62,11 +63,12 @@
                     <field name="documents_tag_tooltip_translate" />
                     <field name="documents_tag_ids_filter" widget="boolean_toggle" />
                     <div class="d-inline-flex w-100">
-                        <button string="Select DOC Tags"
-                                type="action"
-                                name="%(documents_tag.action_documents_tag_select_list)d"
-                                class="btn-secondary"
-                                context="{'model_name': 'crm.lead', 'field_name': 'documents_tag_ids', 'active_id': id}"/>
+                        <button
+                            string="Select DOC Tags"
+                            type="object"
+                            name="action_open_tag_selector"
+                            class="btn-secondary"
+                        />
                         <field
                             name="documents_tag_ids"
                             invisible="documents_tag_ids_filter"
