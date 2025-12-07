@@ -23,7 +23,6 @@ class DocumentsTagMixin(models.AbstractModel):
     documents_tag_ids_filter = fields.Boolean(
         string="DOC Tags Filter",
         default=True,
-        store=False,
     )
     documents_tag_ids = fields.Many2many(
         comodel_name="documents.tag",
@@ -70,3 +69,23 @@ class DocumentsTagMixin(models.AbstractModel):
             ]
 
         return res
+
+    def action_open_tag_selector(self):
+        if self.documents_tag_ids_filter:
+            domain = [('id', 'in', self.documents_tag_all_child_ids.ids)]
+        else:
+            domain = []
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Select Document Tags',
+            'res_model': 'documents.tag',
+            'view_mode': 'list',
+            'view_id': self.env.ref('documents_tag.view_documents_tag_list_select').id,
+            'target': 'new',
+            'domain': domain,
+            'context': {
+                'active_id': self.id,
+                'model_name': self._name,
+                'field_name': "documents_tag_ids",
+            },
+        }

@@ -1,24 +1,12 @@
 from odoo import models, fields, api
 
 class DocumentsDocument(models.Model):
-    _inherit = "documents.document"
+    _name = "documents.document"
+    _inherit = ["documents.document", "documents.tag.mixin"]
 
-    tag_id = fields.Many2one(
-        comodel_name="documents.tag",
-        string="Main Tag",
-    )
-    tag_tooltip_translate = fields.Char(
-        string="Tag Tooltip",
-        related="tag_id.tooltip_translate",
-    )
-    tag_all_child_ids = fields.Many2many(
+    documents_tag_ids = fields.Many2many(
         'documents.tag',
-        related="tag_id.all_child_ids",
-        string="DOC All Children",
+        related='tag_ids',
+        readonly=False,
     )
-    tag_ids_filter = fields.Boolean(
-        string="Tags Filter",
-        default=True,
-        store=False,
-    )
-    tag_color = fields.Integer(string="Tag Color Index", related="tag_id.color")
+    documents_tag_color = fields.Integer(string="Tag Color Index", related="documents_tag_id.color")

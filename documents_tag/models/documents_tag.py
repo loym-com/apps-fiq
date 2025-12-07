@@ -95,6 +95,21 @@ class DocumentsTag(models.Model):
             if tag in tag.parent_ids:
                 raise ValidationError(f"The tag '{tag.name}' cannot be its own parent or child.")
 
+    def action_open_tag_selector(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Select Document Tags',
+            'res_model': 'documents.tag',
+            'view_mode': 'list',
+            'view_id': self.env.ref('documents_tag.view_documents_tag_list_select').id,
+            'target': 'new',
+            'context': {
+                'active_id': self.id,
+                'model_name': self._name,
+                'field_name': "documents_tag_ids",
+            },
+        }
+
     def add_selected_tags(self):
         """
         Called from the header button in the selectable tree view.
