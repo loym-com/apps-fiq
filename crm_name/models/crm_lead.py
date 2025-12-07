@@ -32,3 +32,5 @@ class CrmLead(models.Model):
             lead.name = lead.get_value_from_source(
                 "ir.config_parameter", "crm_name.crm_lead_name_expression"
             )
+            if lead.name.startswith("NewId"):
+                lead.name = "New"
