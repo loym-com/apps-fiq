@@ -22,6 +22,6 @@
     ],
     "license": "AGPL-3",
     "post_init_hook": "post_init_hook",
-    "version": "18.0.5.1.22",
+    "version": "18.0.5.1.23",
     "website": "https://www.loym.com",
 }

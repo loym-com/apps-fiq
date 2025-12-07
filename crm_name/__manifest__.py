@@ -17,5 +17,5 @@
     ],
     "license": "AGPL-3",
     "post_init_hook": "post_init_hook",
-    "version": "18.0.5.1.17",
+    "version": "18.0.5.1.18",
 }
