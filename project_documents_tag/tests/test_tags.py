@@ -37,7 +37,7 @@ class TestProjectDocumentsTags(TransactionCase):
         })
 
         vals = project._get_document_vals(self.attachment)
-        self.assertEqual(vals.get("tag_id"), self.main_tag.id)
+        self.assertEqual(vals.get("documents_tag_id"), self.main_tag.id)
 
     # ---------------------------------------------------------
     # TASK – MAIN TAG LOGIC
@@ -56,7 +56,7 @@ class TestProjectDocumentsTags(TransactionCase):
         })
 
         vals = task._get_document_vals(self.attachment)
-        self.assertEqual(vals.get("tag_id"), self.alt_main_tag.id)
+        self.assertEqual(vals.get("documents_tag_id"), self.alt_main_tag.id)
 
     def test_task_falls_back_to_project_main_tag(self):
         """If task has no main tag, use project main tag."""
@@ -71,7 +71,7 @@ class TestProjectDocumentsTags(TransactionCase):
         })
 
         vals = task._get_document_vals(self.attachment)
-        self.assertEqual(vals.get("tag_id"), self.main_tag.id)
+        self.assertEqual(vals.get("documents_tag_id"), self.main_tag.id)
 
     # ---------------------------------------------------------
     # TASK – TAG LIST

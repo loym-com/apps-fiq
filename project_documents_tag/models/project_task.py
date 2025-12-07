@@ -11,9 +11,9 @@ class ProjectTask(models.Model):
         vals = super()._get_document_vals(attachment)
         # Main tag
         if self.documents_tag_id:
-            vals['tag_id'] = self.documents_tag_id.id
+            vals["documents_tag_id"] = self.documents_tag_id.id
         elif self.project_id.documents_tag_id:
-            vals['tag_id'] = self.project_id.documents_tag_id.id
+            vals["documents_tag_id"] = self.project_id.documents_tag_id.id
         # Tags
         if self.documents_tag_ids:
             vals['tag_ids'] = [
