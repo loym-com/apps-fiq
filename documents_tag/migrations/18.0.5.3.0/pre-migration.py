@@ -8,14 +8,14 @@ def migrate(cr, version):
     documents_tag_ids_filter  <- tag_ids_filter
     """
 
-    # cr.execute("""
-    #     UPDATE documents_document
-    #     SET
-    #         documents_tag_id = tag_id,
-    #         documents_tag_tooltip_translate = tag_tooltip_translate,
-    #         documents_tag_ids_filter = tag_ids_filter
-    #     WHERE
-    #         tag_id IS NOT NULL
-    #         OR tag_tooltip_translate IS NOT NULL
-    #         OR tag_ids_filter IS NOT NULL;
-    # """)
+    cr.execute("""
+        UPDATE documents_document
+        SET
+            documents_tag_id = tag_id,
+            documents_tag_tooltip_translate = tag_tooltip_translate,
+            documents_tag_color = tag_ids_color
+        WHERE
+            tag_id IS NOT NULL
+            OR tag_tooltip_translate IS NOT NULL
+            OR tag_color IS NOT NULL;
+    """)
