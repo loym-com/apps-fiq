@@ -5,7 +5,7 @@
     "summary": "",
     "author": "FIQ, Loym",
     "website": "https://github.com/OCA/knowledge",
-    "version": "18.0.5.3.0",
+    "version": "18.0.5.3.1",
     "license": "AGPL-3",
     "depends": ["documents"],
     "data": [
