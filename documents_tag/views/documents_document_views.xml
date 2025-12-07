@@ -48,7 +48,7 @@
                     <field name="documents_tag_id" />
                     <field name="documents_tag_tooltip_translate" />
                     <field name="documents_tag_ids_filter" widget="boolean_toggle" />
-                    <div class="d-inline-flex w-100">
+                    <div colspan="2" class="d-flex w-100">
                         <button
                             string="Select DOC Tags"
                             type="object"
