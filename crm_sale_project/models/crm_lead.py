@@ -1,5 +1,5 @@
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class CrmLead(models.Model):
@@ -72,8 +72,8 @@ class CrmLead(models.Model):
 
     def action_create_sale_order_and_project(self):
         self.ensure_one()
-        order = self.create_sale_order_and_project()
-        self.move_attachments_to_task_or_project(order.order_line)
+        self.create_sale_order_and_project()
+        self.move_attachments_to_task_or_project()
 
     def create_sale_order_and_project(self):
         # Get sale order PRODUCT >> project TEMPLATE
@@ -114,9 +114,13 @@ class CrmLead(models.Model):
             order.action_confirm() # will create project and/or task
             return order
 
-    def move_attachments_to_task_or_project(self, order_line):
+    def move_attachments_to_task_or_project(self):
         """Associate existing CRM lead attachments with project/task depending on service_tracking"""
         self.ensure_one()
+        order_line = self.sale_order_project_ids.mapped("sale_line_id")
+        if len(order_line) != 1:
+            raise ValidationError(f"{len(order_line)} project order lines found. To move attachments, there should be exactly 1.")
+
         attachments = self.env['ir.attachment'].search([
             ('res_model', '=', 'crm.lead'),
             ('res_id', '=', self.id)
