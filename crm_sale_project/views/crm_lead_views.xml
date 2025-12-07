@@ -11,7 +11,14 @@
                         string="Create SO &amp; PRJ"
                         name="action_create_sale_order_and_project"
                         type="object"
-                        invisible="sale_order_project_count &gt; 0"
+                        invisible="sale_order_project_count"
+                        groups="sales_team.group_sale_salesman"
+                    />
+                    <button
+                        string="Move docs"
+                        name="move_attachments_to_task_or_project"
+                        type="object"
+                        invisible="not sale_order_project_count"
                         groups="sales_team.group_sale_salesman"
                     />
                 </xpath>
