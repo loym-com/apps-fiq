@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Project Documents",
+    "name": "Project Documents (copied from Odoo 18.0 Enterprise)",
     "summary": "",
     "author": "FIQ, Loym",
     "data": [
@@ -13,6 +13,6 @@
         "documents",
     ],
     "license": "OEEL-1",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "website": "https://www.loym.com",
 }

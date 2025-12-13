@@ -6,15 +6,17 @@
         <field name="inherit_id" ref="project.view_task_form2" />
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//form/sheet/group/group/div" position="inside">
-                    <button name="action_goto_documents"
+                <field name="project_id" position="after">
+                    <!-- <button name="action_goto_documents"
                             context="{'internal_external': 'internal'}"
                             type="object"
                             icon="fa-folder-open"
                             invisible="not project_id"
                             title="Internal Docs"
-                    />
+                    /> -->
+                    <field name="documents_folder_id" widget="documents_folder_many2one" readonly="1"/>
                     <field name="project_documents_folder_url" invisible="1" />
+                    <label for="action_goto_documents" string="SP DOC folder"/>
                     <button name="action_goto_documents"
                             context="{'internal_external': 'external'}"
                             type="object"
@@ -22,7 +24,7 @@
                             invisible="not project_documents_folder_url"
                             title="External URL"
                     />
-                </xpath>
+                </field>
             </data>
         </field>
     </record>

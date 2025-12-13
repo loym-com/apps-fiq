@@ -89,7 +89,7 @@
         <field name="domain">[('use_documents', '=', True)]</field>
     </record> -->
 
-    <record id="view_task_form2_document_inherit" model="ir.ui.view">
+    <!-- <record id="view_task_form2_document_inherit" model="ir.ui.view">
         <field name="name">project.task.form.inherit</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
@@ -101,9 +101,9 @@
                 </button>
             </xpath>
         </field>
-    </record>
+    </record> -->
 
-    <record id="project_sharing_project_task_view_form_inherit" model="ir.ui.view">
+    <!-- <record id="project_sharing_project_task_view_form_inherit" model="ir.ui.view">
         <field name="name">project.sharing.project.task.view.form.inherit</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.project_sharing_project_task_view_form"/>
@@ -116,7 +116,7 @@
                 </button>
             </xpath>
         </field>
-    </record>
+    </record> -->
 
     <!-- <record id="project_view_kanban_inherit_documents" model="ir.ui.view">
         <field name="name">project.kanban.inherit.documents</field>
