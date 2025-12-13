@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="documents_project.edit_project_document_form_inherit" />
         <field name="arch" type="xml">
             <data>
-                <field name="documents_folder_id" position="replace">
+                <field name="documents_folder_id" position="after">
                     <field name="documents_tag_id" />
                     <field name="documents_tag_tooltip_translate" />
                     <field name="documents_tag_ids_filter" widget="boolean_toggle" />
