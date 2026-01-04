@@ -60,11 +60,11 @@ class DocumentsTagMixin(models.AbstractModel):
 
         # === 1. Handle main tag (Many2one) ===
         if tag_main_changed:
-            documents.tag_id = self.documents_tag_id.id
+            documents.documents_tag_id = self.documents_tag_id.id
 
         # === 2. Handle secondary tags (Many2many) ===
         if tag_multi_changed:
-            documents.tag_ids = [
+            documents.documents_tag_ids = [
                 Command.link(tag.id) for tag in self.documents_tag_ids
             ]
 
