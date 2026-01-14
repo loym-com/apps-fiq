@@ -6,12 +6,12 @@ from odoo.fields import Command
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def _timesheet_create_project(self):
-        # name
-        project = super()._timesheet_create_project()
-        if self.order_id.opportunity_id:
-            project.name = f"{self.order_id.name} {self.order_id.opportunity_id.name}"
-        return project
+    # def _timesheet_create_project(self):
+    #     # name
+    #     project = super()._timesheet_create_project()
+    #     if self.order_id.opportunity_id:
+    #         project.name = f"{self.order_id.name} {self.order_id.opportunity_id.name}"
+    #     return project
 
     def _timesheet_create_project_prepare_values(self):
         project_values = super()._timesheet_create_project_prepare_values()

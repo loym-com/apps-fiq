@@ -1,8 +1,10 @@
 from odoo import models, fields, api
+from odoo.addons.base_display_name.models.expression_value_mixin import ExpressionValueMixin
 
 
 class DocumentsDocument(models.Model):
-    _inherit = "documents.document"
+    _name = "documents.document"
+    _inherit = ["documents.document", "expression.value.mixin"]
     _sql_constraints = [
         (
             "unique_code",
@@ -17,14 +19,13 @@ class DocumentsDocument(models.Model):
         copy=False,
     )
 
-    @api.depends("code", "name")
+    # Since Odoo has a custom _compute_display_name() for documents,
+    # user-defined display_name cannot rely on expression.value.mixin alone.
+
+    @api.model
+    def _search_display_name(self, operator, value):
+        return ExpressionValueMixin._search_display_name(self, operator, value)
+
+    @api.depends(lambda self: self.get_valid_field_paths_from_source("ir.model", "display_name_expression"))
     def _compute_display_name(self):
-        super()._compute_display_name()
-        for rec in self:
-            code = rec.code or ""
-            name = rec.name or ""
-            if code:
-                if name:
-                    rec.display_name = f"{code} {name}"
-                else:
-                    rec.display_name = code
+        return ExpressionValueMixin._compute_display_name(self)

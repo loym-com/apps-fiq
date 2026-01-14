@@ -19,6 +19,10 @@ class ProjectProject(models.Model):
         compute="_compute_sp_folder_name",
         help="Sharepoint folder name"
     )
+    company_id = fields.Many2one(
+        default=lambda self: self.env.company,
+        copy=False,
+    )
 
     def _sync_related_records(self, vals=None):
         super()._sync_related_records(vals)

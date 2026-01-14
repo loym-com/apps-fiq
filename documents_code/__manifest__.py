@@ -7,7 +7,10 @@
     "website": "https://github.com/OCA/knowledge",
     "version": "18.0.1.0.1",
     "license": "AGPL-3",
-    "depends": ["documents"],
+    "depends": [
+        "base_display_name",
+        "documents",
+    ],
     "data": [
         "views/documents_document_views.xml",
     ],
