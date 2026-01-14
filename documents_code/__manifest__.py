@@ -15,4 +15,6 @@
     "data": [
         "views/documents_document_views.xml",
     ],
+    "post_init_hook": "post_init_hook",
+    "uninstall_hook": "pre_uninstall_hook",
 }
