@@ -1,0 +1,9 @@
+<odoo>
+    <menuitem
+        id="menu_code_list"
+        name="Code Lists"
+        parent="project.menu_project_config"
+        action="base_code_list.code_list_action"
+        sequence="90"
+    />
+</odoo>
