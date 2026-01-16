@@ -6,6 +6,7 @@
     "summary": "Set alias & doc folder name",
     "author": "FIQ, Loym",
     "data": [
+        "data/ir_actions_server_data.xml",
         "views/project_project_views.xml",
         "views/project_task_views.xml",
     ],

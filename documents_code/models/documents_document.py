@@ -13,6 +13,12 @@ class DocumentsDocument(models.Model):
         ),
     ]
 
+    company_code = fields.Char(
+        related="company_id.code",
+        string="Company Code",
+        store=True,
+        readonly=True,
+    )
     code = fields.Char(
         string="Code",
         help="Internal code to identify the document or folder",

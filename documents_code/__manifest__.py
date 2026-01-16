@@ -10,6 +10,7 @@
     "depends": [
         "base_display_name",
         "documents",
+        "res_company_code",
     ],
     "data": [
         "views/documents_document_views.xml",
