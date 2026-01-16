@@ -11,6 +11,7 @@
     ],
     "depends": [
         "base_fiq",
+        "base_model_code",
         "project_documents_folder_url",
         "project_documents_tab",
         # "project_documents_tag",
