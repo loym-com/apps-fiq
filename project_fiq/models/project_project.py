@@ -51,4 +51,4 @@ class ProjectProject(models.Model):
                         project.documents_folder_id.code = project.sequence_code
                 if not vals or "name" in vals:
                     project.documents_folder_id.name = project.name
-                    project.documents_folder_id.company_id = project.company_id
+                    project.documents_folder_id.company_id = project.company_id.id
