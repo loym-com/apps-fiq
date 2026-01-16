@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <record id="project_project_view_form" model="ir.ui.view">
+        <field name="name">project.project.view.form.inherit.partner_ids</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <data>
+                <notebook position="inside">
+                    <page string="Codes">
+                        <group>
+                            <field
+                                name="code_list_item_ids"
+                                widget="many2many_tags"
+                                readonly="1"
+                                context="{'include_list_code': True}"
+                            />
+                        </group>
+                        <field name="code_list_usage_ids" context="{'default_model': 'project.project', 'default_res_id': id}">
+                            <list editable="bottom">
+                                <field name="model" column_invisible="1"/>
+                                <field name="res_id" column_invisible="1"/>
+                                <field name="code_list_id"/>
+                                <field name="code_list_item_id" domain="[('list_id', '=', code_list_id)]"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </data>
+        </field>
+    </record>
+    <record id="project_project_view_list" model="ir.ui.view">
+        <field name="name">project.project.view.list.inherit.codes</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project" />
+        <field name="arch" type="xml">
+            <list position="inside">
+                <field
+                    name="code_list_item_ids"
+                    widget="many2many_tags"
+                    readonly="1"
+                    context="{'include_list_code': True}"
+                    optional="hide"
+                />
+            </list>
+        </field>
+    </record>
+</data>
