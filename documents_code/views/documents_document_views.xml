@@ -26,4 +26,16 @@
             </data>
         </field>
     </record>
+    <record id="documents_document_view_search" model="ir.ui.view">
+        <field name="name">documents.document.view.search</field>
+        <field name="model">documents.document</field>
+        <field name="inherit_id" ref="documents.document_view_search" />
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute
+                    name="filter_domain"
+                >['|', '|', ('name', 'ilike', self), ('company_code', 'ilike', self), ('code', 'ilike', self)]</attribute>
+            </field>
+        </field>
+    </record>
 </odoo>
