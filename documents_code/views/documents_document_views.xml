@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <data>
                 <field name="name" position="before">
+                    <field name="company_code" optional="hide" readonly="1"/>
                     <field name="code" optional="hide" readonly="1"/>
                 </field>
             </data>

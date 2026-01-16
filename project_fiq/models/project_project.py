@@ -26,15 +26,21 @@ class ProjectProject(models.Model):
     )
 
     def _sync_related_records(self, vals=None):
+        # Avoid infinite loop
+        if self.env.context.get("skip_sync"):
+            return
+        self = self.with_context(skip_sync=True)
+
         super()._sync_related_records(vals)
-        model_code = self.env["ir.model"]._get(self._name).code.lower() or ""
+
+        model_code = (self.env["ir.model"]._get(self._name).code or "").lower()
 
         for project in self:
 
             # --- alias_name ---
             # TODO: Write test
             if not vals or "sequence_code" in vals:
-                company_code = project.company_id.code.lower() or ""
+                company_code = (project.company_id.code or "").lower()
                 project.alias_name = company_code + model_code + project.sequence_code
 
             # --- documents folder ---
