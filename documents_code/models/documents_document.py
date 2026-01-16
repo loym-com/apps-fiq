@@ -7,9 +7,9 @@ class DocumentsDocument(models.Model):
     _inherit = ["documents.document", "expression.value.mixin"]
     _sql_constraints = [
         (
-            "unique_code",
-            "UNIQUE(code)",
-            "The code must be unique for each document or folder.",
+            "unique_code_per_company",
+            "UNIQUE(code, company_id)",
+            "The code must be unique for each company.",
         ),
     ]
 
