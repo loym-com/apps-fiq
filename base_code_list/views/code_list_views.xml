@@ -22,14 +22,15 @@
                             <field name="code" />
                             <field name="name" />
                             <field name="active" invisible="1" />
+                            <field name="description" />
                         </group>
-                        <field name="description" />
                     </group>
                     <group name="items_group" string="Items">
                         <field name="item_ids" nolabel="1">
                             <list editable="bottom" context="{'code_list_item_main_view': True}">
                                 <field name="code" />
                                 <field name="name" />
+                                <field name="parent_id" />
                                 <field name="description" optional="show" />
                             </list>
                         </field>
@@ -41,10 +42,11 @@
     <record id="code_list_view_list" model="ir.ui.view">
         <field name="model">code.list</field>
         <field name="arch" type="xml">
-            <list>
+            <list editable="bottom" >
                 <field name="code" />
                 <field name="name" />
                 <field name="description" optional="show" />
+                <button name="action_open_items" type="object" string="Items" icon="fa-list"/>
             </list>
         </field>
     </record>

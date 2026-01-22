@@ -1,9 +1,16 @@
 <odoo>
     <menuitem
-        id="menu_code_list"
+        id="code_list_menu"
         name="Code Lists"
         parent="project.menu_project_config"
         action="base_code_list.code_list_action"
         sequence="90"
+    />
+    <menuitem
+        id="code_list_item_menu"
+        name="Code List Items"
+        parent="project.menu_project_config"
+        action="base_code_list.code_list_item_action"
+        sequence="91"
     />
 </odoo>
