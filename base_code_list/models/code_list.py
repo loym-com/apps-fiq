@@ -30,7 +30,7 @@ class CodeList(models.Model):
     @api.depends("code", "name")
     def _compute_display_name(self):
         for item in self:
-            item.display_name = f"[{item.code}] {item.name}"
+            item.display_name = f"{item.code} {item.name}"
 
     # _rec_names_search = ['name', 'code'] doesn't give the result we want
     # We want that, when you type an exact code, you get only that code
@@ -43,3 +43,14 @@ class CodeList(models.Model):
             if ids:
                 return [("id", "in", ids)]
         return super()._search_display_name(operator, value)
+
+    def action_open_items(self):
+        self.ensure_one()
+        return {
+            "name": f"Items of {self.display_name}",
+            "type": "ir.actions.act_window",
+            "res_model": "code.list.item",
+            "view_mode": "list,form",
+            "domain": [("list_id", "=", self.id)],
+            "context": {"default_list_id": self.id},
+        }

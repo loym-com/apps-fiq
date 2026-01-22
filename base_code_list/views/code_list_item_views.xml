@@ -18,12 +18,14 @@
                     />
                     <group name="main">
                         <group name="general">
+                            <field name="list_id" />
+                            <field name="parent_id" />
                             <field name="code" />
                             <field name="name" />
                             <field name="active" invisible="1" />
                         </group>
                         <group name="extra">
-                            <field name="list_id" />
+                            
                         </group>
                         <field name="description" />
                     </group>
@@ -34,7 +36,7 @@
     <record id="code_list_item_view_tree" model="ir.ui.view">
         <field name="model">code.list.item</field>
         <field name="arch" type="xml">
-            <list>
+            <list editable="bottom" >
                 <field
                     name="list_id"
                     column_invisible="not context.get('code_list_item_main_view')"
@@ -42,6 +44,7 @@
                 <field name="code" />
                 <field name="name" />
                 <field name="description" optional="show" />
+                <field name="parent_id" />
             </list>
         </field>
     </record>
@@ -68,6 +71,9 @@
                         context="{'group_by': 'list_id'}"
                     />
                 </group>
+                <searchpanel>
+                    <field name="parent_id" string="Parent Item"/>
+                </searchpanel>
             </search>
         </field>
     </record>

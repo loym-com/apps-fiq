@@ -45,4 +45,17 @@
             </list>
         </field>
     </record>
+    <record id="view_project_search_inherit_code_list" model="ir.ui.view">
+        <field name="name">project.project.search.inherit.code.list</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="name" string="Name"/>
+                <field name="code_list_item_ids" string="Code List Items"/>
+
+                <!-- <filter string="Code List Item" name="filter_code_list_item" domain="[('code_list_item_ids', '!=', False)]"/> -->
+            </search>
+        </field>
+    </record>
 </data>

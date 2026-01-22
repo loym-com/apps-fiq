@@ -27,4 +27,17 @@
             </notebook>
         </field>
     </record>
+    <record id="view_res_partner_search" model="ir.ui.view">
+        <field name="name">res.partner.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <field name="name" string="Name"/>
+                <field name="code_list_item_ids" string="Code List Items"/>
+
+                <filter string="Code List Item" name="filter_code_list_item" domain="[('code_list_item_ids', '!=', False)]"/>
+            </search>
+        </field>
+    </record>
 </odoo>

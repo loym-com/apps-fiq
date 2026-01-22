@@ -23,6 +23,11 @@ class CodeListItem(models.Model):
         required=True,
         ondelete="restrict",
     )
+    parent_id = fields.Many2one(
+        "code.list.item",
+        string="Parent Item",
+        ondelete="restrict",
+    )
     description = fields.Text()
     active = fields.Boolean(default=True)
 
@@ -40,9 +45,9 @@ class CodeListItem(models.Model):
         include_list_code = self.env.context.get("include_list_code")
         for item in self:
             if include_list_code:
-                item.display_name = f"{item.list_id.code}: [{item.code}] {item.name}"
+                item.display_name = f"{item.list_id.code}: {item.code} {item.name}"
             else:
-                item.display_name = f"[{item.code}] {item.name}"
+                item.display_name = f"{item.code} {item.name}"
 
     # _rec_names_search = ['name', 'code'] doesn't give the result we want
     # We want that, when you type an exact code, you get only that code
