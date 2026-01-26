@@ -2,28 +2,28 @@
     <menuitem
         id="code_list_main_menu"
         name="Code Lists"
-        parent="project.menu_project_config"
-        sequence="90"
+        parent="base.menu_custom"
+        sequence="35"
     />
     <menuitem
         id="code_list_menu"
         name="Code Lists"
         parent="code_list_main_menu"
-        action="base_code_list.code_list_action"
+        action="code_list_action"
         sequence="90"
     />
     <menuitem
         id="code_list_item_menu"
         name="Code List Items"
         parent="code_list_main_menu"
-        action="base_code_list.code_list_item_action"
+        action="code_list_item_action"
         sequence="91"
     />
     <menuitem
         id="code_list_usage_menu"
         name="Code List Usages"
         parent="code_list_main_menu"
-        action="base_code_list.code_list_usage_action"
+        action="code_list_usage_action"
         sequence="92"
     />
 </odoo>

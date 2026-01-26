@@ -7,7 +7,7 @@
     "version": "18.0.1.0.0",
     "category": "Tools",
     "license": "LGPL-3",
-    "development_status": "Production/Stable",
+    "development_status": "Alpha",
     "summary": "Base module for code lists",
     "author": "FIQ, Odoo Community Association (OCA)",
     "maintainers": ["norlinhenrik"],
@@ -19,6 +19,7 @@
         "views/code_list_item_views.xml",
         "views/code_list_usage_views.xml",
         # "views/res_partner_views.xml",
+        "views/menus.xml",
     ],
     "installable": True,
 }
