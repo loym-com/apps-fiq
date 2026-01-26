@@ -20,6 +20,6 @@
         "project_sequence_number",
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.0.3",
+    "version": "19.0.5.0.4",
     "website": "https://www.fiq.no",
 }
