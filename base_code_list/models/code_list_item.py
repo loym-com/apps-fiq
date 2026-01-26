@@ -13,10 +13,11 @@ from odoo import api, fields, models
 class CodeListItem(models.Model):
     _name = "code.list.item"
     _description = "Code List Item"
-    _order = "list_id, code"
+    _order = "list_id, code, name"
 
-    code = fields.Char(required=True, copy=False)
-    name = fields.Char(required=True, copy=False)
+    code = fields.Char(required=False, copy=False)
+    name = fields.Char(required=True, copy=False, translate=True)
+    description = fields.Text(translate=True)
     list_id = fields.Many2one(
         "code.list",
         string="Code List",
@@ -28,7 +29,6 @@ class CodeListItem(models.Model):
         string="Parent Item",
         ondelete="restrict",
     )
-    description = fields.Text()
     active = fields.Boolean(default=True)
 
     _sql_constraints = [
@@ -45,9 +45,9 @@ class CodeListItem(models.Model):
         include_list_code = self.env.context.get("include_list_code")
         for item in self:
             if include_list_code:
-                item.display_name = f"{item.list_id.code}: {item.code} {item.name}"
+                item.display_name = f"{item.list_id.code or item.list_id.name}: {item.code or ''} {item.name}"
             else:
-                item.display_name = f"{item.code} {item.name}"
+                item.display_name = f"{item.code or ''} {item.name}"
 
     # _rec_names_search = ['name', 'code'] doesn't give the result we want
     # We want that, when you type an exact code, you get only that code
