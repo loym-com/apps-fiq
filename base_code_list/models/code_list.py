@@ -7,11 +7,11 @@ from odoo import api, fields, models
 class CodeList(models.Model):
     _name = "code.list"
     _description = "Code List"
-    _order = "code"
+    _order = "code, name"
 
-    code = fields.Char(required=True, copy=False)
-    name = fields.Char(required=True, copy=False)
-    description = fields.Text()
+    code = fields.Char(required=False, copy=False)
+    name = fields.Char(required=True, copy=False, translate=True)
+    description = fields.Text(translate=True)
     active = fields.Boolean(default=True)
     item_ids = fields.One2many(
         comodel_name="code.list.item",
@@ -30,7 +30,7 @@ class CodeList(models.Model):
     @api.depends("code", "name")
     def _compute_display_name(self):
         for item in self:
-            item.display_name = f"{item.code} {item.name}"
+            item.display_name = f"{item.code or ''} {item.name}"
 
     # _rec_names_search = ['name', 'code'] doesn't give the result we want
     # We want that, when you type an exact code, you get only that code
