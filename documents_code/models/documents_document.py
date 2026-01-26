@@ -5,13 +5,10 @@ from odoo.addons.base_display_name.models.expression_value_mixin import Expressi
 class DocumentsDocument(models.Model):
     _name = "documents.document"
     _inherit = ["documents.document", "expression.value.mixin"]
-    _sql_constraints = [
-        (
-            "unique_code_per_company",
-            "UNIQUE(code, company_id)",
-            "The code must be unique for each company.",
-        ),
-    ]
+    _unique_sequence = models.Constraint(
+        "UNIQUE(code, company_id)",
+        "code must be unique per company!",
+    )
 
     company_code = fields.Char(
         related="company_id.code",

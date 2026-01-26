@@ -13,6 +13,6 @@
         "documents",
     ],
     "license": "OEEL-1",
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.0.2",
     "website": "https://www.loym.com",
 }

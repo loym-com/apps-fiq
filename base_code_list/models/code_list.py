@@ -18,14 +18,10 @@ class CodeList(models.Model):
         inverse_name="list_id",
         string="Items",
     )
-
-    _sql_constraints = [
-        (
-            "unique_code",
-            "unique(code)",
-            "A code already exists",
-        )
-    ]
+    _unique_code = models.Constraint(
+        "UNIQUE(code)",
+        "A code already exists",
+    )
 
     @api.depends("code", "name")
     def _compute_display_name(self):

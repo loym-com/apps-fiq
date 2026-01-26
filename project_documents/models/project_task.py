@@ -5,7 +5,7 @@
 import ast
 
 from odoo import api, Command, fields, models, _
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class ProjectTask(models.Model):
@@ -23,7 +23,7 @@ class ProjectTask(models.Model):
         return super().SELF_READABLE_FIELDS | {'folder_user_permission', 'document_ids', 'document_count'}
 
     def _get_task_document_data(self):
-        domain = expression.AND([
+        domain = Domain.AND([
             [('type', '!=', 'folder')], [('shortcut_document_id', '=', False)],
             [('res_model', '=', 'project.task')], [('res_id', 'in', self.ids)],
         ])
@@ -66,7 +66,7 @@ class ProjectTask(models.Model):
 
     def _get_attachments_search_domain(self):
         self.ensure_one()
-        return expression.AND([
+        return Domain.AND([
             super()._get_attachments_search_domain(),
             [('document_ids', '=', False)],
         ])

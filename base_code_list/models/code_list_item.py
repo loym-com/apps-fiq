@@ -14,13 +14,10 @@ class CodeListItem(models.Model):
     _name = "code.list.item"
     _description = "Code List Item"
     _order = "list_id, code, name"
-    _sql_constraints = [
-        (
-            "unique_code_per_list",
-            "unique(code, list_id)",
-            "A code of the same list already exists",
-        )
-    ]
+    _unique_code = models.Constraint(
+        "UNIQUE(code, list_id)",
+        "code must be unique per list!",
+    )
     _rec_name = "display_name"
 
     @api.depends("code", "name", "list_id.code", "list_id.name")
