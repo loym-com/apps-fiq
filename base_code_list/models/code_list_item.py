@@ -46,4 +46,23 @@ class CodeListItem(models.Model):
         string="Parent Item",
         ondelete="restrict",
     )
+    parent_path = fields.Char(
+        index=True,
+        copy=False,
+    )
+    child_ids = fields.One2many(
+        "code.list.item",
+        "parent_id",
+        string="Child Items",
+    )
+    child_list_id = fields.Many2one(
+        "code.list",
+        string="Child Code List",
+        ondelete="restrict",
+    )
     active = fields.Boolean(default=True)
+    list_parent_ids = fields.Many2many(
+        related="list_id.parent_ids",
+        string="List used by items of",
+        readonly=True,
+    )

@@ -32,17 +32,17 @@ class CodeList(models.Model):
         for item in self:
             item.display_name = f"{item.code or ''} {item.name}"
 
-    # _rec_names_search = ['name', 'code'] doesn't give the result we want
-    # We want that, when you type an exact code, you get only that code
-    # Exemple : on UNECE Tax category, when you type "S", you should get only
-    # "[S] Standard rate"
-    @api.model
-    def _search_display_name(self, operator, value):
-        if value and operator == "ilike":
-            ids = list(self._search([("code", "=", value)]))
-            if ids:
-                return [("id", "in", ids)]
-        return super()._search_display_name(operator, value)
+    # # _rec_names_search = ['name', 'code'] doesn't give the result we want
+    # # We want that, when you type an exact code, you get only that code
+    # # Exemple : on UNECE Tax category, when you type "S", you should get only
+    # # "[S] Standard rate"
+    # @api.model
+    # def _search_display_name(self, operator, value):
+    #     if value and operator == "ilike":
+    #         ids = list(self._search([("code", "=", value)]))
+    #         if ids:
+    #             return [("id", "in", ids)]
+    #     return super()._search_display_name(operator, value)
 
     def action_open_items(self):
         self.ensure_one()
@@ -54,3 +54,45 @@ class CodeList(models.Model):
             "domain": [("list_id", "=", self.id)],
             "context": {"default_list_id": self.id},
         }
+
+    child_ids = fields.Many2many(
+        comodel_name="code.list",
+        relation="code_list_rel",
+        column1="parent_id",
+        column2="child_id",
+        compute="_compute_child_ids",
+        store=True,
+        string="Child Lists",
+    )
+    parent_ids = fields.Many2many(
+        comodel_name="code.list",
+        relation="code_list_rel",
+        column1="child_id",
+        column2="parent_id",
+        readonly=True,
+        string="Used by items of",
+    )
+
+    @api.depends("item_ids.child_list_id", "child_ids.item_ids.child_list_id")
+    def _compute_child_ids(self):
+        # Step 1: Build a set of parent-child relations
+        parent_child_relations = set(
+            (item.list_id.id, item.child_list_id.id)
+            for item in self.env["code.list.item"].search([("child_list_id", "!=", False)])
+        )
+
+        # Step 2: Compute all descendants recursively
+        def get_all_descendants(parent_id, visited):
+            if parent_id in visited:
+                return set()  # Avoid infinite loops
+            visited.add(parent_id)
+            children = set(
+                child for parent, child in parent_child_relations if parent == parent_id
+            )
+            for child_id in children.copy():
+                children.update(get_all_descendants(child_id, visited))
+            return children
+
+        # Step 3: Assign descendants to each record
+        for record in self:
+            record.child_ids = self.browse(get_all_descendants(record.id, set()))
