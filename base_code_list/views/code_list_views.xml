@@ -23,17 +23,16 @@
                             <field name="name" />
                             <field name="active" invisible="1" />
                             <field name="description" />
+                            <field name="parent_ids" widget="many2many_tags" />
+                            <button name="action_open_items" type="object" string="Go to Items List" icon="fa-list"/>
                         </group>
                     </group>
                     <group name="items_group" string="Items">
-                        <field name="item_ids" nolabel="1">
-                            <list editable="bottom" context="{'code_list_item_main_view': True}">
-                                <field name="code" optional="hide" />
-                                <field name="name" />
-                                <field name="parent_id" optional="hide" />
-                                <field name="description" optional="hide" />
-                            </list>
-                        </field>
+                        <field
+                            name="item_ids"
+                            context="{'hide_list_id': True}"
+                            nolabel="1"
+                        />
                     </group>
                 </sheet>
             </form>
@@ -46,6 +45,7 @@
                 <field name="code" optional="hide"/>
                 <field name="name" />
                 <field name="description" optional="hide" />
+                <field name="parent_ids" widget="many2many_tags" optional="hide"/>
                 <button name="action_open_items" type="object" string="Items" icon="fa-list"/>
             </list>
         </field>
@@ -60,6 +60,8 @@
                     filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"
                 />
                 <field name="code" />
+                <field name="description" />
+                <field name="parent_ids" />
                 <filter
                     string="Archived"
                     name="inactive"
