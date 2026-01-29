@@ -13,7 +13,6 @@
                 <field name="resource_id"/>
                 <field name="code_list_id" />
                 <field name="code_list_item_id" />
-                <field name="note" optional="hide" />
             </list>
         </field>
     </record>
@@ -25,7 +24,6 @@
                 <field name="resource_id" />
                 <field name="code_list_id" />
                 <field name="code_list_item_id" />
-                <field name="note" />
             </search>
         </field>
     </record>

@@ -21,6 +21,11 @@ class CodeListMixin(models.AbstractModel):
         search="_search_code_list_item_ids",
         inverse="_inverse_code_list_item_ids",
     )
+    codes_number = fields.Char(
+        compute="_compute_codes_number",
+        store=True,
+        string="Codes No.",
+    )
 
     @api.depends("code_list_usage_ids.code_list_item_id")
     def _compute_code_list_item_ids(self):
@@ -70,3 +75,75 @@ class CodeListMixin(models.AbstractModel):
             items_to_remove = set(existing_item_ids) - set(current_item_ids)
             for usage in existing_usages.filtered(lambda u: u.code_list_item_id.id in items_to_remove):
                 usage.unlink()
+
+    @api.depends("code_list_item_ids", "code_list_item_ids.code")
+    def _compute_codes_number(self):
+        for record in self:
+            # Get all code list items
+            items = record.code_list_item_ids
+
+            # If there are no items, set codes_number to blank
+            if not items:
+                record.codes_number = ""
+                continue
+
+            # Build a set of parent-child relationships
+            parent_child_set = set(
+                (item.list_id.id, item.child_list_id.id)
+                for item in items
+                if item.child_list_id
+            )
+
+            # Find the root (a list_id that is not a child_list_id)
+            all_parents = {parent for parent, _ in parent_child_set}
+            all_children = {child for _, child in parent_child_set}
+            roots = all_parents - all_children
+
+            # If there is no single root or multiple roots, set codes_number to blank
+            if len(roots) != 1:
+                record.codes_number = ""
+                continue
+
+            # Ensure all items are part of the same hierarchy
+            all_related_ids = set()
+            visited = set()
+
+            def traverse_hierarchy(node):
+                if node in visited:
+                    return
+                visited.add(node)
+                all_related_ids.add(node)
+                children = {child for parent, child in parent_child_set if parent == node}
+                for child in children:
+                    traverse_hierarchy(child)
+
+            root = roots.pop()
+            traverse_hierarchy(root)
+
+            # Check if all items are related
+            item_list_ids = set(items.mapped("list_id").ids)
+            if not item_list_ids.issubset(all_related_ids):
+                record.codes_number = ""
+                continue
+
+            # Traverse the hierarchy from the root to build the code
+            code_sequence = []
+            root = root
+            visited = set()
+
+            while root:
+                if root in visited:
+                    # Circular reference detected, set codes_number to blank
+                    record.codes_number = ""
+                    break
+
+                visited.add(root)
+                item = items.filtered(lambda i: i.list_id.id == root)
+                if len(item) == 1:
+                    code_sequence.append(item.code)
+
+                root = next((child for parent, child in parent_child_set if parent == root), None)
+
+            else:
+                # If no circular reference, join the codes in order
+                record.codes_number = ".".join(code_sequence)
