@@ -17,6 +17,17 @@ class CodeList(models.Model):
         comodel_name="code.list.item",
         inverse_name="list_id",
         string="Items",
+        domain=[('parent_id', '=', False)], # to reorder only top-level items
+    )
+    compute_item_codes = fields.Boolean(
+        string="Compute Code",
+        default=False,
+        help="If checked, the code will be computed for items in this list based on their hierarchy and sequence.",
+    )
+    sequence_separator = fields.Char(
+        string="Sequence Separator",
+        default=".",
+        help="Separator used to build the sequence code for items in this list. For example, '.' or '-' or ''",
     )
     _unique_code = models.Constraint(
         "UNIQUE(code)",
@@ -46,9 +57,9 @@ class CodeList(models.Model):
             "name": f"Items of {self.display_name}",
             "type": "ir.actions.act_window",
             "res_model": "code.list.item",
-            "view_mode": "list,form",
+            "view_mode": "list",
             "domain": [("list_id", "=", self.id)],
-            "context": {"default_list_id": self.id},
+            "context": {"default_list_id": self.id, "hide_list_id": True},
         }
 
     child_ids = fields.Many2many(
