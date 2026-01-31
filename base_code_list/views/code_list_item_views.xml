@@ -1,57 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--
-  Copyright 2016-2021 Akretion France (http://www.akretion.com/)
-  @author Alexis de Lattre <alexis.delattre@akretion.com>
-  License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
--->
 <odoo>
-    <!-- <record id="code_list_item_view_form" model="ir.ui.view">
+    <record id="code_list_item_view_list_reorder" model="ir.ui.view">
+        <field name="name">code.list.item.view.list.reorder</field>
         <field name="model">code.list.item</field>
+        <field name="inherit_id" ref="code_list_item_view_list"/>
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <widget
-                        name="web_ribbon"
-                        title="Archived"
-                        bg_color="bg-danger"
-                        invisible="active"
-                    />
-                    <group name="main">
-                        <group name="general">
-                            <field name="list_id" />
-                            <field name="parent_id" />
-                            <field name="code" />
-                            <field name="name" />
-                            <field name="active" invisible="1" />
-                        </group>
-                        <group name="description">
-                            <field name="description" />
-                        </group>
-                        <group name="child_items">
-                            <field name="child_list_id" invisible="child_ids" />
-                            <field
-                                name="child_ids"
-                                context="{'default_list_id': list_id, 'default_parent_id': id}"
-                                invisible="child_list_id"
-                            >
-                                <list editable="bottom">
-                                    <field name="code" />
-                                    <field name="name" />
-                                    <field name="description" />
-                                </list>
-                            </field>
-                        </group>
-                    </group>
-                </sheet>
-            </form>
+            <data>
+                <field name="list_id" position="before">
+                    <field name="sequence" widget="handle"/>
+                </field>
+                <field name="code" position="attributes">
+                    <attribute name="string">Code (Refresh)</attribute>
+                </field>
+            </data>
         </field>
-    </record> -->
+    </record>
     <record id="code_list_item_view_list" model="ir.ui.view">
+        <field name="name">code.list.item.view.list</field>
         <field name="model">code.list.item</field>
         <field name="arch" type="xml">
-            <list editable="bottom" >
+            <list editable="bottom">
                 <field name="list_id" column_invisible="context.get('hide_list_id')" />
-                <field name="code" optional="hide" />
+                <field name="code" optional="hide" readonly="compute_item_codes"/>
                 <field name="name" />
                 <field name="description" optional="hide" />
                 <field
@@ -71,7 +42,50 @@
                     optional="hide"
                     readonly="child_ids"
                 />
+                <button
+                    name="action_open_items_to_reorder"
+                    type="object"
+                    string="Reorder Children"
+                    icon="fa-list"
+                />
             </list>
+        </field>
+    </record>
+    <record id="code_list_item_view_form" model="ir.ui.view">
+        <field name="model">code.list.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        invisible="active"
+                    />
+                    <group name="main">
+                        <group name="general">
+                            <field name="code" readonly="compute_item_codes"/>
+                            <field name="name" />
+                            <field name="list_id" />
+                            <field name="parent_id" />
+                            <field name="active" invisible="1" />
+                        </group>
+                        <group name="description">
+                            <field name="description" />
+                        </group>
+                    </group>
+                    <group name="relationships" string="Relationships">
+                        <group name="child_items" colspan="4">
+                            <field name="child_list_id" invisible="child_ids" />
+                            <field
+                                name="child_ids"
+                                context="{'default_list_id': list_id, 'default_parent_id': id, 'list_view_ref': 'base_code_list.code_list_item_view_list_reorder', 'hide_list_id': True}"
+                                invisible="child_list_id"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
     <record id="code_list_item_view_search" model="ir.ui.view">
