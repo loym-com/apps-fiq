@@ -24,6 +24,17 @@ class ProjectProject(models.Model):
         default=lambda self: self.env.company,
         copy=False,
     )
+    portal_user_ids = fields.Many2many(
+        comodel_name="res.users",
+        compute="_compute_portal_user_ids",
+        string="Portal Users",
+        help="Users who are portal users and linked to the project's message partners."
+    )
+
+    @api.depends("message_partner_ids")
+    def _compute_portal_user_ids(self):
+        for project in self:
+            project.portal_user_ids = project.message_partner_ids.mapped("user_ids").filtered(lambda u: u.share)
 
     def _sync_related_records(self, vals=None):
         # Avoid infinite loop
