@@ -5,7 +5,7 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
-            <field name="label_tasks" position="after">
+            <field name="partner_id" position="after">
                 <field name="is_customer_project"/>
             </field>
         </field>
