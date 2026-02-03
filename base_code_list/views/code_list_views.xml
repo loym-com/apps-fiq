@@ -33,6 +33,7 @@
                             name="item_ids"
                             context="{'hide_list_id': True, 'list_view_ref': 'base_code_list.code_list_item_view_list_reorder'}"
                             nolabel="1"
+                            colspan="2"
                         />
                     </group>
                 </sheet>
