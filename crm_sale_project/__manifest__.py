@@ -22,6 +22,6 @@
         "sale_timesheet", # to avoid: Invalid field 'billing_type' on model 'project.project'
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.0.11",
+    "version": "19.0.5.0.12",
     "website": "https://www.loym.com",
 }
