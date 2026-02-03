@@ -20,7 +20,12 @@
                             <field name="parent_ids" widget="many2many_tags" />
                             <field name="compute_item_codes"/>
                             <field name="sequence_separator" invisible="not compute_item_codes"/>
-                            <button name="action_open_items" type="object" string="Go to Items List" icon="fa-list"/>
+                            <button
+                                name="action_open_items"
+                                type="object"
+                                string="Go to Items List"
+                                icon="fa-list"
+                            />
                         </group>
                     </group>
                     <group name="items_group" string="Items">

@@ -58,10 +58,10 @@ class CodeList(models.Model):
     def action_open_items(self):
         self.ensure_one()
         return {
-            "name": f"Items of {self.display_name}",
+            "name": f"{self.display_name} Items",
             "type": "ir.actions.act_window",
             "res_model": "code.list.item",
-            "view_mode": "list",
+            "view_mode": "list,form",
             "domain": [("list_id", "=", self.id)],
             "context": {"default_list_id": self.id, "hide_list_id": True},
         }
