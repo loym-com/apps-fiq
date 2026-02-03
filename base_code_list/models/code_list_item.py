@@ -121,19 +121,20 @@ class CodeListItem(models.Model):
                 item.code = item.code or False
 
     # --- Auto-set sequence ved create for nye items ---
-    @api.model
-    def create(self, vals):
-        if 'sequence' not in vals or not vals['sequence']:
-            parent_id = vals.get('parent_id')
-            list_id = vals.get('list_id')
-            if list_id and self.env['code.list'].browse(list_id).compute_item_codes:
-                # Find the max sequence within the same parent
-                max_seq = (
-                    self.search([('parent_id', '=', parent_id)], order='sequence desc', limit=1).sequence
-                    or 0
-                )
-                vals['sequence'] = max_seq + 1  # Increment by 1 for new sequence
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'sequence' not in vals or not vals['sequence']:
+                parent_id = vals.get('parent_id')
+                list_id = vals.get('list_id')
+                if list_id and self.env['code.list'].browse(list_id).compute_item_codes:
+                    # Find the max sequence within the same parent
+                    max_seq = (
+                        self.search([('parent_id', '=', parent_id)], order='sequence desc', limit=1).sequence
+                        or 0
+                    )
+                    vals['sequence'] = max_seq + 1  # Increment by 1 for new sequence
+        return super().create(vals_list)
 
     def write(self, vals):
         """
