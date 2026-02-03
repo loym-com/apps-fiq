@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+    <record id="project_task_view_kanban" model="ir.ui.view">
+        <field name="name">project.task.view.kanban.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban" />
+        <field name="arch" type="xml">
+            <field name="activity_ids" position="after">
+                <i class="fa fa-share-alt" title="Shared Project/Task" invisible="not shared_project and not shared"/>
+            </field>
+        </field>
+    </record>
+</data>
