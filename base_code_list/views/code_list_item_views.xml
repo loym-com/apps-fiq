@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="code_list_item_view_list_reorder" model="ir.ui.view">
-        <field name="name">code.list.item.view.list.reorder</field>
-        <field name="model">code.list.item</field>
-        <field name="inherit_id" ref="code_list_item_view_list"/>
-        <field name="mode">primary</field>
-        <field name="arch" type="xml">
-            <data>
-                <field name="list_id" position="before">
-                    <field name="sequence" widget="handle"/>
-                </field>
-                <field name="code" position="attributes">
-                    <attribute name="string">Code (Refresh)</attribute>
-                </field>
-            </data>
-        </field>
-    </record>
     <record id="code_list_item_view_list" model="ir.ui.view">
         <field name="name">code.list.item.view.list</field>
         <field name="model">code.list.item</field>
         <field name="arch" type="xml">
-            <list editable="bottom">
+            <list>
                 <field name="list_id" column_invisible="context.get('hide_list_id')" />
                 <field name="code" optional="hide" readonly="compute_item_codes"/>
                 <field name="name" />
@@ -49,6 +33,22 @@
                     icon="fa-list"
                 />
             </list>
+        </field>
+    </record>
+    <record id="code_list_item_view_list_reorder" model="ir.ui.view">
+        <field name="name">code.list.item.view.list.reorder</field>
+        <field name="model">code.list.item</field>
+        <field name="inherit_id" ref="code_list_item_view_list"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <field name="list_id" position="before">
+                    <field name="sequence" widget="handle"/>
+                </field>
+                <field name="code" position="attributes">
+                    <attribute name="string">Code (Refresh)</attribute>
+                </field>
+            </data>
         </field>
     </record>
     <record id="code_list_item_view_form" model="ir.ui.view">
