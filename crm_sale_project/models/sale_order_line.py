@@ -15,6 +15,8 @@ class SaleOrderLine(models.Model):
 
     def _timesheet_create_project_prepare_values(self):
         project_values = super()._timesheet_create_project_prepare_values()
+        # Set customer project
+        project_values["is_customer_project"] = True
         # Set user
         project_values["user_id"] = self.order_id.user_id.id
         # Set no parent
