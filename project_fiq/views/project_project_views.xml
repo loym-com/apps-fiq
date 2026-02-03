@@ -10,14 +10,4 @@
             </field>
         </field>
     </record>
-    <record id="project_project_view_kanban" model="ir.ui.view">
-        <field name="name">project.project.view.kanban.inherit</field>
-        <field name="model">project.project</field>
-        <field name="inherit_id" ref="project.view_project_kanban" />
-        <field name="arch" type="xml">
-            <field name="activity_ids" position="after">
-                <i class="fa fa-share-alt" title="Shared" invisible="not portal_user_ids"/>
-            </field>
-        </field>
-    </record>
 </data>
