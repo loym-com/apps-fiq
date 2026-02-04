@@ -18,7 +18,7 @@ class CodeListItem(models.Model):
     )
     code = fields.Char(
         string="Code",
-        compute="_compute_item_codes",
+        compute="_compute_code",
         store=True,
         readonly=False,
         required=False,
@@ -84,7 +84,7 @@ class CodeListItem(models.Model):
             "name": f"Reorder Items of {self.display_name}",
             "type": "ir.actions.act_window",
             "res_model": "code.list.item",
-            "view_mode": "list",
+            "view_mode": "list,form",
             "domain": [("list_id", "=", self.list_id.id), ("parent_id", "=", self.id)],
             "context": {
                 "default_list_id": self.list_id.id,
@@ -95,7 +95,7 @@ class CodeListItem(models.Model):
         }
 
     @api.depends("parent_id", "sequence", "sequence_separator", "list_id.compute_item_codes")
-    def _compute_item_codes(self):
+    def _compute_code(self):
         """
         Compute code based on parent and sequence if compute_item_codes is True:
         - Top level: 1, 2, 3 ...
@@ -127,7 +127,7 @@ class CodeListItem(models.Model):
             if 'sequence' not in vals or not vals['sequence']:
                 parent_id = vals.get('parent_id')
                 list_id = vals.get('list_id')
-                if list_id and self.env['code.list'].browse(list_id).compute_item_codes:
+                if list_id:
                     # Find the max sequence within the same parent
                     max_seq = (
                         self.search([('parent_id', '=', parent_id)], order='sequence desc', limit=1).sequence
@@ -175,6 +175,6 @@ class CodeListItem(models.Model):
         """
         for item in self:
             if item.list_id.compute_item_codes:
-                item._compute_item_codes()
+                item._compute_code()
                 for child in item.child_ids:
                     child._recompute_item_codes()
