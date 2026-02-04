@@ -138,15 +138,19 @@
         <field name="inherit_id" ref="document_view_form"/>
         <field name="arch" type="xml">
             <data>
-                <sheet position="inside">
-                    <group>
-                        <field name="access_internal" readonly="1"/>
-                        <field name="access_ids" readonly="1"/>
-                    </group>
-                </sheet>
                 <field name="folder_id" position="attributes">
                     <attribute name="widget">many2one</attribute>
                 </field>
+                <sheet position="inside">
+                    <notebook>
+                        <page string="Access Rights">
+                            <group>
+                                <field name="access_internal" readonly="1"/>
+                                <field name="access_ids" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
             </data>
         </field>
     </record>
