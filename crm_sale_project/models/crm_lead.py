@@ -117,9 +117,6 @@ class CrmLead(models.Model):
     def move_attachments_to_task_or_project(self):
         """Associate existing CRM lead attachments with project/task depending on service_tracking"""
         self.ensure_one()
-        order_line = self.sale_order_project_ids.mapped("sale_line_id")
-        if len(order_line) != 1:
-            raise ValidationError(f"{len(order_line)} project order lines found. To move attachments, there should be exactly 1.")
 
         attachments = self.env['ir.attachment'].search([
             ('res_model', '=', 'crm.lead'),
@@ -140,10 +137,9 @@ class CrmLead(models.Model):
         Task = self.env['project.task']
 
         if service_tracking == "project_only":
-            # Find project where name contains lead name
-            projects = self.sale_order_project_ids.filtered(lambda p: self.name in p.name)
+            projects = self.sale_order_project_ids
             if len(projects) != 1:
-                raise UserError(_("There must be exactly one project containing the CRM lead name '%s'. Found: %d") % (self.name, len(projects)))
+                raise UserError(_("There must be exactly one project related to CRM lead '%s'. Found: %d") % (self.name, len(projects)))
             project = projects[0]
 
             attachments.write({
@@ -152,9 +148,9 @@ class CrmLead(models.Model):
             })
 
         elif service_tracking == "task_global_project":
-            tasks = self.sale_order_project_ids.mapped('task_ids').filtered(lambda t: self.name in t.name)
+            tasks = self.env['project.task'].search([('sale_line_id.order_id.opportunity_id', '=', self.id)])
             if len(tasks) != 1:
-                raise UserError(_("There must be exactly one task containing the CRM lead name '%s'. Found: %d") % (self.name, len(tasks)))
+                raise UserError(_("There must be exactly one task related to CRM lead '%s'. Found: %d") % (self.name, len(tasks)))
             task = tasks[0]
 
             attachments.write({
@@ -163,14 +159,18 @@ class CrmLead(models.Model):
             })
 
         elif service_tracking == "task_in_project":
-            projects = self.sale_order_project_ids.filtered(lambda p: self.name in p.name)
+            projects = self.sale_order_project_ids #.filtered(lambda p: p.name == order_line._timesheet_get_project_name())
             if len(projects) != 1:
-                raise UserError(_("There must be exactly one project containing the CRM lead name '%s'. Found: %d") % (self.name, len(projects)))
+                raise UserError(_("There must be exactly one project related to CRM lead '%s'. Found: %d") % (self.name, len(projects)))
             project = projects[0]
 
+            order_lines = self.sale_order_project_ids.mapped("sale_line_id")
+            if len(order_lines) != 1:
+                raise ValidationError(f"{len(order_lines)} project order lines found. To move attachments, there should be exactly 1.")
+            order_line = order_lines[0]
             tasks = project.task_ids.filtered(lambda t: t.name == order_line._timesheet_get_task_name())
             if len(tasks) != 1:
-                raise UserError(_("There must be exactly one task in project '%s' containing the CRM lead name '%s'. Found: %d") % (project.name, self.name, len(tasks)))
+                raise UserError(_("There must be exactly one task related to CRM lead '%s'. Found: %d") % (self.name, len(tasks)))
             task = tasks[0]
 
             attachments.write({
