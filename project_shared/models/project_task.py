@@ -21,3 +21,7 @@ class ProjectTask(models.Model):
                 not partner.user_ids or partner.user_ids.filtered(lambda u: u.share)
                 for partner in task.message_partner_ids
             )
+
+    def action_open_share_project_wizard(self):
+        self.ensure_one()
+        return self.project_id.action_open_share_project_wizard()
