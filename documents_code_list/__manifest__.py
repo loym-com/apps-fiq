@@ -12,6 +12,7 @@
     "website": "https://github.com/OCA/community-data-files",
     "depends": ["documents_form", "base_code_list"],
     "data": [
+        "data/ir_actions_server_data.xml",
         "views/documents_document_views.xml",
         "views/menus.xml",
     ],

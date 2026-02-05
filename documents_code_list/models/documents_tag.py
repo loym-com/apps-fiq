@@ -6,6 +6,55 @@ class DocumentsTag(models.Model):
 
     def action_copy_to_code_list(self):
         """
+        Creates a single `code.list` named "Document Tags" and creates a `code.list.item` for every `documents.tag`.
+        If the `parent_id` field exists on the `documents.tag` model, it will be used to set the `parent_id` on the `code.list.item`.
+        Otherwise, the `parent_id` will remain blank.
+        """
+        CodeList = self.env['code.list']
+        CodeListItem = self.env['code.list.item']
+
+        # Check if the "Document Tags" code list already exists
+        code_list = CodeList.search([('name', '=', 'Document Tags')], limit=1)
+        if not code_list:
+            # Create the "Document Tags" code list if it doesn't exist
+            code_list = CodeList.create({
+                "code": False,  # Code is empty
+                "name": "Document Tags",
+                "description": "A list of all document tags.",
+            })
+
+        # Check if the `parent_id` field exists on the `documents.tag` model
+        has_parent_field = 'parent_id' in self._fields
+
+        for tag in self:
+            parent_item_id = False
+
+            # If the `parent_id` field exists and the tag has a parent, find or create the parent item
+            if has_parent_field and tag.parent_id:
+                parent_item = CodeListItem.search([
+                    ('name', '=', tag.parent_id.name),
+                    ('list_id', '=', code_list.id)
+                ], limit=1)
+                if not parent_item:
+                    parent_item = CodeListItem.create({
+                        "code": False,  # Code is empty
+                        "name": tag.parent_id.name,
+                        "description": tag.parent_id.tooltip or "",
+                        "list_id": code_list.id,
+                    })
+                parent_item_id = parent_item.id
+
+            # Create the code.list.item for the current tag
+            CodeListItem.create({
+                "code": False,  # Code is empty
+                "name": tag.name,  # Use the tag name as the item name
+                "description": tag.tooltip,
+                "list_id": code_list.id,  # Link to the "Document Tags" code list
+                "parent_id": parent_item_id,  # Link to the parent item if it exists
+            })
+
+    def action_copy_to_code_lists(self):
+        """
         Create a temporary server action to do this once.
 
         Copies `documents.tag` records to `code.list` and `code.list.item`.

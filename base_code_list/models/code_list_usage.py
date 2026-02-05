@@ -4,8 +4,8 @@ class CodeListUsage(models.Model):
     _name = "code.list.usage"
     _description = "code.list.usage"
     _unique_code_list_item = models.Constraint(
-        "UNIQUE(model, res_id, code_list_item_id)",
-        "The code list item can be linked only once to the same resource!",
+        "UNIQUE(model, res_id, code_list_id)",
+        "The code list can be linked only once to the same resource!",
     )
 
     model = fields.Char()
