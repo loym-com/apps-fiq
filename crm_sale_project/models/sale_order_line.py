@@ -15,6 +15,7 @@ class SaleOrderLine(models.Model):
         # name
         if self.order_id.opportunity_id:
             project.name = self._timesheet_get_project_name()
+            # FIXME: Set the project name in all languages.
         # crm_code_list, project_code_list
         try:
             usages = self.order_id.opportunity_id.code_list_usage_ids
