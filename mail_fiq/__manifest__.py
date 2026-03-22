@@ -17,7 +17,7 @@
         "microsoft_outlook",
 
         # OCA
-        # "mail_composer_cc_bcc", # git@github.com:norlinhenrik/oca-mail.git      ### 19.0-fix-mail_mail-email_to                  ### beta/mail
+        "mail_composer_cc_bcc", # git@github.com:norlinhenrik/oca-mail.git      ### 19.0-fix-mail_mail-email_to                  ### beta/mail
         # "mail_force_email_notification",
         "mail_message_search",
         # "mail_optional_follower_notification", # git@github.com:odoonz/mail.git ### 19.0-mig-mail_optional_follower_notification ### beta/.mail_optional_follower_notification

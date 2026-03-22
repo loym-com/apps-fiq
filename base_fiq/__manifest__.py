@@ -14,6 +14,6 @@
         "partner_sequence_number",
         # "document_url", # OCA/document (attachment url)
         # "partner_assign_location",
-        # "portal_user", # Cannot install fiq_base when portal_user is a dependency
+        # "portal_user", # NB!! Cannot install fiq_base when portal_user is a dependency
     ],
 }

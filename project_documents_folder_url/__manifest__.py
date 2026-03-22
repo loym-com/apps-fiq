@@ -14,6 +14,6 @@
         "project_documents", # project.task documents_folder_id
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.0.1",
+    "version": "19.0.5.0.2",
     "website": "https://www.loym.com",
 }
