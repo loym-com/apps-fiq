@@ -6,6 +6,7 @@ class CodeListUsage(models.Model):
     resource_id = fields.Reference(
         selection_add=[
             ('project.project', 'Project'),
+            ('project.role', 'Role'),
             ('project.task', 'Task')
         ],
     )

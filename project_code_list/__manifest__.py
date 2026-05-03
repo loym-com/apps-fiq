@@ -10,9 +10,10 @@
     "author": "FIQ, Odoo Community Association (OCA)",
     "maintainers": ["norlinhenrik"],
     "website": "https://github.com/OCA/community-data-files",
-    "depends": ["project", "base_code_list"],
+    "depends": ["project", "base_code_list", "project_role"],
     "data": [
         "views/project_project_views.xml",
+        "views/project_role_views.xml",
         "views/project_task_views.xml",
         "views/menus.xml",
     ],
