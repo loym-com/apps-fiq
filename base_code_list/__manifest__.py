@@ -18,6 +18,8 @@
         "views/code_list_views.xml",
         "views/code_list_item_views.xml",
         "views/code_list_usage_views.xml",
+        "views/res_users_views.xml",
+        "views/res_users_tag_views.xml",
         "views/menus.xml",
     ],
     "installable": True,

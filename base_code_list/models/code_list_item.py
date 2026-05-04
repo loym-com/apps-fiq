@@ -77,6 +77,10 @@ class CodeListItem(models.Model):
         readonly=True,
         help="Separator used to build the sequence code for items in this list.",
     )
+    user_tag_ids = fields.Many2many(
+        "res.users.tag",
+        string="User Tags"
+    )
 
     def action_open_items_to_reorder(self):
         self.ensure_one()
