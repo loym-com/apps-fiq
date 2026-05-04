@@ -11,3 +11,4 @@ access_code_list_usage_user_read,Read access on code.list.usage to employees,mod
 access_code_list_usage_public_read,Read access on code.list.usage to public,model_code_list_usage,base.group_public,1,0,0,0
 access_code_list_usage_portal_read,Read access on code.list.usage to portal,model_code_list_usage,base.group_portal,1,0,0,0
 access_code_list_usage_full,Full access on code.list.usage to Settings group,model_code_list_usage,base.group_system,1,1,1,1
+access_res_users_tag,Read access on res.users.tag to employees,model_res_users_tag,base.group_user,1,1,1,1

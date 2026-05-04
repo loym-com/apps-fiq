@@ -68,6 +68,7 @@
                             <field name="name" />
                             <field name="list_id" />
                             <field name="parent_id" />
+                            <field name="user_tag_ids" widget="many2many_tags"/>
                             <field name="active" invisible="1" />
                         </group>
                         <group name="description">
@@ -105,6 +106,18 @@
                     domain="[('active', '=', False)]"
                 />
                 <filter string="List" name="list" domain="[]" context="{'group_by': 'list_id'}"/>
+                <filter
+                    name="my_tags"
+                    string="My Tags"
+                    domain="[('user_tag_ids', 'in', context.get('user_tag_ids', []))]"
+                />
+                <group string="Group By" name="groupby">
+                    <filter
+                        name="list_id_groupby"
+                        string="List"
+                        context="{'group_by': 'list_id'}"
+                    />
+                </group>
                 <searchpanel>
                     <field name="parent_id" string="Parent Item"/>
                 </searchpanel>
