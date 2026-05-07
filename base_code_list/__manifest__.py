@@ -4,7 +4,7 @@
 
 {
     "name": "Code Lists",
-    "version": "19.0.1.0.6",
+    "version": "19.0.1.0.7",
     "category": "Tools",
     "license": "LGPL-3",
     "development_status": "Alpha",
