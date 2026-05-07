@@ -59,7 +59,12 @@ class CodeList(models.Model):
             "res_model": "code.list.item",
             "view_mode": "list,form",
             "domain": [("list_id", "=", self.id)],
-            "context": {"default_list_id": self.id, "hide_list_id": True},
+            "context": {
+                "default_list_id": self.id,
+                "hide_list_id": True,
+                "search_default_my_tags": 1,
+                "user_tag_ids": self.env.user.tag_ids.ids,
+            },
         }
 
     child_ids = fields.Many2many(
