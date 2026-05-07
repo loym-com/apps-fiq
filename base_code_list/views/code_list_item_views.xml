@@ -105,19 +105,12 @@
                     name="inactive"
                     domain="[('active', '=', False)]"
                 />
-                <filter string="List" name="list" domain="[]" context="{'group_by': 'list_id'}"/>
                 <filter
                     name="my_tags"
                     string="My Tags"
                     domain="[('user_tag_ids', 'in', context.get('user_tag_ids', []))]"
                 />
-                <group string="Group By" name="groupby">
-                    <filter
-                        name="list_id_groupby"
-                        string="List"
-                        context="{'group_by': 'list_id'}"
-                    />
-                </group>
+                <filter string="List" name="list" domain="[]" context="{'group_by': 'list_id'}"/>
                 <searchpanel>
                     <field name="parent_id" string="Parent Item"/>
                 </searchpanel>
