@@ -32,6 +32,7 @@
                                     'no_open': False
                                 }"
                             />
+                            <button name="action_select_item" type="object" icon="fa-list" title="Select Item"/>q
                         </list>
                     </field>
                 </page>

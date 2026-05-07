@@ -46,3 +46,21 @@ class CodeListUsage(models.Model):
             else:
                 record.model = False
                 record.res_id = False
+
+    def action_select_item(self):
+        """
+        Opens a popup window to select a code.list.item.
+        """
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Select Code List Item',
+            'res_model': 'code.list.item',
+            'view_mode': 'list,form',
+            'target': 'new',
+            'domain': [('list_id', '=', self.code_list_id.id)],
+            'context': {
+                "search_default_my_tags": 1,
+                "user_tag_ids": self.env.user.tag_ids.ids,
+            },
+        }
