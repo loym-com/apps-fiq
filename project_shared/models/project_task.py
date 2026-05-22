@@ -6,6 +6,7 @@ class ProjectTask(models.Model):
 
     shared_project = fields.Boolean(
         related="project_id.shared",
+        string="Shared Project",
     )
     shared = fields.Boolean(
         string="Shared",
