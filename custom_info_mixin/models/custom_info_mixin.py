@@ -88,10 +88,26 @@ class CustomInfoMixin(models.AbstractModel):
         if not self.survey_user_input_id:
             self._ensure_survey_user_input()
 
-        url = self.survey_user_input_id.get_start_url()
+        # reopen
+        # self.survey_user_input_id.state = "in_progress"
+
+        # Conditions:
+        # - Enable survey option Allow Roaming (users_can_to_back).
+        # - This field is not visible for "One page with all the questions".
+
+        # File "/home/henrik/src/gh/odoo/odoo/19.0/addons/survey/controllers/main.py", line 435, in survey_display_page
+        #     self._prepare_survey_data(access_data['survey_sudo'], answer_sudo, **post))
+        #     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # File "/home/henrik/src/gh/odoo/odoo/19.0/addons/survey/controllers/main.py", line 363, in _prepare_survey_data
+        #     'previous_page_id': survey_sudo._get_next_page_or_question(answer_sudo, next_page_or_question.id, go_back=True).id
+        #                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # File "/home/henrik/src/gh/odoo/odoo/19.0/addons/survey/models/survey_survey.py", line 778, in _get_next_page_or_question
+        #     current_page_index = pages_or_questions.ids.index(page_or_question_id)
+        #                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # ValueError: False is not in list
 
         return {
             "type": "ir.actions.act_url",
-            "url": url,
+            "url": self.survey_user_input_id.get_start_url(),
             "target": "new",
         }
