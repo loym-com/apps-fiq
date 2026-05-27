@@ -1,6 +1,7 @@
 {
     "name": "Vidir Product",
     "summary": "Product category properties and product property report",
+    "author": "FIQ, Loym",
     "version": "19.0.1.0.0",
     "category": "Product",
     "license": "AGPL-3",

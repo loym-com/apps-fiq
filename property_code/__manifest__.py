@@ -1,6 +1,7 @@
 {
     "name": "Property Code",
     "summary": "Adds a stable code for dynamic properties",
+    "author": "FIQ, Loym",
     "version": "19.0.1.0.0",
     "category": "Hidden",
     "license": "LGPL-3",
