@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="action_report_project_properties" model="ir.actions.report">
-        <field name="name">Project Properties</field>
-        <field name="model">project.project</field>
+    <record id="action_report_product_properties" model="ir.actions.report">
+        <field name="name">Product Properties</field>
+        <field name="model">product.template</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">vidir_project.report_project_properties_document</field>
-        <field name="report_file">vidir_project.report_project_properties_document</field>
-        <field name="binding_model_id" ref="project.model_project_project" />
+        <field name="report_name">vidir_product.report_product_properties_document</field>
+        <field name="report_file">vidir_product.report_product_properties_document</field>
+        <field name="binding_model_id" ref="product.model_product_template" />
         <field name="binding_type">report</field>
         <field name="binding_view_types">list,form</field>
         <field name="multi" eval="False" />
     </record>
 
-    <template id="report_project_properties_document">
+    <template id="report_product_properties_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h2>Project Properties</h2>
+                        <h2>Product Fields</h2>
 
                         <table class="table table-sm o_main_table">
                             <tbody>
                                 <tr>
-                                    <th style="width: 30%;">Project Type</th>
+                                    <th style="width: 30%;">Product Category</th>
                                     <td>
-                                        <span t-esc="doc.type_id.display_name or ''" />
+                                        <span t-esc="doc.categ_id.display_name or ''" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Project Name</th>
+                                    <th>Product Name</th>
                                     <td>
                                         <span t-esc="doc.name" />
                                     </td>
@@ -36,7 +36,7 @@
                             </tbody>
                         </table>
 
-                        <h3>Properties</h3>
+                        <h3>Product Properties</h3>
                         <table class="table table-sm o_main_table">
                             <thead>
                                 <tr>

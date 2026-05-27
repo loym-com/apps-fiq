@@ -1,18 +1,12 @@
-from odoo import _, fields, models
+from odoo import _, models
 
 
-class ProjectProject(models.Model):
-    _inherit = "project.project"
-
-    properties = fields.Properties(
-        "Properties",
-        definition="type_id.properties_definition",
-        copy=True,
-    )
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
 
     def _get_report_properties(self):
         self.ensure_one()
-        raw_properties = self.read(["properties"])[0].get("properties") or []
+        raw_properties = self.read(["product_properties"])[0].get("product_properties") or []
         formatted_properties = []
 
         for definition in raw_properties:
@@ -36,7 +30,6 @@ class ProjectProject(models.Model):
         return sorted(
             formatted_properties,
             key=lambda item: (
-                0 if item["code"] == "top" else 1,
                 item["code"] == "",
                 item["code"].lower(),
                 item["label"].lower(),
