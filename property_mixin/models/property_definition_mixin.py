@@ -125,6 +125,8 @@ class PropertyDefinitionMixin(models.AbstractModel):
         return result
 
     def _validate_property_definition_update(self, record, old_definitions, new_definitions):
+        self._validate_unique_codes(new_definitions)
+
         added_definitions, removed_codes = self._get_definition_changes(
             old_definitions, new_definitions
         )
@@ -158,6 +160,31 @@ class PropertyDefinitionMixin(models.AbstractModel):
                         new=new_code,
                     )
                 )
+
+    def _validate_unique_codes(self, definitions):
+        seen_codes = set()
+        duplicated_codes = set()
+
+        for definition in definitions or []:
+            if definition.get("type") == "separator":
+                continue
+
+            code = definition.get("code")
+            if not code:
+                continue
+
+            if code in seen_codes:
+                duplicated_codes.add(code)
+            else:
+                seen_codes.add(code)
+
+        if duplicated_codes:
+            raise ValidationError(
+                self.env._(
+                    "Property code(s) must be unique in a definition. Duplicates: %(codes)s",
+                    codes=", ".join(sorted(duplicated_codes)),
+                )
+            )
 
     @staticmethod
     def _get_definition_changes(old_definitions, new_definitions):

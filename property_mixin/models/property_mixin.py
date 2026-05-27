@@ -8,7 +8,7 @@ class PropertyMixin(models.AbstractModel):
     # Use in model with properties.
     _properties_field = None
 
-    def _get_report_properties(self):
+    def _get_properties(self):
         self.ensure_one()
         properties_field = self._properties_field
         if not properties_field:
@@ -23,7 +23,7 @@ class PropertyMixin(models.AbstractModel):
 
             code = definition.get("code") or ""
             label = definition.get("string") or code
-            value = self._get_report_property_value(definition)
+            value = self._get_property_value(definition)
             if value is None:
                 continue
 
@@ -44,7 +44,14 @@ class PropertyMixin(models.AbstractModel):
             ),
         )
 
-    def _get_report_property_value(self, definition):
+    def _get_property(self, code):
+        self.ensure_one()
+        for prop in self._get_properties():
+            if prop.get("code") == code:
+                return prop
+        return None
+
+    def _get_property_value(self, definition):
         property_type = definition.get("type")
         value = definition.get("value")
 

@@ -18,7 +18,6 @@
                 <t t-call="web.external_layout">
                     <div class="page">
                         <h2>Product Fields</h2>
-
                         <table class="table table-sm o_main_table">
                             <tbody>
                                 <tr>
@@ -36,7 +35,7 @@
                             </tbody>
                         </table>
 
-                        <h3>Product Properties</h3>
+                        <h2>Product Properties</h2>
                         <table class="table table-sm o_main_table">
                             <thead>
                                 <tr>
@@ -46,7 +45,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-set="report_properties" t-value="doc._get_report_properties()" />
+                                <t t-set="report_properties" t-value="doc._get_properties()" />
                                 <tr t-foreach="report_properties" t-as="prop">
                                     <td>
                                         <span t-esc="prop.get('code')" />
@@ -60,6 +59,33 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <t t-set="demo_property" t-value="doc._get_property('demo')" />
+                        <t t-if="demo_property">
+                            <h2>Product Demo Property</h2>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">Code</th>
+                                        <th style="width: 30%;">Label</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span t-esc="demo_property.get('code')" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="demo_property.get('label')" />
+                                        </td>
+                                        <td>
+                                            <span t-esc="demo_property.get('value')" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
                     </div>
                 </t>
             </t>
