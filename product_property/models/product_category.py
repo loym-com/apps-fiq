@@ -8,8 +8,7 @@ class ProductCategory(models.Model):
     _inherit = ["property.mixin", "product.category"]
 
     _properties_definition_field = "product_properties_definition"
-    _properties_parent_field = "parent_id"
-    _properties_sync_context_key = "skip_product_properties_sync"
+    _properties_definition_parent_field = "parent_id"
 
     def create(self, vals_list):
         records = super().create(vals_list)
@@ -25,7 +24,7 @@ class ProductCategory(models.Model):
         return records
 
     def write(self, vals):
-        parent_field = self._properties_parent_field
+        parent_field = self._properties_definition_parent_field
         definition_field = self._properties_definition_field
         parent_changed = False
         changed_parent_categories = self.browse()

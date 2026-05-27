@@ -8,11 +8,13 @@ class PropertyMixin(models.AbstractModel):
     _name = "property.mixin"
     _description = "Property Mixin"
 
-    _properties_definition_field = None
-    _properties_parent_field = None
+    # Use in model with properties.
     _properties_field = None
+    # Use in model with property definitions.
+    _properties_definition_field = None
+    _properties_definition_parent_field = None
+    # Low-level
     _properties_sync_context_key = "skip_properties_sync"
-    _properties_top_code = "top"
 
     def write(self, vals):
         definition_field = self._properties_definition_field
@@ -162,9 +164,9 @@ class PropertyMixin(models.AbstractModel):
         return changed_pairs
 
     def _get_parent(self, record):
-        if not self._properties_parent_field:
+        if not self._properties_definition_parent_field:
             return self.browse()
-        return record[self._properties_parent_field]
+        return record[self._properties_definition_parent_field]
 
     def _get_descendants(self, record):
         return self.search([("id", "child_of", record.id), ("id", "!=", record.id)])
@@ -217,7 +219,6 @@ class PropertyMixin(models.AbstractModel):
         return sorted(
             formatted_properties,
             key=lambda item: (
-                0 if item["code"] == self._properties_top_code else 1,
                 item["code"] == "",
                 item["code"].lower(),
                 item["label"].lower(),
