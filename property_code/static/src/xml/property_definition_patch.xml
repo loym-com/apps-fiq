@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <t t-name="property_code_support.PropertyDefinition" t-inherit="web.PropertyDefinition" t-inherit-mode="extension">
+    <t t-name="property_code.PropertyDefinition" t-inherit="web.PropertyDefinition" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('o_modal_container')]/div[1]" position="after">
             <div t-if="state.propertyDefinition.type !== 'separator'" class="d-contents mb-3 mb-sm-0">
                 <label class="o_form_label align-self-center text-900">Code</label>

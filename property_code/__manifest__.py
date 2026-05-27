@@ -1,5 +1,5 @@
 {
-    "name": "Property Code Support",
+    "name": "Property Code",
     "summary": "Adds a stable code for dynamic properties",
     "version": "19.0.1.0.0",
     "category": "Hidden",
@@ -8,8 +8,8 @@
     "data": [],
     "assets": {
         "web.assets_backend": [
-            "property_code_support/static/src/js/property_definition_patch.js",
-            "property_code_support/static/src/xml/property_definition_patch.xml"
+            "property_code/static/src/js/property_definition_patch.js",
+            "property_code/static/src/xml/property_definition_patch.xml"
         ]
     },
     "installable": True,
