@@ -4,10 +4,14 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
-            <field name="product_properties" position="attributes">
-                <attribute name="widget">properties</attribute>
-                <attribute name="editMode">1</attribute>
-            </field>
+            <data>
+                <field name="product_properties" position="replace"/>
+                <notebook position="inside">
+                    <page string="Properties" name="properties_page">
+                        <field name="product_properties" widget="properties" editMode="1"/>
+                    </page>
+                </notebook>
+            </data>
         </field>
     </record>
 </odoo>
