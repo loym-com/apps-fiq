@@ -111,3 +111,10 @@ class CustomInfoMixin(models.AbstractModel):
             "url": self.survey_user_input_id.get_start_url(),
             "target": "new",
         }
+
+    def get_survey_answer(self, code):
+        self.ensure_one()
+
+        return self.survey_user_input_id.user_input_line_ids.filtered(
+            lambda l: l.code == code
+        )[:1]
