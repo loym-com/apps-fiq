@@ -5,10 +5,16 @@
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <data>
+                <field name="categ_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
                 <field name="product_properties" position="replace"/>
                 <notebook position="inside">
-                    <page string="Properties" name="properties_page">
-                        <field name="product_properties" widget="properties" editMode="1"/>
+                    <page string="Category" name="category_page">
+                        <group>
+                            <field name="categ_id" string="Category"/>
+                        </group>
+                        <field name="product_properties" widget="properties" editMode="1" columns="2"/>
                     </page>
                 </notebook>
             </data>
