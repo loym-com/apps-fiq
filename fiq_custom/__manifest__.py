@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "FIQ customizations",
+    "name": "FIQ customizations (deprecated)",
     "summary": "",
     "author": "FIQ as",
     "data": [
