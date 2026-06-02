@@ -54,6 +54,8 @@ class ResPartner(models.Model):
                     "type": "folder",
                     "partner_id": self.id,
                     "folder_id": self.env.ref(root).id,
+                    "res_model": "res.partner",
+                    "res_id": self.id,
                 }
             )
 
@@ -68,6 +70,8 @@ class ResPartner(models.Model):
                     "type": "folder",
                     "partner_id": self.id,
                     "folder_id": self.env.ref(root).id,
+                    "res_model": "res.partner",
+                    "res_id": self.id,
                 }
             )
 
@@ -82,6 +86,8 @@ class ResPartner(models.Model):
                     "type": "folder",
                     "partner_id": self.id,
                     "folder_id": self.env.ref(root).id,
+                    "res_model": "res.partner",
+                    "res_id": self.id,
                 }
             )
 
@@ -100,5 +106,7 @@ class ResPartner(models.Model):
                     "type": "folder",
                     "partner_id": self.id,
                     "folder_id": self.customer_folder_id.id,
+                    "res_model": "res.partner",
+                    "res_id": self.id,
                 }
             )

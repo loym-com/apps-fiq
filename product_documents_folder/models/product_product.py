@@ -34,8 +34,9 @@ class ProductProduct(models.Model):
                     "name": self.name,
                     "url": self.product_folder_url,
                     "type": "folder",
-                    "partner_id": self.id,
                     "folder_id": self.env.company.product_folder_id.id,
+                    "res_model": "product.product",
+                    "res_id": self.id,
                 }
             )
 
@@ -49,7 +50,8 @@ class ProductProduct(models.Model):
                     "name": self.name,
                     "url": self.shared_folder_url,
                     "type": "folder",
-                    "partner_id": self.id,
                     "folder_id": self.product_folder_id.id,
+                    "res_model": "product.product",
+                    "res_id": self.id,
                 }
             )
