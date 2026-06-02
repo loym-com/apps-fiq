@@ -1,20 +1,16 @@
-# Copyright 2025 FIQ
+# Copyright 2026 FIQ
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Contact Documents Folders",
+    "name": "Action Goto Documents Mixin",
     "summary": "",
     "author": "FIQ",
     "data": [
-        "data/documents_document_data.xml",
-        "views/res_partner_views.xml",
     ],
     "depends": [
-        "action_goto_documents_mixin",
-        "base",
         "documents",
     ],
     "license": "AGPL-3",
-    "version": "19.0.5.0.2",
+    "version": "19.0.1.0.0",
     "website": "https://www.fiq.no",
 }

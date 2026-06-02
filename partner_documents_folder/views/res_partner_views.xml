@@ -73,6 +73,28 @@
                                 invisible="not supplier_folder_id"
                         />
                     </group>
+                    <group invisible="not customer_folder_id">
+                        <field name="shared_folder_id" invisible="1" />
+                        <field name="shared_folder_url"
+                            string="Shared Document URL"
+                            widget="url"
+                            invisible="shared_folder_id"
+                        />
+                        <button name="action_goto_documents"
+                                context="{'contact_type': 'shared', 'internal_external': 'internal'}"
+                                type="object"
+                                string="Shared Doc"
+                                icon="fa-folder-open"
+                                invisible="not shared_folder_id"
+                        />
+                        <button name="action_goto_documents"
+                                context="{'contact_type': 'shared', 'internal_external': 'external'}"
+                                type="object"
+                                string="Shared URL"
+                                icon="fa-link"
+                                invisible="not shared_folder_id"
+                        />
+                    </group>
                 </group>
             </xpath>
         </field>

@@ -1,10 +1,9 @@
-from urllib.parse import urlencode
-
 from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
-    _inherit = "res.partner"
+    _name = "res.partner"
+    _inherit = ["res.partner", "action.goto.documents.mixin"]
 
     partner_folder_id = fields.Many2one(
         "documents.document",
@@ -17,6 +16,10 @@ class ResPartner(models.Model):
     supplier_folder_id = fields.Many2one(
         "documents.document",
         string="Supplier Internal Folder",
+    )
+    shared_folder_id = fields.Many2one(
+        "documents.document",
+        string="Shared Internal Folder",
     )
 
     partner_folder_url = fields.Char(
@@ -32,6 +35,11 @@ class ResPartner(models.Model):
     supplier_folder_url = fields.Char(
         string="Supplier External URL",
         related="supplier_folder_id.url",
+        readonly=False,
+    )
+    shared_folder_url = fields.Char(
+        string="Shared External URL",
+        related="shared_folder_id.url",
         readonly=False,
     )
 
@@ -77,24 +85,20 @@ class ResPartner(models.Model):
                 }
             )
 
-    def action_goto_documents(self):
-        self.ensure_one()
-        contact_type = self.env.context.get("contact_type")
-        internal_external = self.env.context.get("internal_external")
-        folder = getattr(self, contact_type + "_folder_id")
-        if internal_external == "internal":
-            domain = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-            params = {
-                'action': self.env.ref("documents.document_action").id,
-                'menu_id': self.env.ref("documents.menu_root").id,
-                'model': 'documents.document',
-                'documents_init_folder_id': folder.id
-            }
-            url = f"{domain}/web#{urlencode(params)}"
-        else:
-            url = folder.url
-        return {
-            "type": "ir.actions.act_url",
-            "url": url,
-            "target": "new",
-        }
+    @api.constrains("shared_folder_url")
+    def _constrains_shared_folder_url(self):
+        if not self.customer_folder_id:
+            return
+        if self.shared_folder_url and not self.shared_folder_id:
+            # sequence_number = self.sequence_number if "sequence_number" in self._fields else False
+            # shared_name = f"{sequence_number or self.name} - Shared"
+            self.shared_folder_id = self.env["documents.document"].create(
+                {
+                    # "name": shared_name,
+                    "name": f"{self.name} - Shared",
+                    "url": self.shared_folder_url,
+                    "type": "folder",
+                    "partner_id": self.id,
+                    "folder_id": self.customer_folder_id.id,
+                }
+            )
