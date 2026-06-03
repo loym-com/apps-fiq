@@ -62,7 +62,7 @@ class CodeList(models.Model):
             "context": {
                 "default_list_id": self.id,
                 "hide_list_id": True,
-                "search_default_my_tags": 1,
+                # "search_default_my_tags": 1,
                 "user_tag_ids": self.env.user.tag_ids.ids,
             },
         }

@@ -1,15 +1,29 @@
-from odoo import api, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class CodeListItem(models.Model):
     _name = "code.list.item"
     _description = "Code List Item"
     _order = "list_id, code, name"
-    _unique_code = models.Constraint(
-        "UNIQUE(code, list_id)",
-        "code must be unique per list!",
-    )
     _rec_name = "display_name"
+
+    # I GET ERROR WHEN I REORDER THE TOP LEVEL ITEMS OF A LIST.
+    # _unique_code = models.Constraint(
+    #     "UNIQUE(code, list_id)",
+    #     "code must be unique per list!",
+    # )
+    # @api.constrains("code", "list_id")
+    # def _check_unique_code_per_list(self):
+    #     for record in self:
+    #         if not record.code or not record.list_id:
+    #             continue
+    #         duplicate_count = self.search_count([
+    #             ("id", "!=", record.id),
+    #             ("list_id", "=", record.list_id.id),
+    #             ("code", "=", record.code),
+    #         ])
+    #         if duplicate_count:
+    #             raise exceptions.ValidationError("code must be unique per list!")
 
     @api.depends("code", "name", "list_id.code", "list_id.name")
     def _compute_display_name(self):
@@ -55,7 +69,7 @@ class CodeListItem(models.Model):
         string='Child Items',
         compute='_compute_child_ids', # to reorder only sibling items
         readonly=False,
-        store=False,
+        store=True,
     )
 
     @api.depends("parent_id", "sequence")
