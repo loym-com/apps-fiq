@@ -47,7 +47,7 @@ class ProductProduct(models.Model):
         if self.shared_folder_url and not self.shared_folder_id:
             self.shared_folder_id = self.env["documents.document"].create(
                 {
-                    "name": self.name,
+                    "name": f"{self.name} (Shared)",
                     "url": self.shared_folder_url,
                     "type": "folder",
                     "folder_id": self.product_folder_id.id,

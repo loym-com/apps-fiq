@@ -101,7 +101,7 @@ class ResPartner(models.Model):
             self.shared_folder_id = self.env["documents.document"].create(
                 {
                     # "name": shared_name,
-                    "name": f"{self.name} - Shared",
+                    "name": f"{self.name} (Shared)",
                     "url": self.shared_folder_url,
                     "type": "folder",
                     "partner_id": self.id,
