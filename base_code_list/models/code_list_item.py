@@ -30,6 +30,30 @@ class CodeListItem(models.Model):
         for r in self:
             r.display_name = f"{r.list_id.code or r.list_id.name}: {r.code or ''} {r.name}"
 
+    @api.constrains("list_id", "parent_id", "sequence")
+    def _check_max_9_items_per_level_without_separator(self):
+        level_keys = set()
+        for record in self:
+            if not record.list_id or not record.list_id.compute_item_codes:
+                continue
+            if record.list_id.sequence_separator:
+                continue
+
+            level_keys.add((record.list_id.id, record.parent_id.id if record.parent_id else False))
+            if record.sequence and record.sequence > 9:
+                raise exceptions.ValidationError(
+                    "With Compute Code enabled and empty Sequence Separator, a level supports maximum 9 items."
+                )
+
+        for list_id, parent_id in level_keys:
+            if self.search_count([
+                ("list_id", "=", list_id),
+                ("parent_id", "=", parent_id),
+            ]) > 9:
+                raise exceptions.ValidationError(
+                    "With Compute Code enabled and empty Sequence Separator, a level supports maximum 9 items."
+                )
+
     display_name = fields.Char(
         compute="_compute_display_name",
         store=True,
@@ -152,7 +176,10 @@ class CodeListItem(models.Model):
                 if list_id:
                     # Find the max sequence within the same parent
                     max_seq = (
-                        self.search([('parent_id', '=', parent_id)], order='sequence desc', limit=1).sequence
+                        self.search([
+                            ('list_id', '=', list_id),
+                            ('parent_id', '=', parent_id),
+                        ], order='sequence desc', limit=1).sequence
                         or 0
                     )
                     vals['sequence'] = max_seq + 1  # Increment by 1 for new sequence
@@ -172,14 +199,20 @@ class CodeListItem(models.Model):
                 if self.env['code.list'].browse(list_id).compute_item_codes:
                     # Reassign sequence for the new parent
                     max_seq = (
-                        self.search([('parent_id', '=', new_parent_id)], order='sequence desc', limit=1).sequence
+                        self.search([
+                            ('list_id', '=', list_id),
+                            ('parent_id', '=', new_parent_id),
+                        ], order='sequence desc', limit=1).sequence
                         or 0
                     )
                     vals['sequence'] = max_seq + 1
 
                     # Recompute sequence for old parent's children
                     if old_parent_id:
-                        siblings = self.search([('parent_id', '=', old_parent_id.id)], order='sequence')
+                        siblings = self.search([
+                            ('list_id', '=', list_id),
+                            ('parent_id', '=', old_parent_id.id),
+                        ], order='sequence')
                         for idx, sibling in enumerate(siblings, start=1):
                             sibling.sequence = idx
 

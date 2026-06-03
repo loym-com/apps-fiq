@@ -1,7 +1,7 @@
 # Copyright 2026 FIQ
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
-from odoo import api, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class CodeList(models.Model):
@@ -38,6 +38,22 @@ class CodeList(models.Model):
     def _compute_display_name(self):
         for item in self:
             item.display_name = f"{item.code or ''} {item.name}"
+
+    @api.constrains("compute_item_codes", "sequence_separator")
+    def _check_max_9_items_per_level_without_separator(self):
+        for record in self:
+            if not record.compute_item_codes or record.sequence_separator:
+                continue
+
+            levels = self.env["code.list.item"].read_group(
+                [("list_id", "=", record.id)],
+                ["id:count"],
+                ["parent_id"],
+            )
+            if any(level["id_count"] > 9 for level in levels):
+                raise exceptions.ValidationError(
+                    "With Compute Code enabled and empty Sequence Separator, each level can contain maximum 9 items."
+                )
 
     # # _rec_names_search = ['name', 'code'] doesn't give the result we want
     # # We want that, when you type an exact code, you get only that code
