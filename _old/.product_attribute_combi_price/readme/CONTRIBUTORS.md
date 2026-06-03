@@ -1,2 +1,0 @@
-- Gjermund Wæhre
-- Henrik Norlin
