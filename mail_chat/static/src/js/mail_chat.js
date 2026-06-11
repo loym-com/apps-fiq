@@ -57,6 +57,7 @@ patch(Chatter.prototype, {
         if (this.mailChatState.activeChatId) {
             await super.changeThread("mail.chat", this.mailChatState.activeChatId);
             await this.load(this.state.thread, this.requestList);
+            await this.state.thread.fetchNewMessages();
         }
 
         this.mailChatState.loading = false;
@@ -82,6 +83,7 @@ patch(Chatter.prototype, {
         this.mailChatState.activeChatId = chatId;
         await super.changeThread("mail.chat", chatId);
         await this.load(this.state.thread, this.requestList);
+        await this.state.thread.fetchNewMessages();
     },
 
     async mailChatCreate() {
