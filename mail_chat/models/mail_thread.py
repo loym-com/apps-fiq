@@ -138,7 +138,6 @@ class MailThread(models.AbstractModel):
             raise UserError(_("Chat not found."))
         if chat.res_model != self._name or chat.res_id != self.id:
             raise UserError(_("The selected chat does not belong to this record."))
-        self.sudo().write({"default_chat_id": chat.id})
         return True
 
     def mail_chat_rename(self, chat_id, name):

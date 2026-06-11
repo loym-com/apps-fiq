@@ -48,7 +48,10 @@ patch(Chatter.prototype, {
         const chats = await this.orm.call(props.threadModel, "mail_chat_get_chats", [[props.threadId]]);
         this.mailChatState.chats = chats || [];
 
-        const active = this.mailChatState.chats.find((chat) => chat.is_default) || this.mailChatState.chats[0];
+        const active =
+            this.mailChatState.chats.find((chat) => chat.id === this.mailChatState.activeChatId) ||
+            this.mailChatState.chats.find((chat) => chat.is_default) ||
+            this.mailChatState.chats[0];
         this.mailChatState.activeChatId = active ? active.id : false;
 
         if (this.mailChatState.activeChatId) {
@@ -79,11 +82,6 @@ patch(Chatter.prototype, {
         this.mailChatState.activeChatId = chatId;
         await super.changeThread("mail.chat", chatId);
         await this.load(this.state.thread, this.requestList);
-        await this.orm.call(
-            this.mailChatState.sourceModel,
-            "mail_chat_set_active",
-            [[this.mailChatState.sourceId], chatId]
-        );
     },
 
     async mailChatCreate() {
