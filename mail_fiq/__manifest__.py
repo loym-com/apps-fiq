@@ -4,7 +4,7 @@
     "name": "FIQ Mail Apps",
     "author": "FIQ, Loym",
     "website": "https://fiq.no",
-    "version": "18.0.5.1.0",
+    "version": "18.0.5.1.1",
     "license": "AGPL-3",
     "data": [
         "data/ir_config_parameter_data.xml",
@@ -29,7 +29,7 @@
             #   git push -u origin Staging
         "mail_quoted_reply",
         "mail_send_confirmation",
-        "mail_tracking",
+        # "mail_tracking",  # FJERNET 06-28: kun manifest-dep (ingen kodebruk) -> lar mail_tracking avinstalleres for 19-oppgradering
 
         # Loym/FIQ
         "base_fiq",
