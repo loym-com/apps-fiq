@@ -6,7 +6,7 @@
                "for an incoming message, from sender, human-simple rules and subject/body references.",
     "author": "FIQ as",
     "website": "https://fiq.no",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "license": "AGPL-3",
     "category": "Productivity/FIQ",
     "depends": ["mail_fiq", "project"],
