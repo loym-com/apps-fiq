@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="mail_fiq_inbox.Inbox">
+        <div class="o_mail_fiq_inbox d-flex flex-column h-100">
+            <div class="mfi_header">
+                <h4 class="m-0">Communication</h4>
+            </div>
+            <div class="mfi_cols d-flex flex-grow-1 overflow-hidden">
+
+                <div class="mfi_list">
+                    <div t-if="state.loading" class="p-3 text-muted">Loading…</div>
+                    <t t-foreach="state.messages" t-as="m" t-key="m.id">
+                        <div class="mfi_item"
+                             t-att-class="{ mfi_active: state.selected and state.selected.id === m.id }"
+                             t-on-click="() => this.open(m)">
+                            <div class="mfi_from" t-esc="m.author"/>
+                            <div class="mfi_subject" t-esc="m.subject"/>
+                            <div class="mfi_preview" t-esc="m.preview"/>
+                        </div>
+                    </t>
+                    <div t-if="!state.loading and !state.messages.length" class="p-3 text-muted">
+                        No messages
+                    </div>
+                </div>
+
+                <div class="mfi_detail flex-grow-1">
+                    <t t-if="state.selected">
+                        <h5 t-esc="state.selected.subject"/>
+                        <div class="mfi_meta text-muted">
+                            <span t-esc="state.selected.author"/> ·
+                            <span t-esc="state.selected.date"/>
+                        </div>
+                        <div class="mfi_body" t-out="state.selected.body"/>
+                    </t>
+                    <div t-else="" class="mfi_empty text-muted">Select a message</div>
+                </div>
+
+                <div class="mfi_context" t-if="state.selected">
+                    <h6>Suggested elements</h6>
+                    <t t-foreach="state.selected.candidates" t-as="c" t-key="c.model + c.res_id">
+                        <div class="mfi_cand">
+                            <div class="mfi_cand_name" t-esc="c.name"/>
+                            <div class="mfi_cand_reason" t-esc="c.reason"/>
+                            <div class="mfi_cand_actions">
+                                <button class="btn btn-sm btn-secondary"
+                                        t-on-click="() => this.openRecord(c)">Open</button>
+                                <button class="btn btn-sm btn-primary"
+                                        t-on-click="() => this.archive(c)">File as PDF</button>
+                            </div>
+                        </div>
+                    </t>
+                    <div t-if="!state.selected.candidates.length" class="text-muted">
+                        No suggestions
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </t>
+</templates>

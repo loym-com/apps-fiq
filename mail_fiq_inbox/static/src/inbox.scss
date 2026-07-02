@@ -1,0 +1,66 @@
+.o_mail_fiq_inbox {
+    background: #fff;
+
+    .mfi_header {
+        padding: 12px 16px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .mfi_list {
+        width: 320px;
+        min-width: 260px;
+        border-right: 1px solid #e0e0e0;
+        overflow-y: auto;
+    }
+
+    .mfi_item {
+        padding: 10px 14px;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: pointer;
+
+        &:hover { background: #f6f6f6; }
+        &.mfi_active { background: #eef5ff; }
+
+        .mfi_from { font-weight: 600; }
+        .mfi_subject { color: #222; }
+        .mfi_preview {
+            color: #888;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .mfi_detail {
+        padding: 16px 20px;
+        overflow-y: auto;
+
+        .mfi_meta { margin-bottom: 12px; font-size: 13px; }
+        .mfi_body { line-height: 1.5; }
+        .mfi_empty { padding: 40px; text-align: center; }
+    }
+
+    .mfi_context {
+        width: 300px;
+        min-width: 240px;
+        border-left: 1px solid #e0e0e0;
+        padding: 14px;
+        overflow-y: auto;
+        background: #fafafa;
+
+        h6 { text-transform: uppercase; font-size: 11px; color: #888; letter-spacing: .5px; }
+
+        .mfi_cand {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+
+            .mfi_cand_name { font-weight: 600; }
+            .mfi_cand_reason { font-size: 12px; color: #888; margin-bottom: 8px; }
+            .mfi_cand_actions { display: flex; gap: 6px; }
+        }
+    }
+}

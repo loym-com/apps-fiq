@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_mail_message" model="ir.actions.report">
+        <field name="name">E-mail (PDF)</field>
+        <field name="model">mail.message</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">mail_fiq_inbox.report_mail_message_document</field>
+        <field name="report_file">mail_fiq_inbox.report_mail_message_document</field>
+    </record>
+
+    <template id="report_mail_message_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="msg">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-out="msg.subject or 'E-mail'"/>
+                        <p><strong>From:</strong>
+                            <span t-out="msg.email_from or (msg.author_id and msg.author_id.display_name) or ''"/>
+                        </p>
+                        <p><strong>Date:</strong> <span t-out="msg.date"/></p>
+                        <hr/>
+                        <div t-out="msg.body"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
