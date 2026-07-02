@@ -1,0 +1,53 @@
+# Norwegian Bokmål translation for mail_fiq_inbox.
+# Copyright 2026 FIQ as
+msgid ""
+msgstr ""
+"Project-Id-Version: mail_fiq_inbox 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Communication"
+msgstr "Kommunikasjon"
+
+msgid "Inbox"
+msgstr "Innboks"
+
+msgid "Rules"
+msgstr "Regler"
+
+msgid "Loading…"
+msgstr "Laster…"
+
+msgid "No messages"
+msgstr "Ingen meldinger"
+
+msgid "Select a message"
+msgstr "Velg en melding"
+
+msgid "Suggested elements"
+msgstr "Foreslåtte elementer"
+
+msgid "Open"
+msgstr "Åpne"
+
+msgid "File as PDF"
+msgstr "Arkivér som PDF"
+
+msgid "No suggestions"
+msgstr "Ingen forslag"
+
+msgid "Filed as PDF on %s"
+msgstr "Arkivert som PDF på %s"
+
+msgid "(no subject)"
+msgstr "(uten emne)"
+
+msgid "From:"
+msgstr "Fra:"
+
+msgid "Date:"
+msgstr "Dato:"
