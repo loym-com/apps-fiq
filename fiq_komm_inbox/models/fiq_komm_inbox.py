@@ -11,7 +11,7 @@ class MailFiqInbox(models.AbstractModel):
     sees messages and candidate elements they already have access to.
     """
 
-    _name = "mail.fiq.inbox"
+    _name = "fiq.komm.inbox"
     _description = "FIQ communication inbox"
 
     @api.model
@@ -60,7 +60,7 @@ class MailFiqInbox(models.AbstractModel):
         if not (m and target):
             return False
         pdf, _dummy = self.env["ir.actions.report"]._render_qweb_pdf(
-            "mail_fiq_inbox.report_mail_message", m.ids)
+            "fiq_komm_inbox.report_mail_message", m.ids)
         attachment = self.env["ir.attachment"].create({
             "name": "%s.pdf" % (m.subject or self.env._("e-mail")),
             "type": "binary",

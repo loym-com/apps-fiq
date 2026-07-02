@@ -9,14 +9,14 @@
     "version": "19.0.1.0.0",
     "license": "AGPL-3",
     "category": "Productivity/FIQ",
-    "depends": ["mail_fiq_match", "web"],
+    "depends": ["fiq_komm_match", "web"],
     "data": [
-        "report/mail_fiq_inbox_report.xml",
-        "views/mail_fiq_inbox_action.xml",
+        "report/fiq_komm_inbox_report.xml",
+        "views/fiq_komm_inbox_action.xml",
     ],
     "assets": {
         "web.assets_backend": [
-            "mail_fiq_inbox/static/src/**/*",
+            "fiq_komm_inbox/static/src/**/*",
         ],
     },
     "installable": True,

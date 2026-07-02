@@ -4,8 +4,8 @@
         <field name="name">E-mail (PDF)</field>
         <field name="model">mail.message</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">mail_fiq_inbox.report_mail_message_document</field>
-        <field name="report_file">mail_fiq_inbox.report_mail_message_document</field>
+        <field name="report_name">fiq_komm_inbox.report_mail_message_document</field>
+        <field name="report_file">fiq_komm_inbox.report_mail_message_document</field>
     </record>
 
     <template id="report_mail_message_document">

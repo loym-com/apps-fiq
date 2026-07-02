@@ -5,7 +5,7 @@ import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 
 export class MailFiqInbox extends Component {
-    static template = "mail_fiq_inbox.Inbox";
+    static template = "fiq_komm_inbox.Inbox";
     static props = ["*"];
 
     setup() {
@@ -19,14 +19,14 @@ export class MailFiqInbox extends Component {
         });
         onWillStart(async () => {
             this.state.messages = await this.orm.call(
-                "mail.fiq.inbox", "get_messages", [40]);
+                "fiq.komm.inbox", "get_messages", [40]);
             this.state.loading = false;
         });
     }
 
     async open(msg) {
         this.state.selected = await this.orm.call(
-            "mail.fiq.inbox", "get_message", [msg.id]);
+            "fiq.komm.inbox", "get_message", [msg.id]);
     }
 
     openRecord(cand) {
@@ -44,7 +44,7 @@ export class MailFiqInbox extends Component {
             return;
         }
         const res = await this.orm.call(
-            "mail.fiq.inbox", "archive_to", [sel.id, cand.model, cand.res_id]);
+            "fiq.komm.inbox", "archive_to", [sel.id, cand.model, cand.res_id]);
         if (res) {
             this.notification.add(
                 _t("Filed as PDF on %s", cand.name), { type: "success" });
@@ -52,4 +52,4 @@ export class MailFiqInbox extends Component {
     }
 }
 
-registry.category("actions").add("mail_fiq_inbox.inbox", MailFiqInbox);
+registry.category("actions").add("fiq_komm_inbox.inbox", MailFiqInbox);

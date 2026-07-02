@@ -1,8 +1,8 @@
-# Norwegian Bokmål translation for mail_fiq_inbox.
+# Norwegian Bokmål translation for fiq_komm_inbox.
 # Copyright 2026 FIQ as
 msgid ""
 msgstr ""
-"Project-Id-Version: mail_fiq_inbox 19.0\n"
+"Project-Id-Version: fiq_komm_inbox 19.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-    <t t-name="mail_fiq_inbox.Inbox">
-        <div class="o_mail_fiq_inbox d-flex flex-column h-100">
+    <t t-name="fiq_komm_inbox.Inbox">
+        <div class="o_fiq_komm_inbox d-flex flex-column h-100">
             <div class="mfi_header">
                 <h4 class="m-0">Communication</h4>
             </div>
