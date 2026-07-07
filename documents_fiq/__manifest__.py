@@ -5,7 +5,7 @@
     "summary": "",
     "author": "FIQ as, Loym AS, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/knowledge",
-    "version": "19.0.5.0.1",
+    "version": "19.0.5.0.2",
     "license": "AGPL-3",
     "data": [
         "views/documents_document_views.xml",
@@ -15,7 +15,6 @@
         "base_fiq",
         "documents_code",
         "documents_form",
-        "documents_name",
         "documents_tag",
         "documents_url",
         "partner_documents_folder",
