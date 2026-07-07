@@ -46,6 +46,13 @@ class ProjectRole(models.Model):
         default=lambda self: self.env.company,
         ondelete="cascade",
     )
+    sequence = fields.Integer(
+        index=True,
+        default=10,
+    )
+    color = fields.Integer(
+        string="Color Index",
+    )
 
     _name_company_uniq = models.Constraint(
         "UNIQUE (name, company_id)",
